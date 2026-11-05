@@ -154,7 +154,7 @@ def generate_static_visualizations(df: pd.DataFrame, output_dir: str) -> List[st
 
     # 6. Payment Methods Churn Bar
     fig, ax = plt.subplots(figsize=(10, 5), dpi=300)
-    pay_rates = df.groupby("PaymentMethod", observed=False)["ChurnBinary"].agg(churn_rate=lambda x: (x.mean() * 100)).sort_values(ascending=False).reset_index()
+    pay_rates = df.groupby("PaymentMethod", observed=False)["ChurnBinary"].agg(churn_rate=lambda x: (x.mean() * 100)).sort_values(by="churn_rate", ascending=False).reset_index()
     sns.barplot(data=pay_rates, x="churn_rate", y="PaymentMethod", hue="PaymentMethod", palette="Reds_r", legend=False, ax=ax)
     ax.set_title("Customer Churn Rate (%) across Payment Methods", fontsize=13, weight="bold", pad=15)
     ax.set_xlabel("Churn Rate (%)", fontsize=11, weight="bold")

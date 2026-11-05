@@ -134,9 +134,20 @@ CUSTOM_UI_CSS = """
         letter-spacing: 0.02em;
     }
 
-    /* Hide Streamlit Radio Dots */
-    div[data-testid="stRadio"] div[role="radiogroup"] > label > div:first-child {
+    /* Hide Streamlit Radio Dots & Indicators on all versions */
+    div[data-testid="stRadio"] [data-testid="stRadioButton"],
+    div[data-testid="stRadio"] div[role="radiogroup"] > label > div:first-child,
+    div[data-testid="stRadio"] div[role="radiogroup"] label input[type="radio"],
+    div[data-testid="stRadio"] div[role="radiogroup"] label [aria-hidden="true"],
+    div[data-testid="stRadio"] div[role="radiogroup"] label svg,
+    div[data-testid="stRadio"] div[role="radiogroup"] label span[class*="Radio"],
+    div[data-testid="stRadio"] div[role="radiogroup"] label div[class*="Radio"] {
         display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     div[data-testid="stRadio"] div[role="radiogroup"] {
         display: flex;
@@ -157,22 +168,32 @@ CUSTOM_UI_CSS = """
     div[data-testid="stRadio"] div[role="radiogroup"] > label:hover {
         background: rgba(30, 41, 59, 0.5);
     }
-    div[data-testid="stRadio"] div[role="radiogroup"] > label p {
+    div[data-testid="stRadio"] div[role="radiogroup"] > label p,
+    div[data-testid="stRadio"] div[role="radiogroup"] > label span {
         font-size: 0.88rem !important;
         font-weight: 500 !important;
         color: #94A3B8 !important;
         margin: 0 !important;
         white-space: nowrap;
     }
-    div[data-testid="stRadio"] div[role="radiogroup"] > label:hover p {
+    div[data-testid="stRadio"] div[role="radiogroup"] > label:hover p,
+    div[data-testid="stRadio"] div[role="radiogroup"] > label:hover span {
         color: #F8FAFC !important;
     }
     /* Active Glowing Blue Navigation Pill */
-    div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) {
+    div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked),
+    div[data-testid="stRadio"] div[role="radiogroup"] > label[data-checked="true"],
+    div[data-testid="stRadio"] div[role="radiogroup"] > label[aria-checked="true"],
+    div[data-testid="stRadio"] label:has(input:checked),
+    div[data-testid="stRadio"] label[data-checked="true"] {
         background: #0084FF !important;
         box-shadow: 0 4px 14px rgba(0, 132, 255, 0.45) !important;
+        border-radius: 9px !important;
     }
-    div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) p {
+    div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) p,
+    div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) span,
+    div[data-testid="stRadio"] label:has(input:checked) p,
+    div[data-testid="stRadio"] label:has(input:checked) span {
         color: #FFFFFF !important;
         font-weight: 700 !important;
     }
@@ -560,49 +581,49 @@ st.sidebar.markdown("""
 # ==============================================================================
 # TOP BAR: HEADER, DATA UPLOAD/DOWNLOAD & HORIZONTAL FILTER BAR
 # ==============================================================================
-# Quick Top Data Action Expander
-with st.expander("📂 **Data Management (Upload Custom CSV / Download Dataset)**", expanded=False):
-    col_up1, col_up2 = st.columns([1.2, 0.8])
-    with col_up1:
-        uploaded_custom = st.file_uploader(
-            "Upload Custom Telco CSV File (Full analytics update automatically)",
-            type=["csv"],
-            help="Upload any alternative Telco Customer Churn CSV dataset."
-        )
-    with col_up2:
-        raw_csv_path = parent_dir / "data" / "raw" / "WA_Fn-UseC_-Telco-Customer-Churn.csv"
+# Top Header Row with Title on Left and Upload / Dataset Controls on Right
+raw_csv_path = parent_dir / "data" / "raw" / "WA_Fn-UseC_-Telco-Customer-Churn.csv"
+
+col_top_left, col_top_right = st.columns([1.35, 1.05])
+with col_top_left:
+    st.markdown("""
+    <div class="top-header-titles" style="padding-top:4px;">
+        <h1 style="font-size:1.6rem;font-weight:800;color:#FFFFFF;margin:0;letter-spacing:-0.02em;line-height:1.2;">
+            Customer Churn Analysis and Business Intelligence Dashboard
+        </h1>
+        <p style="font-size:0.84rem;color:#94A3B8;margin:4px 0 0 0;font-weight:500;">
+            A Data Analytics and Business Intelligence Project
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_top_right:
+    c_btn1, c_btn2 = st.columns([1.1, 0.9])
+    with c_btn1:
+        with st.popover("📤 **Upload Custom CSV**", use_container_width=True):
+            st.markdown("##### **Upload Custom Telco Dataset**")
+            st.caption("Upload a Telco Churn CSV file. All KPI cards, charts, and SQL queries will recalculate automatically.")
+            uploaded_custom = st.file_uploader(
+                "Choose CSV File",
+                type=["csv"],
+                key="top_bar_csv_uploader",
+                help="Upload any alternative Telco Customer Churn CSV dataset."
+            )
+            if uploaded_custom is not None:
+                st.success(f"✓ Active: `{uploaded_custom.name}`")
+    with c_btn2:
         if raw_csv_path.exists():
             with open(raw_csv_path, "rb") as f:
                 r_bytes = f.read()
             st.download_button(
-                label="📥 Download Kaggle CSV Dataset",
+                label="📥 **Kaggle CSV**",
                 data=r_bytes,
                 file_name="WA_Fn-UseC_-Telco-Customer-Churn.csv",
                 mime="text/csv",
                 use_container_width=True
             )
-        st.markdown(
-            """<a href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn" target="_blank" style="text-decoration:none;">
-            <div style="background:#121A2D;border:1px solid #1E293B;border-radius:8px;padding:6px;text-align:center;font-size:0.75rem;color:#38BDF8;font-weight:600;margin-top:6px;">
-            🌐 Kaggle Dataset Source (BlastChar)
-            </div></a>""",
-            unsafe_allow_html=True
-        )
-
-raw_df, full_df, audit_report = get_dataset(uploaded_custom)
-
-if full_df is None:
-    st.error("Dataset not detected. Please upload the Telco Customer Churn CSV file above.")
-    st.stop()
-
-# Top Header Row (Matching Image 2)
-st.markdown("""
-<div class="top-header-row">
-    <div class="top-header-titles">
-        <h1>Customer Churn Analysis and Business Intelligence Dashboard</h1>
-        <p>A Data Analytics and Business Intelligence Project</p>
-    </div>
-    <div class="dataset-badge">
+    st.markdown("""
+    <div class="dataset-badge" style="width:100%;justify-content:center;margin-top:8px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -611,8 +632,22 @@ st.markdown("""
         </svg>
         <span>IBM Telco Customer Churn Dataset</span>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+
+raw_df, full_df, audit_report = get_dataset(uploaded_custom)
+
+if full_df is None:
+    st.error("Dataset not detected. Please upload the Telco Customer Churn CSV file above.")
+    st.stop()
+
+if uploaded_custom is not None:
+    st.markdown(f"""
+    <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);border-radius:10px;padding:9px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+        <span style="color:#10B981;font-weight:700;font-size:0.90rem;">✓ Custom Dataset Active:</span>
+        <span style="color:#FFFFFF;font-weight:600;font-size:0.90rem;">{uploaded_custom.name}</span>
+        <span style="color:#94A3B8;font-size:0.80rem;">({len(full_df):,} accounts loaded across all dashboard pages)</span>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # Horizontal Filter Bar (Clean top bar matching reference design)

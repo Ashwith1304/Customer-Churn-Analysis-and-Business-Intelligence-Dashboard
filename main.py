@@ -82,12 +82,26 @@ CUSTOM_UI_CSS = """
             radial-gradient(at 80% 85%, rgba(139, 92, 246, 0.06) 0px, transparent 55%);
     }
 
+    /* Keep Streamlit header transparent */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+    }
+
+    /* Top clearance so Streamlit Cloud fixed top bar never overlaps dashboard content */
     .block-container {
-        padding-top: 1.2rem;
-        padding-bottom: 2.5rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        max-width: 1540px;
+        padding-top: 5.8rem !important;
+        padding-bottom: 3rem !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        max-width: 1540px !important;
+    }
+
+    @media (max-width: 768px) {
+        .block-container {
+            padding-top: 6.2rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
     }
 
     /* Left Sidebar Styling */
@@ -96,7 +110,7 @@ CUSTOM_UI_CSS = """
         border-right: 1px solid #1E293B !important;
     }
     section[data-testid="stSidebar"] .block-container {
-        padding-top: 1.4rem !important;
+        padding-top: 3.6rem !important;
         padding-left: 1.1rem !important;
         padding-right: 1.1rem !important;
     }
@@ -135,28 +149,40 @@ CUSTOM_UI_CSS = """
     }
 
     /* Hide Streamlit Radio Dots & Indicators on all versions */
+    div[data-testid="stRadio"] input[type="radio"],
+    div[data-testid="stRadio"] input + div,
+    div[data-testid="stRadio"] label > div:first-of-type,
+    div[data-testid="stRadio"] [data-baseweb="radio"] input + div,
+    div[data-testid="stRadio"] [data-baseweb="radio"] label > div:first-of-type,
+    [data-baseweb="radio"] input + div,
+    [data-baseweb="radio"] > div:first-of-type,
+    [data-baseweb="radio"] label > div:first-of-type,
     div[data-testid="stRadio"] [data-testid="stRadioButton"],
-    div[data-testid="stRadio"] div[role="radiogroup"] > label > div:first-child,
-    div[data-testid="stRadio"] div[role="radiogroup"] label input[type="radio"],
-    div[data-testid="stRadio"] div[role="radiogroup"] label [aria-hidden="true"],
-    div[data-testid="stRadio"] div[role="radiogroup"] label svg,
-    div[data-testid="stRadio"] div[role="radiogroup"] label span[class*="Radio"],
-    div[data-testid="stRadio"] div[role="radiogroup"] label div[class*="Radio"] {
+    div[data-testid="stRadio"] label svg,
+    div[data-testid="stRadio"] label [aria-hidden="true"],
+    div[data-testid="stRadio"] label span[class*="Radio"],
+    div[data-testid="stRadio"] label div[class*="Radio"] {
         display: none !important;
         visibility: hidden !important;
         width: 0 !important;
         height: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
+        opacity: 0 !important;
+        border: none !important;
+        pointer-events: none !important;
     }
     div[data-testid="stRadio"] div[role="radiogroup"] {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 6px;
     }
-    div[data-testid="stRadio"] div[role="radiogroup"] > label {
+    div[data-testid="stRadio"] div[role="radiogroup"] > label,
+    div[data-testid="stRadio"] [data-baseweb="radio"] {
         background: transparent;
-        padding: 9px 12px;
+        padding: 9px 14px;
         border-radius: 9px;
         margin: 0;
         cursor: pointer;
@@ -164,12 +190,17 @@ CUSTOM_UI_CSS = """
         display: flex;
         align-items: center;
         border: 1px solid transparent;
+        width: 100%;
+        box-sizing: border-box;
     }
-    div[data-testid="stRadio"] div[role="radiogroup"] > label:hover {
-        background: rgba(30, 41, 59, 0.5);
+    div[data-testid="stRadio"] div[role="radiogroup"] > label:hover,
+    div[data-testid="stRadio"] [data-baseweb="radio"]:hover {
+        background: rgba(30, 41, 59, 0.6);
     }
     div[data-testid="stRadio"] div[role="radiogroup"] > label p,
-    div[data-testid="stRadio"] div[role="radiogroup"] > label span {
+    div[data-testid="stRadio"] div[role="radiogroup"] > label span,
+    div[data-testid="stRadio"] [data-baseweb="radio"] p,
+    div[data-testid="stRadio"] [data-baseweb="radio"] span {
         font-size: 0.88rem !important;
         font-weight: 500 !important;
         color: #94A3B8 !important;
@@ -177,7 +208,9 @@ CUSTOM_UI_CSS = """
         white-space: nowrap;
     }
     div[data-testid="stRadio"] div[role="radiogroup"] > label:hover p,
-    div[data-testid="stRadio"] div[role="radiogroup"] > label:hover span {
+    div[data-testid="stRadio"] div[role="radiogroup"] > label:hover span,
+    div[data-testid="stRadio"] [data-baseweb="radio"]:hover p,
+    div[data-testid="stRadio"] [data-baseweb="radio"]:hover span {
         color: #F8FAFC !important;
     }
     /* Active Glowing Blue Navigation Pill */
@@ -185,7 +218,9 @@ CUSTOM_UI_CSS = """
     div[data-testid="stRadio"] div[role="radiogroup"] > label[data-checked="true"],
     div[data-testid="stRadio"] div[role="radiogroup"] > label[aria-checked="true"],
     div[data-testid="stRadio"] label:has(input:checked),
-    div[data-testid="stRadio"] label[data-checked="true"] {
+    div[data-testid="stRadio"] label[data-checked="true"],
+    div[data-testid="stRadio"] [data-baseweb="radio"]:has(input:checked),
+    div[data-testid="stRadio"] [data-checked="true"] {
         background: #0084FF !important;
         box-shadow: 0 4px 14px rgba(0, 132, 255, 0.45) !important;
         border-radius: 9px !important;
@@ -193,7 +228,11 @@ CUSTOM_UI_CSS = """
     div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) p,
     div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) span,
     div[data-testid="stRadio"] label:has(input:checked) p,
-    div[data-testid="stRadio"] label:has(input:checked) span {
+    div[data-testid="stRadio"] label:has(input:checked) span,
+    div[data-testid="stRadio"] [data-baseweb="radio"]:has(input:checked) p,
+    div[data-testid="stRadio"] [data-baseweb="radio"]:has(input:checked) span,
+    div[data-testid="stRadio"] [data-checked="true"] p,
+    div[data-testid="stRadio"] [data-checked="true"] span {
         color: #FFFFFF !important;
         font-weight: 700 !important;
     }

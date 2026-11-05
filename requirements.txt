@@ -9,3 +9,4 @@ plotly>=5.15.0
 streamlit>=1.25.0
 scipy>=1.10.0
 openpyxl>=3.1.0
+reportlab>=4.0.0

@@ -21,7 +21,11 @@ import streamlit as st
 
 # Setup import path
 current_dir = Path(__file__).resolve().parent
-parent_dir = current_dir.parent
+if (current_dir / "src").exists():
+    parent_dir = current_dir
+else:
+    parent_dir = current_dir.parent
+
 if str(parent_dir) not in sys.path:
     sys.path.insert(0, str(parent_dir))
 

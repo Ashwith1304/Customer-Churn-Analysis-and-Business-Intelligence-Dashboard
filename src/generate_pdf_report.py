@@ -330,25 +330,32 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
     # ==========================================================================
     # PAGE 1 (i): MAIN COVER / TITLE PAGE
     # ==========================================================================
-    story.append(Paragraph("Project Batch No: _______________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>(Office Use Only)</i>", styles["AcadCaption"]))
-    story.append(Spacer(1, 24))
+    story.append(Paragraph("<b>SUMMER INTERNSHIP REPORT</b>", ParagraphStyle("CoverTopHead", fontName="Times-Bold", fontSize=13, leading=17, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
+    story.append(Spacer(1, 10))
 
-    title_p = Paragraph(
+    story.append(Paragraph(
         "<b>CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD</b>",
-        ParagraphStyle("CoverTitle", fontName="Times-Bold", fontSize=15, leading=22, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
-    )
-    story.append(title_p)
-    story.append(Spacer(1, 14))
+        ParagraphStyle("CoverTitle", fontName="Times-Bold", fontSize=15, leading=22, alignment=TA_CENTER, textColor=colors.HexColor("#1E3A8A"))
+    ))
+    story.append(Spacer(1, 12))
 
-    story.append(Paragraph("<b>A Project Report</b>", ParagraphStyle("CoverSub", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#1E3A8A"))))
+    story.append(Paragraph("<b>A SUMMER INTERNSHIP REPORT SUBMITTED TO</b>", ParagraphStyle("CoverSub1", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
     story.append(Spacer(1, 4))
-    story.append(Paragraph("Submitted in Partial Fulfillment of the Requirements<br/>For the award of the Degree of", ParagraphStyle("CoverReq", fontName="Times-Roman", fontSize=11, leading=15, alignment=TA_CENTER)))
-    story.append(Spacer(1, 6))
-    story.append(Paragraph("<b>Bachelor of Technology in<br/>Computer Science and Engineering – Data Science (CSE-DS)</b>", ParagraphStyle("CoverDegree", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
-    story.append(Spacer(1, 16))
+    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE &amp; TECHNOLOGY</b>", ParagraphStyle("CoverColHead", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#C2410C"))))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph("In partial fulfilment of requirement for the award of", ParagraphStyle("CoverReq", fontName="Times-Roman", fontSize=11, leading=15, alignment=TA_CENTER)))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph("<b>DEGREE IN BACHELOR OF TECHNOLOGY</b>", ParagraphStyle("CoverDegree", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
+    story.append(Spacer(1, 8))
 
     story.append(Paragraph("<i>By</i>", ParagraphStyle("ByText", fontName="Times-Italic", fontSize=11, alignment=TA_CENTER)))
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 10))
+
+    # Official College Logo Banner (from reference docx)
+    logo_path = os.path.join(viz_dir, "snist_official_logo.jpeg")
+    if os.path.exists(logo_path):
+        story.append(Image(logo_path, width=350, height=54.1))
+        story.append(Spacer(1, 14))
 
     authors_data = [
         [Paragraph("<b>G MYTHILI</b>", styles["AcadTableCellCenter"]), Paragraph("<b>24311A67H8</b>", styles["AcadTableCellCenter"])],
@@ -358,30 +365,20 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
     t_auth = Table(authors_data, colWidths=[200, 160])
     t_auth.setStyle(TableStyle([
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
+        ('TOPPADDING', (0,0), (-1,-1), 2),
     ]))
     story.append(t_auth)
-    story.append(Spacer(1, 16))
-
-    story.append(Paragraph("<b>Under the Guidance / Supervision of:</b>", ParagraphStyle("GuideLabel", fontName="Times-Bold", fontSize=11, alignment=TA_CENTER, textColor=colors.HexColor("#1E3A8A"))))
-    story.append(Paragraph("<b>Mr. P. V. K. SANDEEP</b><br/>Assistant Professor, Department of Data Science", ParagraphStyle("GuideName", fontName="Times-Roman", fontSize=11, leading=15, alignment=TA_CENTER)))
-    story.append(Spacer(1, 22))
-
-    # College Branding Header Box
-    brand_table = Table([
-        [Paragraph("<b>SREENIDHI EDUCATIONAL GROUP</b>", ParagraphStyle("B1", fontName="Times-Bold", fontSize=11, leading=14, textColor=colors.HexColor("#C2410C"), alignment=TA_CENTER)),
-         Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE AND TECHNOLOGY</b><br/>(An Autonomous Institution, Approved by AICTE, Accredited by NAAC with 'A+' Grade)", ParagraphStyle("B2", fontName="Times-Bold", fontSize=9.5, leading=13, textColor=colors.HexColor("#1E3A8A"), alignment=TA_CENTER))]
-    ], colWidths=[150, 260])
-    brand_table.setStyle(TableStyle([
-        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('LINEBEFORE', (1,0), (1,-1), 1, colors.HexColor("#CBD5E1")),
-        ('LEFTPADDING', (1,0), (-1,-1), 8),
-    ]))
-    story.append(brand_table)
     story.append(Spacer(1, 12))
 
-    story.append(Paragraph("<b>DEPARTMENT OF DATA SCIENCE (CSE-DS)</b><br/><b>SREENIDHI INSTITUTE OF SCIENCE AND TECHNOLOGY</b><br/>Yamnampet, Ghatkesar, Hyderabad – 501 301, Telangana<br/><b>OCTOBER / NOVEMBER 2026</b>", ParagraphStyle("CoverFoot", fontName="Times-Bold", fontSize=10, leading=14, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
+    story.append(Paragraph("<b>DEPARTMENT OF DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("CoverDept", fontName="Times-Bold", fontSize=11.5, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#1E3A8A"))))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph(
+        "<b>Sreenidhi Institute of Science &amp; Technology (Autonomous)</b><br/>"
+        "<i>(Affiliated to Jawaharlal Nehru Technological University, Hyderabad) Approved by AICTE</i><br/>"
+        "<b>HYDERABAD – 501 301</b>",
+        ParagraphStyle("CoverFoot", fontName="Times-Roman", fontSize=10, leading=14, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
+    ))
     story.append(PageBreak())
 
     # ==========================================================================
@@ -467,35 +464,39 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
     # ==========================================================================
     # PAGE 4 (iv): DECLARATION
     # ==========================================================================
+    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE &amp; TECHNOLOGY</b><br/><b>(AUTONOMOUS)</b><br/><b>DEPARTMENT OF DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("DeclHeadTop", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
+    story.append(Spacer(1, 8))
+
+    if os.path.exists(logo_path):
+        story.append(Image(logo_path, width=340, height=52.5))
+        story.append(Spacer(1, 10))
+
     story.append(Paragraph("<b>DECLARATION</b>", styles["AcadChapterHeadCenter"]))
-    story.append(Spacer(1, 20))
+    story.append(Spacer(1, 6))
 
     story.append(Paragraph(
-        "We, <b>G Mythili</b>, <b>K Ashiwith</b>, and <b>D Niyati</b>, students of <b>Sreenidhi Institute of Science and Technology</b>, "
-        "Yamnampet, Ghatkesar, studying Bachelor of Technology in <b>Computer Science and Engineering – Data Science (CSE–DS)</b>, "
-        "presently in III Year, I Semester, hereby solemnly declare that the project report titled "
-        "<b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> is an authentic record of our Bonafide work submitted to Sreenidhi Institute of Science and Technology "
-        "in partial fulfillment for the award of the degree of Bachelor of Technology in Computer Science and Engineering – Data Science (CSE–DS).<br/><br/>"
-        "We further affirm that this project has been conducted strictly in accordance with ethical academic research practices. "
-        "The analytical algorithms, SQL database engines, statistical models, and Streamlit dashboards embodied herein were developed by us under academic faculty supervision. "
-        "To the best of our knowledge, the work reported in this project has not been submitted earlier, either in part or in full, to any other University or Institute for the award of any degree or diploma.",
+        "I / We hereby declare that the project report titled <b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> "
+        "submitted here in the Department of Data Science of Sreenidhi Institute of Science and Technology, Hyderabad for the partial fulfilment "
+        "of award of Degree in Bachelor of Technology, represents our own ideas and in places where other's ideas have been included, "
+        "I / We have provided necessary citation and reference to the original source. "
+        "The work is original and has not been submitted earlier as a whole or in part for the award of any degree / diploma at this or any other Institution / University.",
         styles["AcadBody"]
     ))
-    story.append(Spacer(1, 60))
+    story.append(Spacer(1, 20))
 
     decl_sigs = [
-        [Paragraph("<b>G MYTHILI</b><br/>Roll No: 24311A67H8<br/>Student Signature: _______________", styles["AcadTableCellCenter"])],
-        [Paragraph("<br/><b>K ASHIWITH</b><br/>Roll No: 24311A67H6<br/>Student Signature: _______________", styles["AcadTableCellCenter"])],
-        [Paragraph("<br/><b>D NIYATI</b><br/>Roll No: 24311A67H7<br/>Student Signature: _______________", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>Date:</b> October / November 2026<br/><b>Place:</b> Hyderabad.", styles["AcadTableCell"]),
+         Paragraph("<b>G MYTHILI</b> (24311A67H8)<br/>Student Signature: _______________<br/><br/>"
+                   "<b>K ASHIWITH</b> (24311A67H6)<br/>Student Signature: _______________<br/><br/>"
+                   "<b>D NIYATI</b> (24311A67H7)<br/>Student Signature: _______________", styles["AcadTableCell"])]
     ]
-    t_decl = Table(decl_sigs, colWidths=[380])
+    t_decl = Table(decl_sigs, colWidths=[170, 240])
     t_decl.setStyle(TableStyle([
-        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 12),
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('TOPPADDING', (0,0), (-1,-1), 6),
     ]))
     story.append(t_decl)
-    story.append(Spacer(1, 30))
-    story.append(Paragraph("<b>Place:</b> Ghatkesar, Hyderabad<br/><b>Date:</b> October / November 2026", styles["AcadBodyTight"]))
     story.append(PageBreak())
 
     # ==========================================================================
@@ -544,11 +545,11 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
         "The analytical pipeline ingests the comprehensive IBM Telco Customer Churn dataset comprising 7,043 customer accounts across 21 raw operational attributes. "
         "A multi-stage data quality remediation framework executes duplicate auditing, schema type-casting, whitespace anomaly resolution in total lifetime charges, "
         "and 1.5×IQR boundary outlier validation, establishing a pristine 28-dimensional analytical feature store.<br/><br/>"
-        "Statistical evaluations encompass Chi-Square (χ²) tests of independence and Welch's two-sample independent t-tests to evaluate categorical and numerical defection dependencies. "
+        "Statistical evaluations encompass Chi-Square (Chi^2) tests of independence and Welch's two-sample independent t-tests to evaluate categorical and numerical defection dependencies. "
         "Empirical findings identify contract commitment as the single largest structural vulnerability, with Month-to-month contracts exhibiting a catastrophic 42.71% attrition rate "
-        "generating 88.55% of all defection volume, compared to just 2.83% on Two-year agreements—a fifteen-fold stability disparity (Cramér's V = 0.410, p &lt; 10⁻²⁵⁰). "
+        "generating 88.55% of all defection volume, compared to just 2.83% on Two-year agreements—a fifteen-fold stability disparity (Cramér's V = 0.410, p &lt; 10^-250). "
         "Furthermore, unautomated payment friction via Electronic Check drives an alarming 45.29% churn rate, while customer defection is heavily front-loaded in the first twelve months "
-        "(mean tenure of 17.98 months for churners vs 37.57 months for retained accounts, p &lt; 10⁻²⁰⁰). "
+        "(mean tenure of 17.98 months for churners vs 37.57 months for retained accounts, p &lt; 10^-200). "
         "An optimized SQLite database engine executing ten business queries powers an interactive, production-ready Streamlit dashboard featuring reactive multi-cohort filtering, "
         "tenure-spend vulnerability matrices, and financial ROI simulation models that forecast over $328,000 in annual recurring revenue preservation through targeted term migration.",
         styles["AcadBody"]
@@ -672,7 +673,7 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
         [Paragraph("<b>Table No.</b>", styles["AcadTableCell"]), Paragraph("<b>Table Title & Description</b>", styles["AcadTableCell"]), Paragraph("<b>Page</b>", styles["AcadTableCellCenter"])],
         [Paragraph("Table 3.1", styles["AcadTableCell"]), Paragraph("1.5×IQR Outlier Diagnostic Fences for Numerical Attributes", styles["AcadTableCell"]), Paragraph("7", styles["AcadTableCellCenter"])],
         [Paragraph("Table 5.1", styles["AcadTableCell"]), Paragraph("Parametric Summary Statistics of Numerical Attributes", styles["AcadTableCell"]), Paragraph("13", styles["AcadTableCellCenter"])],
-        [Paragraph("Table 5.2", styles["AcadTableCell"]), Paragraph("Chi-Square (χ²) Tests of Independence & Cramér's V Coefficients", styles["AcadTableCell"]), Paragraph("14", styles["AcadTableCellCenter"])],
+        [Paragraph("Table 5.2", styles["AcadTableCell"]), Paragraph("Chi-Square (Chi^2) Tests of Independence & Cramér's V Coefficients", styles["AcadTableCell"]), Paragraph("14", styles["AcadTableCellCenter"])],
         [Paragraph("Table 5.3", styles["AcadTableCell"]), Paragraph("Welch's Two-Sample Independent T-Test Results", styles["AcadTableCell"]), Paragraph("15", styles["AcadTableCellCenter"])],
         [Paragraph("Table 6.1", styles["AcadTableCell"]), Paragraph("SQLite Relational Database Table Schema & B-Tree Indexes", styles["AcadTableCell"]), Paragraph("16", styles["AcadTableCellCenter"])],
         [Paragraph("Table 7.1", styles["AcadTableCell"]), Paragraph("2D Tenure Cohort vs. Monthly Spend Churn Rate Matrix (%)", styles["AcadTableCell"]), Paragraph("20", styles["AcadTableCellCenter"])],
@@ -1061,9 +1062,9 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
         "• <b>Tenure vs. Total Charges:</b> Displays an exceptionally strong positive correlation (<b>r = +0.826</b>). "
         "This confirms that customer tenure is the primary mathematical driver of cumulative lifetime customer value.<br/>"
         "• <b>Monthly Charges vs. Total Charges:</b> Displays a strong positive correlation (<b>r = +0.651</b>), reflecting that pricing tiers compound over time.<br/>"
-        "• <b>Tenure vs. Churn Binary:</b> Demonstrates a statistically significant negative correlation (<b>r = -0.352</b>, p &lt; 10⁻¹⁹⁰). "
+        "• <b>Tenure vs. Churn Binary:</b> Demonstrates a statistically significant negative correlation (<b>r = -0.352</b>, p &lt; < 0.0001190). "
         "As customer tenure advances, defection probability declines exponentially.<br/>"
-        "• <b>Monthly Charges vs. Churn Binary:</b> Displays a positive correlation (<b>r = +0.193</b>, p &lt; 10⁻⁵⁵), confirming that premium pricing elevates churn sensitivity.",
+        "• <b>Monthly Charges vs. Churn Binary:</b> Displays a positive correlation (<b>r = +0.193</b>, p &lt; 10^-55), confirming that premium pricing elevates churn sensitivity.",
         styles["AcadBodyTight"]
     ))
     add_figure("05_correlation_heatmap.png", "4.9", "Multivariate Numerical Correlation Heatmap", width=340, height=185)
@@ -1090,10 +1091,10 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
          Paragraph("<b>Monthly Charges ($)</b>", styles["AcadTableHead"]),
          Paragraph("<b>Total Charges ($)</b>", styles["AcadTableHead"])],
         [Paragraph("Sample Count (N)", styles["AcadTableCell"]), Paragraph("7,043", styles["AcadTableCellCenter"]), Paragraph("7,043", styles["AcadTableCellCenter"]), Paragraph("7,043", styles["AcadTableCellCenter"])],
-        [Paragraph("Arithmetic Mean (μ)", styles["AcadTableCell"]), Paragraph("32.37", styles["AcadTableCellCenter"]), Paragraph("$64.76", styles["AcadTableCellCenter"]), Paragraph("$2,279.73", styles["AcadTableCellCenter"])],
+        [Paragraph("Arithmetic Mean (mean)", styles["AcadTableCell"]), Paragraph("32.37", styles["AcadTableCellCenter"]), Paragraph("$64.76", styles["AcadTableCellCenter"]), Paragraph("$2,279.73", styles["AcadTableCellCenter"])],
         [Paragraph("Median (Q2)", styles["AcadTableCell"]), Paragraph("29.00", styles["AcadTableCellCenter"]), Paragraph("$70.35", styles["AcadTableCellCenter"]), Paragraph("$1,394.55", styles["AcadTableCellCenter"])],
-        [Paragraph("Standard Deviation (σ)", styles["AcadTableCell"]), Paragraph("24.56", styles["AcadTableCellCenter"]), Paragraph("$30.09", styles["AcadTableCellCenter"]), Paragraph("$2,266.79", styles["AcadTableCellCenter"])],
-        [Paragraph("Variance (σ²)", styles["AcadTableCell"]), Paragraph("603.17", styles["AcadTableCellCenter"]), Paragraph("905.41", styles["AcadTableCellCenter"]), Paragraph("5,138,323.07", styles["AcadTableCellCenter"])],
+        [Paragraph("Standard Deviation (sigma)", styles["AcadTableCell"]), Paragraph("24.56", styles["AcadTableCellCenter"]), Paragraph("$30.09", styles["AcadTableCellCenter"]), Paragraph("$2,266.79", styles["AcadTableCellCenter"])],
+        [Paragraph("Variance (sigma^2)", styles["AcadTableCell"]), Paragraph("603.17", styles["AcadTableCellCenter"]), Paragraph("905.41", styles["AcadTableCellCenter"]), Paragraph("5,138,323.07", styles["AcadTableCellCenter"])],
         [Paragraph("Interquartile Range (IQR)", styles["AcadTableCell"]), Paragraph("46.00", styles["AcadTableCellCenter"]), Paragraph("$54.35", styles["AcadTableCellCenter"]), Paragraph("$3,388.05", styles["AcadTableCellCenter"])],
         [Paragraph("Skewness Coefficient", styles["AcadTableCell"]), Paragraph("+0.240", styles["AcadTableCellCenter"]), Paragraph("-0.221", styles["AcadTableCellCenter"]), Paragraph("+0.961", styles["AcadTableCellCenter"])],
         [Paragraph("Kurtosis Coefficient", styles["AcadTableCell"]), Paragraph("-1.387", styles["AcadTableCellCenter"]), Paragraph("-1.257", styles["AcadTableCellCenter"]), Paragraph("-0.233", styles["AcadTableCellCenter"])],
@@ -1123,11 +1124,11 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
     # ==========================================================================
     # PAGE 22 (14): CHAPTER 5: STATISTICAL INFERENCE (Section 5.2)
     # ==========================================================================
-    story.append(Paragraph("<b>5.2 Chi-Square (χ²) Tests of Independence & Cramér's V</b>", styles["AcadSubHead"]))
+    story.append(Paragraph("<b>5.2 Chi-Square (Chi^2) Tests of Independence & Cramér's V</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "To test whether categorical attributes share a statistically significant dependency with customer churn, "
-        "Pearson's Chi-Square (χ²) tests of independence were conducted across all categorical dimensions. "
-        "The null hypothesis (H₀) states that customer defection is independent of the evaluated categorical feature. "
+        "Pearson's Chi-Square (Chi^2) tests of independence were conducted across all categorical dimensions. "
+        "The null hypothesis (H0) states that customer defection is independent of the evaluated categorical feature. "
         "Because sample size is large (N = 7,043), p-values approach zero; therefore, <b>Cramér's V effect size coefficients</b> "
         "were calculated to quantify the substantive strength of association. Table 5.2 reports the statistical findings:",
         styles["AcadBodyTight"]
@@ -1136,22 +1137,22 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
 
     chi_table_data = [
         [Paragraph("<b>Evaluated Feature</b>", styles["AcadTableHead"]),
-         Paragraph("<b>Chi-Square (χ²)</b>", styles["AcadTableHead"]),
+         Paragraph("<b>Chi-Square (Chi^2)</b>", styles["AcadTableHead"]),
          Paragraph("<b>d.f.</b>", styles["AcadTableHead"]),
          Paragraph("<b>p-value</b>", styles["AcadTableHead"]),
          Paragraph("<b>Cramér's V</b>", styles["AcadTableHead"]),
          Paragraph("<b>Association Strength</b>", styles["AcadTableHead"])],
-        [Paragraph("<code>Contract</code>", styles["AcadTableCell"]), Paragraph("1184.60", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻²⁵⁰", styles["AcadTableCellCenter"]), Paragraph("<b>0.410</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Very Strong</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>OnlineSecurity</code>", styles["AcadTableCell"]), Paragraph("849.99", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻¹⁸⁴", styles["AcadTableCellCenter"]), Paragraph("<b>0.347</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate-Strong</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>TechSupport</code>", styles["AcadTableCell"]), Paragraph("828.20", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻¹⁸⁰", styles["AcadTableCellCenter"]), Paragraph("<b>0.343</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate-Strong</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>InternetService</code>", styles["AcadTableCell"]), Paragraph("732.31", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻¹⁵⁹", styles["AcadTableCellCenter"]), Paragraph("<b>0.322</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate-Strong</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>PaymentMethod</code>", styles["AcadTableCell"]), Paragraph("648.14", styles["AcadTableCellCenter"]), Paragraph("3", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻¹³⁹", styles["AcadTableCellCenter"]), Paragraph("<b>0.303</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>OnlineBackup</code>", styles["AcadTableCell"]), Paragraph("601.81", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻¹³⁰", styles["AcadTableCellCenter"]), Paragraph("0.292", styles["AcadTableCellCenter"]), Paragraph("Moderate", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>DeviceProtection</code>", styles["AcadTableCell"]), Paragraph("558.41", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻¹²¹", styles["AcadTableCellCenter"]), Paragraph("0.281", styles["AcadTableCellCenter"]), Paragraph("Moderate", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>PaperlessBilling</code>", styles["AcadTableCell"]), Paragraph("258.28", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻⁵⁷", styles["AcadTableCellCenter"]), Paragraph("0.191", styles["AcadTableCellCenter"]), Paragraph("Weak-Moderate", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>SeniorCitizen</code>", styles["AcadTableCell"]), Paragraph("159.43", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻³⁶", styles["AcadTableCellCenter"]), Paragraph("0.150", styles["AcadTableCellCenter"]), Paragraph("Weak", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>Partner</code>", styles["AcadTableCell"]), Paragraph("158.73", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻³⁶", styles["AcadTableCellCenter"]), Paragraph("0.150", styles["AcadTableCellCenter"]), Paragraph("Weak", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>Dependents</code>", styles["AcadTableCell"]), Paragraph("189.13", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻⁴²", styles["AcadTableCellCenter"]), Paragraph("0.164", styles["AcadTableCellCenter"]), Paragraph("Weak", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>Contract</code>", styles["AcadTableCell"]), Paragraph("1184.60", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 10^-250", styles["AcadTableCellCenter"]), Paragraph("<b>0.410</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Very Strong</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>OnlineSecurity</code>", styles["AcadTableCell"]), Paragraph("849.99", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.0001184", styles["AcadTableCellCenter"]), Paragraph("<b>0.347</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate-Strong</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>TechSupport</code>", styles["AcadTableCell"]), Paragraph("828.20", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.0001180", styles["AcadTableCellCenter"]), Paragraph("<b>0.343</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate-Strong</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>InternetService</code>", styles["AcadTableCell"]), Paragraph("732.31", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.0001159", styles["AcadTableCellCenter"]), Paragraph("<b>0.322</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate-Strong</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>PaymentMethod</code>", styles["AcadTableCell"]), Paragraph("648.14", styles["AcadTableCellCenter"]), Paragraph("3", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.0001139", styles["AcadTableCellCenter"]), Paragraph("<b>0.303</b>", styles["AcadTableCellCenter"]), Paragraph("<b>Moderate</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>OnlineBackup</code>", styles["AcadTableCell"]), Paragraph("601.81", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.0001130", styles["AcadTableCellCenter"]), Paragraph("0.292", styles["AcadTableCellCenter"]), Paragraph("Moderate", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>DeviceProtection</code>", styles["AcadTableCell"]), Paragraph("558.41", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.0001121", styles["AcadTableCellCenter"]), Paragraph("0.281", styles["AcadTableCellCenter"]), Paragraph("Moderate", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>PaperlessBilling</code>", styles["AcadTableCell"]), Paragraph("258.28", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; 10^-57", styles["AcadTableCellCenter"]), Paragraph("0.191", styles["AcadTableCellCenter"]), Paragraph("Weak-Moderate", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>SeniorCitizen</code>", styles["AcadTableCell"]), Paragraph("159.43", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.000136", styles["AcadTableCellCenter"]), Paragraph("0.150", styles["AcadTableCellCenter"]), Paragraph("Weak", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>Partner</code>", styles["AcadTableCell"]), Paragraph("158.73", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.000136", styles["AcadTableCellCenter"]), Paragraph("0.150", styles["AcadTableCellCenter"]), Paragraph("Weak", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>Dependents</code>", styles["AcadTableCell"]), Paragraph("189.13", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("&lt; < 0.00012", styles["AcadTableCellCenter"]), Paragraph("0.164", styles["AcadTableCellCenter"]), Paragraph("Weak", styles["AcadTableCellCenter"])],
         [Paragraph("<code>gender</code>", styles["AcadTableCell"]), Paragraph("0.48", styles["AcadTableCellCenter"]), Paragraph("1", styles["AcadTableCellCenter"]), Paragraph("<b>0.487</b>", styles["AcadTableCellCenter"]), Paragraph("0.008", styles["AcadTableCellCenter"]), Paragraph("<b>No Association (p&gt;0.05)</b>", styles["AcadTableCellCenter"])]
     ]
     t_chi = Table(chi_table_data, colWidths=[95, 65, 30, 60, 55, 110])
@@ -1163,13 +1164,13 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
         ('BOTTOMPADDING', (0,0), (-1,-1), 2),
     ]))
     story.append(t_chi)
-    story.append(Paragraph("<b>Table 5.2:</b> Chi-Square (χ²) Tests of Independence & Cramér's V Coefficients", styles["AcadCaption"]))
+    story.append(Paragraph("<b>Table 5.2:</b> Chi-Square (Chi^2) Tests of Independence & Cramér's V Coefficients", styles["AcadCaption"]))
     story.append(Spacer(1, 4))
 
     story.append(Paragraph(
         "<b>Crucial Statistical Insights:</b><br/>"
         "• <b>Contract is the Dominant Factor:</b> <code>Contract</code> exhibits the highest Cramér's V coefficient (0.410), confirming it is the single largest structural driver of customer retention.<br/>"
-        "• <b>Gender Invariance:</b> <code>gender</code> yielded χ² = 0.48, p = 0.487 (p &gt; 0.05). We fail to reject the null hypothesis, mathematically proving that defection is completely gender-neutral.",
+        "• <b>Gender Invariance:</b> <code>gender</code> yielded Chi^2 = 0.48, p = 0.487 (p &gt; 0.05). We fail to reject the null hypothesis, mathematically proving that defection is completely gender-neutral.",
         styles["AcadBodyTight"]
     ))
     story.append(PageBreak())
@@ -1188,15 +1189,15 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
 
     ttest_table_data = [
         [Paragraph("<b>Numerical Metric</b>", styles["AcadTableHead"]),
-         Paragraph("<b>Retained Mean (μ₁)</b>", styles["AcadTableHead"]),
-         Paragraph("<b>Churned Mean (μ₂)</b>", styles["AcadTableHead"]),
-         Paragraph("<b>Mean Diff (Δ)</b>", styles["AcadTableHead"]),
+         Paragraph("<b>Retained Mean (mean1)</b>", styles["AcadTableHead"]),
+         Paragraph("<b>Churned Mean (mean2)</b>", styles["AcadTableHead"]),
+         Paragraph("<b>Mean Diff (Diff)</b>", styles["AcadTableHead"]),
          Paragraph("<b>t-statistic</b>", styles["AcadTableHead"]),
          Paragraph("<b>p-value</b>", styles["AcadTableHead"]),
          Paragraph("<b>Cohen's d</b>", styles["AcadTableHead"])],
-        [Paragraph("<code>tenure</code> (Months)", styles["AcadTableCell"]), Paragraph("37.57 mos", styles["AcadTableCellCenter"]), Paragraph("17.98 mos", styles["AcadTableCellCenter"]), Paragraph("-19.59 mos", styles["AcadTableCellCenter"]), Paragraph("-34.82", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻²⁰⁰", styles["AcadTableCellCenter"]), Paragraph("<b>-0.86 (Large)</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>MonthlyCharges</code> ($)", styles["AcadTableCell"]), Paragraph("$61.27", styles["AcadTableCellCenter"]), Paragraph("$74.44", styles["AcadTableCellCenter"]), Paragraph("+$13.18", styles["AcadTableCellCenter"]), Paragraph("+18.42", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻⁷⁰", styles["AcadTableCellCenter"]), Paragraph("<b>+0.45 (Medium)</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<code>TotalCharges</code> ($)", styles["AcadTableCell"]), Paragraph("$2,549.76", styles["AcadTableCellCenter"]), Paragraph("$1,531.80", styles["AcadTableCellCenter"]), Paragraph("-$1,017.96", styles["AcadTableCellCenter"]), Paragraph("-19.85", styles["AcadTableCellCenter"]), Paragraph("&lt; 10⁻⁸⁰", styles["AcadTableCellCenter"]), Paragraph("<b>-0.47 (Medium)</b>", styles["AcadTableCellCenter"])]
+        [Paragraph("<code>tenure</code> (Months)", styles["AcadTableCell"]), Paragraph("37.57 mos", styles["AcadTableCellCenter"]), Paragraph("17.98 mos", styles["AcadTableCellCenter"]), Paragraph("-19.59 mos", styles["AcadTableCellCenter"]), Paragraph("-34.82", styles["AcadTableCellCenter"]), Paragraph("&lt; 10^-200", styles["AcadTableCellCenter"]), Paragraph("<b>-0.86 (Large)</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>MonthlyCharges</code> ($)", styles["AcadTableCell"]), Paragraph("$61.27", styles["AcadTableCellCenter"]), Paragraph("$74.44", styles["AcadTableCellCenter"]), Paragraph("+$13.18", styles["AcadTableCellCenter"]), Paragraph("+18.42", styles["AcadTableCellCenter"]), Paragraph("&lt; 10^-70", styles["AcadTableCellCenter"]), Paragraph("<b>+0.45 (Medium)</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<code>TotalCharges</code> ($)", styles["AcadTableCell"]), Paragraph("$2,549.76", styles["AcadTableCellCenter"]), Paragraph("$1,531.80", styles["AcadTableCellCenter"]), Paragraph("-$1,017.96", styles["AcadTableCellCenter"]), Paragraph("-19.85", styles["AcadTableCellCenter"]), Paragraph("&lt; 10^-80", styles["AcadTableCellCenter"]), Paragraph("<b>-0.47 (Medium)</b>", styles["AcadTableCellCenter"])]
     ]
     t_ttest = Table(ttest_table_data, colWidths=[95, 55, 55, 50, 50, 50, 60])
     t_ttest.setStyle(TableStyle([
@@ -1215,7 +1216,7 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
         "The empirical hypothesis testing confirms three fundamental business conclusions:<br/>"
         "1. <b>Tenure Deficit is Substantial:</b> Departing customers leave on average <b>19.59 months earlier</b> than retained customers (Cohen's d = -0.86, representing a massive effect size). "
         "The probability of defection plummets drastically after the first year, proving that early customer lifecycle onboarding is the critical battlefield.<br/>"
-        "2. <b>Statistically Significant Price Premium:</b> Departing customers pay a statistically significant monthly premium of <b>$13.18 more per month</b> ($74.44 vs. $61.27, p &lt; 10⁻⁷⁰). "
+        "2. <b>Statistically Significant Price Premium:</b> Departing customers pay a statistically significant monthly premium of <b>$13.18 more per month</b> ($74.44 vs. $61.27, p &lt; 10^-70). "
         "This disproves the common corporate assumption that churners are low-value subscribers; churn is heavily concentrated among high-value accounts paying premium rates without perceived value alignment.<br/>"
         "3. <b>Association vs. Causation:</b> Contract length shares the strongest association with churn (Cramér's V = 0.410). "
         "However, month-to-month contracts do not inherently cause churn; rather, they reflect zero friction barriers allowing dissatisfied subscribers to exit effortlessly.",
@@ -1475,11 +1476,11 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
     # Architecture Diagram Table
     arch_flow = [
         [Paragraph("<b>Layer 1: Data Ingestion & Quality Layer</b><br/><code>TelcoDataCleaner</code> • Schema Auditing • Whitespace Imputation • 1.5×IQR Outlier Fences", styles["AcadTableCellCenter"])],
-        [Paragraph("↓", styles["AcadTableCellCenter"])],
+        [Paragraph("|", styles["AcadTableCellCenter"])],
         [Paragraph("<b>Layer 2: Storage & Query Engine Layer</b><br/><code>SQLite Database</code> • B-Tree Indexing (<code>idx_contract, idx_payment, idx_churn</code>) • 10 Core SQL Queries", styles["AcadTableCellCenter"])],
-        [Paragraph("↓", styles["AcadTableCellCenter"])],
-        [Paragraph("<b>Layer 3: Analytical Inference & Statistics Layer</b><br/><code>DescriptiveStatisticsEngine</code> • Parametric Metrics • Chi-Square (χ²) Tests • Welch's T-Tests", styles["AcadTableCellCenter"])],
-        [Paragraph("↓", styles["AcadTableCellCenter"])],
+        [Paragraph("|", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>Layer 3: Analytical Inference & Statistics Layer</b><br/><code>DescriptiveStatisticsEngine</code> • Parametric Metrics • Chi-Square (Chi^2) Tests • Welch's T-Tests", styles["AcadTableCellCenter"])],
+        [Paragraph("|", styles["AcadTableCellCenter"])],
         [Paragraph("<b>Layer 4: Interactive Presentation & UI Layer</b><br/><code>Streamlit Dashboard</code> • Custom CSS SaaS Theme • Reactive Filter State • Plotly Visualizations", styles["AcadTableCellCenter"])],
     ]
     t_arch = Table(arch_flow, colWidths=[410])
@@ -1667,7 +1668,7 @@ def generate_full_40_page_report(output_pdf_path: str, viz_dir: str):
         "1. <b>Baseline Metrics:</b> The IBM Telco customer portfolio experiences a 26.54% churn rate (1,869 defected accounts out of 7,043), "
         "forfeiting $139,130 in monthly recurring revenue and over $1.66 million annually.<br/>"
         "2. <b>Contract Horizon Vulnerability:</b> Month-to-month contracts suffer a catastrophic 42.71% attrition rate, generating 88.55% of all defection volume. "
-        "Two-year contracts reduce churn to 2.83%—a fifteen-fold stability improvement confirmed by Cramér's V = 0.410 (p &lt; 10⁻²⁵⁰).<br/>"
+        "Two-year contracts reduce churn to 2.83%—a fifteen-fold stability improvement confirmed by Cramér's V = 0.410 (p &lt; 10^-250).<br/>"
         "3. <b>Payment Method Friction:</b> Electronic check users churn at 45.29%, driving 57.30% of all lost accounts due to recurring payment friction.<br/>"
         "4. <b>Lifecycle Front-Loading:</b> 55.48% of all defection occurs in the first 12 months (churners average 17.98 months tenure vs 37.57 months for retained accounts, Cohen's d = -0.86).<br/>"
         "5. <b>High-ARPU Fiber Risk:</b> Premium fiber optic accounts churn at 41.89%, but bundling Tech Support collapses defection to 11.84%.",
@@ -1783,21 +1784,21 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     story.append(Paragraph("<b>MATHEMATICAL FORMULATIONS & STATISTICAL DERIVATIONS</b>", styles["AcadChapterHeadCenter"]))
     story.append(Spacer(1, 8))
 
-    story.append(Paragraph("<b>1. Pearson's Chi-Square (χ²) Test of Independence</b>", styles["AcadSubHead"]))
+    story.append(Paragraph("<b>1. Pearson's Chi-Square (Chi^2) Test of Independence</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "To test independence between two categorical variables with <i>r</i> rows and <i>c</i> columns, "
-        "the test statistic χ² evaluates discrepancy between observed cell counts (O_ij) and expected frequencies (E_ij):<br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>χ² = Σ Σ [ (O_ij - E_ij)² / E_ij ]</b><br/>"
-        "where expected frequencies under H₀ are derived from marginal totals: <b>E_ij = (R_i × C_j) / N</b> with <b>d.f. = (r - 1)(c - 1)</b>.",
+        "the test statistic Chi^2 evaluates discrepancy between observed cell counts (O_ij) and expected frequencies (E_ij):<br/>"
+        "&nbsp;&nbsp;&nbsp;&nbsp;<b>Chi^2 = Sum Sum [ (O_ij - E_ij)2 / E_ij ]</b><br/>"
+        "where expected frequencies under H0 are derived from marginal totals: <b>E_ij = (R_i × C_j) / N</b> with <b>d.f. = (r - 1)(c - 1)</b>.",
         styles["AcadMathBody"]
     ))
     story.append(Spacer(1, 4))
 
     story.append(Paragraph("<b>2. Cramér's V Effect Size Coefficient</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
-        "Because large samples (N = 7,043) inflate Chi-Square statistics, Cramér's V scales χ² to bounded interval [0, 1]:<br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>V = sqrt( χ² / ( N × min(r - 1, c - 1) ) )</b><br/>"
-        "Interpretation: V &lt; 0.10: Negligible; 0.10 ≤ V &lt; 0.20: Weak; 0.20 ≤ V &lt; 0.35: Moderate; V ≥ 0.35: Strong association.",
+        "Because large samples (N = 7,043) inflate Chi-Square statistics, Cramér's V scales Chi^2 to bounded interval [0, 1]:<br/>"
+        "&nbsp;&nbsp;&nbsp;&nbsp;<b>V = sqrt( Chi^2 / ( N × min(r - 1, c - 1) ) )</b><br/>"
+        "Interpretation: V &lt; 0.10: Negligible; 0.10 <= V &lt; 0.20: Weak; 0.20 <= V &lt; 0.35: Moderate; V >= 0.35: Strong association.",
         styles["AcadMathBody"]
     ))
     story.append(Spacer(1, 4))
@@ -1805,9 +1806,9 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     story.append(Paragraph("<b>3. Welch's Two-Sample Independent T-Test</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "Welch's t-test evaluates whether two independent groups with unequal variances possess significantly different means:<br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>t = ( x̄₁ - x̄₂ ) / sqrt( (s₁² / N₁) + (s₂² / N₂) )</b><br/>"
-        "The degrees of freedom (ν) are approximated via the Welch–Satterthwaite equation:<br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>ν ≈ [ (s₁²/N₁ + s₂²/N₂)² ] / [ (s₁²/N₁)²/(N₁ - 1) + (s₂²/N₂)²/(N₂ - 1) ]</b>.",
+        "&nbsp;&nbsp;&nbsp;&nbsp;<b>t = ( x_bar_1 - x_bar_2 ) / sqrt( (s1^2 / N1) + (s2^2 / N2) )</b><br/>"
+        "The degrees of freedom (df) are approximated via the Welch–Satterthwaite equation:<br/>"
+        "&nbsp;&nbsp;&nbsp;&nbsp;<b>df ~ [ (s1^2/N1 + s2^2/N2)2 ] / [ (s1^2/N1)2/(N1 - 1) + (s2^2/N2)2/(N2 - 1) ]</b>.",
         styles["AcadMathBody"]
     ))
     story.append(Spacer(1, 4))
@@ -1815,9 +1816,9 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     story.append(Paragraph("<b>4. Cohen's d Effect Size for Mean Differences</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "Cohen's d quantifies standardized distance between group means using pooled standard deviation (s_pooled):<br/>"
-        "&nbsp;&nbsp;&nbsp;&nbsp;<b>d = ( x̄₁ - x̄₂ ) / s_pooled</b><br/>"
-        "where <b>s_pooled = sqrt( [ (N₁ - 1)s₁² + (N₂ - 1)s₂² ] / (N₁ + N₂ - 2) )</b>. "
-        "Benchmarks: |d| ≈ 0.2: Small; |d| ≈ 0.5: Medium; |d| ≥ 0.8: Large effect size.",
+        "&nbsp;&nbsp;&nbsp;&nbsp;<b>d = ( x_bar_1 - x_bar_2 ) / s_pooled</b><br/>"
+        "where <b>s_pooled = sqrt( [ (N1 - 1)s1^2 + (N2 - 1)s2^2 ] / (N1 + N2 - 2) )</b>. "
+        "Benchmarks: |d| ~ 0.2: Small; |d| ~ 0.5: Medium; |d| >= 0.8: Large effect size.",
         styles["AcadMathBody"]
     ))
     story.append(PageBreak())
@@ -1888,7 +1889,7 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
         [Paragraph("<b>Slide 3: Motivation & Objectives</b><br/>• Retaining accounts is 5–7x cheaper than acquisition<br/>• Build an interpretable, transparent SQL BI stack<br/>• Deliver actionable executive retention pillars", styles["AcadTableCell"]),
          Paragraph("<b>Slide 4: Literature Survey Summary</b><br/>• Review of static rules vs ML classifiers<br/>• Identified lack of causal transparency in ML<br/>• Justification for pure Data Science & SQL", styles["AcadTableCell"])],
         [Paragraph("<b>Slide 5: Research Gap</b><br/>• Existing models neglect billing channel friction<br/>• Failure to link churn predictions to ROI dollars<br/>• Absence of production executive dashboards", styles["AcadTableCell"]),
-         Paragraph("<b>Slide 6: Proposed System</b><br/>• 4-tier architecture: Ingest → SQLite → Stats → UI<br/>• 28 cleaned & engineered attributes<br/>• Chi-Square & Welch's T-Test hypothesis testing", styles["AcadTableCell"])],
+         Paragraph("<b>Slide 6: Proposed System</b><br/>• 4-tier architecture: Ingest -> SQLite -> Stats -> UI<br/>• 28 cleaned & engineered attributes<br/>• Chi-Square & Welch's T-Test hypothesis testing", styles["AcadTableCell"])],
         [Paragraph("<b>Slide 7: System Architecture</b><br/>• End-to-end data flow diagram<br/>• SQLite with B-tree indexing for instant queries<br/>• Streamlit reactive state & caching pipeline", styles["AcadTableCell"]),
          Paragraph("<b>Slide 8: Methodology</b><br/>• Whitespace imputation for TotalCharges (tenure=0)<br/>• 1.5×IQR boundary outlier validation<br/>• Parametric & non-parametric statistical inference", styles["AcadTableCell"])],
         [Paragraph("<b>Slide 9: Implementation Modules</b><br/>• <code>data_cleaning.py</code>, <code>sql_analysis.py</code><br/>• <code>descriptive_statistics.py</code>, <code>eda.py</code><br/>• <code>streamlit_app.py</code> with 9 interactive pages", styles["AcadTableCell"]),

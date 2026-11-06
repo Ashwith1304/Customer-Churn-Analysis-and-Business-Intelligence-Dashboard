@@ -62,7 +62,7 @@ class AcademicNumberedCanvas(canvas.Canvas):
         if self._pageNumber > 1:
             self.setFont("Times-Bold", 8)
             self.setFillColor(colors.HexColor("#334155"))
-            self.drawString(54, page_h - 50, "DEPARTMENT OF DATA SCIENCE (CSE-DS) — SREENIDHI INSTITUTE OF SCIENCE & TECHNOLOGY")
+            self.drawString(54, page_h - 50, "DEPARTMENT OF DATA SCIENCE (CSE-DS)  -  SREENIDHI INSTITUTE OF SCIENCE & TECHNOLOGY")
             self.setStrokeColor(colors.HexColor("#CBD5E1"))
             self.setLineWidth(0.6)
             self.line(54, page_h - 54, page_w - 54, page_h - 54)
@@ -346,7 +346,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     ))
     story.append(Spacer(1, 4))
     story.append(Paragraph(
-        "<b>Computer Science and Engineering – Data Science (CSE-DS)</b>",
+        "<b>Computer Science and Engineering - Data Science (CSE-DS)</b>",
         ParagraphStyle("CoverDegree2", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#0284C7"))
     ))
     story.append(Spacer(1, 20))
@@ -444,14 +444,14 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         story.append(Image(logo_path, width=350, height=54.1))
         story.append(Spacer(1, 6))
 
-    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE AND TECHNOLOGY</b><br/><b>(AUTONOMOUS)</b><br/><b>DEPARTMENT OF CSE – DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("CertHeadTop", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
+    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE AND TECHNOLOGY</b><br/><b>(AUTONOMOUS)</b><br/><b>DEPARTMENT OF CSE - DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("CertHeadTop", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
     story.append(Spacer(1, 10))
 
     story.append(Paragraph("<b>CERTIFICATE</b>", styles["AcadChapterHeadCenter"]))
     story.append(Spacer(1, 8))
 
     story.append(Paragraph(
-        "This is to certify that the Summer Industry Internship work titled <b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> "
+        "This is to certify that the Summer Industry Internship work titled <b>'CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD'</b> "
         "submitted by the Students <b>G Mythili, K Ashiwith and D Niyati</b> bearing Roll No. <b>24311A67H8, 24311A67H6 and 24311A67H7</b>, "
         "towards partial fulfillment for the award of Bachelors Degree in Computer Science and Engineering Data Science (CSE-DS) from "
         "Sreenidhi Institute of Science and Technology, Ghatkesar, Hyderabad, is a record of Bonafide work done by him/ her. "
@@ -486,9 +486,9 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Paragraph(
         "We, <b>G Mythili (24311A67H8)</b>, <b>K Ashiwith (24311A67H6)</b>, and <b>D Niyati (24311A67H7)</b> students of "
         "Sreenidhi Institute of Science and Technology, Yamnampet, Ghatkesar, studying <b>III Year, I Semester</b>, "
-        "Bachelor of Technology in <b>Computer Science and Engineering – Data Science (CSE–DS)</b>, hereby solemnly declare that the project report "
-        "titled <b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> is submitted in partial fulfillment for the award of the degree of "
-        "<b>Bachelor of Technology in Computer Science and Engineering – Data Science (CSE–DS)</b>.<br/><br/>"
+        "Bachelor of Technology in <b>Computer Science and Engineering - Data Science (CSE-DS)</b>, hereby solemnly declare that the project report "
+        "titled <b>'CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD'</b> is submitted in partial fulfillment for the award of the degree of "
+        "<b>Bachelor of Technology in Computer Science and Engineering - Data Science (CSE-DS)</b>.<br/><br/>"
         "It is further declared that, to the best of our knowledge, the work reported in this project has not been submitted earlier, "
         "either in part or in full, to any other University or Institute for the award of any degree or diploma.",
         styles["AcadBody"]
@@ -526,7 +526,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "for his continuous guidance, valuable suggestions, and constant encouragement throughout the course of this project. "
         "His insightful feedback, rigorous technical mentoring, and intellectual motivation helped us overcome intricate data engineering hurdles, "
         "formulate robust statistical hypotheses, and complete our work successfully.<br/><br/>"
-        "We are extremely thankful to <b>Dr. Md. Jaffar Sadiq</b>, Head of the Department, CSE–DS, and our Principal, <b>Dr. T. Ch. Siva Reddy</b>, "
+        "We are extremely thankful to <b>Dr. Md. Jaffar Sadiq</b>, Head of the Department, CSE-DS, and our Principal, <b>Dr. T. Ch. Siva Reddy</b>, "
         "for providing us with the opportunity to undertake this project and for their consistent administrative support and encouragement. "
         "Their inspiring leadership and academic vision created an exemplary research environment that greatly contributed to the smooth execution of our project work.<br/><br/>"
         "Finally, we extend our sincere thanks to all faculty members of the Department of Data Science and our peers for their cooperation, technical suggestions, and constructive critique. "
@@ -565,7 +565,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "and 1.5xIQR boundary outlier validation, establishing a pristine 28-dimensional analytical feature store.<br/><br/>"
         "Statistical evaluations encompass Chi-Square (Chi^2) tests of independence and Welch's two-sample independent t-tests to evaluate categorical and numerical defection dependencies. "
         "Empirical findings identify contract commitment as the single largest structural vulnerability, with Month-to-month contracts exhibiting a catastrophic 42.71% attrition rate "
-        "generating 88.55% of all defection volume, compared to just 2.83% on Two-year agreements—a fifteen-fold stability disparity (Cramér's V = 0.410, p &lt; 0.0001). "
+        "generating 88.55% of all defection volume, compared to just 2.83% on Two-year agreements - a fifteen-fold stability disparity (Cramer's V = 0.410, p &lt; 0.0001). "
         "Furthermore, unautomated payment friction via Electronic Check drives an alarming 45.29% churn rate, while customer defection is heavily front-loaded in the first twelve months "
         "(mean tenure of 17.98 months for churners vs 37.57 months for retained accounts, p &lt; 0.0001). "
         "An optimized SQLite database engine executing ten business queries powers an interactive, production-ready Streamlit dashboard featuring reactive multi-cohort filtering, "
@@ -623,7 +623,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;4.6 Multivariate Correlation Analysis &amp; Heatmap", styles["AcadTOCCell"]), Paragraph("14", styles["AcadTOCCellCenter"])],
         [Paragraph("<b>Chapter 5: Parametric &amp; Non-Parametric Statistical Inference</b>", styles["AcadTOCCellBold"]), Paragraph("<b>15</b>", styles["AcadTOCCellCenter"])],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;5.1 Parametric &amp; Distributional Metrics", styles["AcadTOCCell"]), Paragraph("15", styles["AcadTOCCellCenter"])],
-        [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;5.2 Chi-Square Independence Tests &amp; Cramér's V", styles["AcadTOCCell"]), Paragraph("16", styles["AcadTOCCellCenter"])],
+        [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;5.2 Chi-Square Independence Tests &amp; Cramer's V", styles["AcadTOCCell"]), Paragraph("16", styles["AcadTOCCellCenter"])],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;5.3 Welch's Two-Sample Independent T-Tests", styles["AcadTOCCell"]), Paragraph("17", styles["AcadTOCCellCenter"])],
         [Paragraph("<b>Chapter 6: Relational Database Modeling &amp; Enterprise SQL</b>", styles["AcadTOCCellBold"]), Paragraph("<b>18</b>", styles["AcadTOCCellCenter"])],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;6.1 SQLite Schema Architecture &amp; Indexing", styles["AcadTOCCell"]), Paragraph("18", styles["AcadTOCCellCenter"])],
@@ -644,12 +644,12 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;9.3 Financial ROI Simulation Model", styles["AcadTOCCell"]), Paragraph("30", styles["AcadTOCCellCenter"])],
         [Paragraph("&nbsp;&nbsp;&nbsp;&nbsp;9.4 90-Day Executive Retention Implementation Roadmap", styles["AcadTOCCell"]), Paragraph("31", styles["AcadTOCCellCenter"])],
         [Paragraph("<b>Chapter 10: Conclusion &amp; Future Scope</b>", styles["AcadTOCCellBold"]), Paragraph("<b>32</b>", styles["AcadTOCCellCenter"])],
-        [Paragraph("<b>Appendix I: Complete SQL Analytics Query Catalog (Part 1: Q1–Q5)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>33</b>", styles["AcadTOCCellCenter"])],
-        [Paragraph("<b>Appendix I: Complete SQL Analytics Query Catalog (Part 2: Q6–Q10)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>34</b>", styles["AcadTOCCellCenter"])],
+        [Paragraph("<b>Appendix I: Complete SQL Analytics Query Catalog (Part 1: Q1-Q5)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>33</b>", styles["AcadTOCCellCenter"])],
+        [Paragraph("<b>Appendix I: Complete SQL Analytics Query Catalog (Part 2: Q6-Q10)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>34</b>", styles["AcadTOCCellCenter"])],
         [Paragraph("<b>Appendix II: Mathematical Formulations &amp; Statistical Derivations</b>", styles["AcadTOCCellBold"]), Paragraph("<b>35</b>", styles["AcadTOCCellCenter"])],
         [Paragraph("<b>Appendix III: Complete Cleaned Data Dictionary &amp; Schema</b>", styles["AcadTOCCellBold"]), Paragraph("<b>36</b>", styles["AcadTOCCellCenter"])],
-        [Paragraph("<b>Appendix IV: PowerPoint Presentation Slides (Part 1: Slides 1–6)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>37</b>", styles["AcadTOCCellCenter"])],
-        [Paragraph("<b>Appendix IV: PowerPoint Presentation Slides (Part 2: Slides 7–12)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>38</b>", styles["AcadTOCCellCenter"])],
+        [Paragraph("<b>Appendix IV: PowerPoint Presentation Slides (Part 1: Slides 1-6)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>37</b>", styles["AcadTOCCellCenter"])],
+        [Paragraph("<b>Appendix IV: PowerPoint Presentation Slides (Part 2: Slides 7-12)</b>", styles["AcadTOCCellBold"]), Paragraph("<b>38</b>", styles["AcadTOCCellCenter"])],
         [Paragraph("<b>Appendix V: Software Module Architecture &amp; File Manifest</b>", styles["AcadTOCCellBold"]), Paragraph("<b>39</b>", styles["AcadTOCCellCenter"])],
         [Paragraph("<b>References</b>", styles["AcadTOCCellBold"]), Paragraph("<b>40</b>", styles["AcadTOCCellCenter"])]
     ]
@@ -699,7 +699,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         [Paragraph("Table 3.1", styles["AcadTableCell"]), Paragraph("1.5xIQR Outlier Diagnostic Fences for Numerical Attributes", styles["AcadTableCell"]), Paragraph("7", styles["AcadTableCellCenter"])],
         [Paragraph("Table 3.2", styles["AcadTableCell"]), Paragraph("Automated Data Quality Cleansing &amp; Feature Engineering Matrix", styles["AcadTableCell"]), Paragraph("8", styles["AcadTableCellCenter"])],
         [Paragraph("Table 5.1", styles["AcadTableCell"]), Paragraph("Parametric Summary Statistics of Numerical Attributes", styles["AcadTableCell"]), Paragraph("15", styles["AcadTableCellCenter"])],
-        [Paragraph("Table 5.2", styles["AcadTableCell"]), Paragraph("Chi-Square (Chi^2) Tests of Independence &amp; Cramér's V Coefficients", styles["AcadTableCell"]), Paragraph("16", styles["AcadTableCellCenter"])],
+        [Paragraph("Table 5.2", styles["AcadTableCell"]), Paragraph("Chi-Square (Chi^2) Tests of Independence &amp; Cramer's V Coefficients", styles["AcadTableCell"]), Paragraph("16", styles["AcadTableCellCenter"])],
         [Paragraph("Table 5.3", styles["AcadTableCell"]), Paragraph("Welch's Two-Sample Independent T-Test Results", styles["AcadTableCell"]), Paragraph("17", styles["AcadTableCellCenter"])],
         [Paragraph("Table 6.1", styles["AcadTableCell"]), Paragraph("SQLite Relational Database Table Schema &amp; B-Tree Indexes", styles["AcadTableCell"]), Paragraph("18", styles["AcadTableCellCenter"])],
         [Paragraph("Table 6.2", styles["AcadTableCell"]), Paragraph("SQL Execution Plan (EXPLAIN QUERY PLAN) Latency Benchmarks", styles["AcadTableCell"]), Paragraph("21", styles["AcadTableCellCenter"])],
@@ -726,8 +726,8 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
 
     story.append(Paragraph("<b>1.1 General Context &amp; Topic Relevance</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
-        "In the contemporary global telecommunications industry, customer churn—defined as the rate at which subscribers discontinue their service contracts "
-        "with an operator—constitutes the single greatest strategic, operational, and financial vulnerability. Modern telecommunication services operates in a mature, "
+        "In the contemporary global telecommunications industry, customer churn - defined as the rate at which subscribers discontinue their service contracts "
+        "with an operator - constitutes the single greatest strategic, operational, and financial vulnerability. Modern telecommunication services operates in a mature, "
         "hyper-saturated marketplace characterized by aggressive pricing battles, rapid technological standardization, and minimal friction for customer defection. "
         "Leading telecommunication providers experience annual defection rates ranging between 20% and 35%, eroding recurring revenue bases and inflicting severe bottom-line damage.<br/><br/>"
         "Customer churn is not merely a marketing annoyance; it represents a fundamental economic threat to enterprise enterprise sustainability. "
@@ -755,13 +755,13 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Paragraph("<b>1.3 Challenges &amp; Shortcomings of Naive Approaches</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "Historically, telecommunications organizations addressed defection through primitive rule-based heuristic systems or uninterpretable black-box algorithms. "
-        "Heuristic systems rely on static threshold rules—such as flagging customers who register three customer service calls or exceed a specific billing threshold. "
+        "Heuristic systems rely on static threshold rules - such as flagging customers who register three customer service calls or exceed a specific billing threshold. "
         "These naive approaches suffer from three catastrophic failure modes:<br/>"
-        "• <b>Extremely High False Positive Rates:</b> Static rules routinely flag genuine, highly engaged customers who simply called for routine inquiries, "
+        "&bull; <b>Extremely High False Positive Rates:</b> Static rules routinely flag genuine, highly engaged customers who simply called for routine inquiries, "
         "wasting expensive human customer-care intervention hours.<br/>"
-        "• <b>Complete Inability to Detect Structural Interaction Effects:</b> Heuristics fail to recognize that defection is rarely caused by a single isolated variable, "
+        "&bull; <b>Complete Inability to Detect Structural Interaction Effects:</b> Heuristics fail to recognize that defection is rarely caused by a single isolated variable, "
         "but rather by compound multi-factor vulnerabilities (e.g., Month-to-month contracts interacting with unautomated electronic check billing and high fiber optic charges).<br/>"
-        "• <b>The Black-Box Dilemma of Complex ML Models:</b> While modern deep neural networks and gradient boosting ensembles can generate numerical defection probability scores, "
+        "&bull; <b>The Black-Box Dilemma of Complex ML Models:</b> While modern deep neural networks and gradient boosting ensembles can generate numerical defection probability scores, "
         "they provide zero causal interpretability to commercial executives. Business stakeholders cannot determine <i>why</i> a customer is defecting or <i>what</i> operational remedy to execute.",
         styles["AcadBody"]
     ))
@@ -771,11 +771,11 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Paragraph(
         "This project rejects black-box opacity in favor of a rigorous, transparent Data Science, SQL engineering, and Business Intelligence framework. "
         "The core objectives of this study are:<br/>"
-        "• To design and execute an end-to-end data quality pipeline that audits, cleanses, and enriches 7,043 customer accounts across 21 raw dimensions into a pristine 28-dimensional analytical store.<br/>"
-        "• To perform exhaustive univariate, bivariate, and multivariate exploratory data analysis isolating critical churn drivers.<br/>"
-        "• To conduct rigorous parametric and non-parametric statistical hypothesis tests (Chi-Square tests of independence, Cramér's V, and Welch's two-sample independent t-tests) to confirm mathematical significance.<br/>"
-        "• To engineer an enterprise relational SQLite database modeled with B-tree indexes executing ten core business queries.<br/>"
-        "• To deploy an interactive, executive-grade Streamlit Business Intelligence dashboard equipped with real-time cohort filtering and financial ROI retention calculators.",
+        "&bull; To design and execute an end-to-end data quality pipeline that audits, cleanses, and enriches 7,043 customer accounts across 21 raw dimensions into a pristine 28-dimensional analytical store.<br/>"
+        "&bull; To perform exhaustive univariate, bivariate, and multivariate exploratory data analysis isolating critical churn drivers.<br/>"
+        "&bull; To conduct rigorous parametric and non-parametric statistical hypothesis tests (Chi-Square tests of independence, Cramer's V, and Welch's two-sample independent t-tests) to confirm mathematical significance.<br/>"
+        "&bull; To engineer an enterprise relational SQLite database modeled with B-tree indexes executing ten core business queries.<br/>"
+        "&bull; To deploy an interactive, executive-grade Streamlit Business Intelligence dashboard equipped with real-time cohort filtering and financial ROI retention calculators.",
         styles["AcadBody"]
     ))
     story.append(Spacer(1, 6))
@@ -806,7 +806,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "In the second evolutionary wave (2000s to 2015), database marketing and data warehousing introduced descriptive statistics and RFM (Recency, Frequency, Monetary) segmentation. "
         "Pioneering studies by Berson et al. (2000) and Blattberg et al. (2008) demonstrated that customer tenure and billing consistency served as significant indicators of brand commitment. "
         "However, these early frameworks suffered from batch processing limitations, where data warehouses took weeks to reconcile billing cycles, causing interventions to lag weeks behind actual defection triggers.<br/><br/>"
-        "The modern paradigm (2016–present) emphasizes real-time analytical business intelligence, where relational database engines and interactive visual cockpits "
+        "The modern paradigm (2016-present) emphasizes real-time analytical business intelligence, where relational database engines and interactive visual cockpits "
         "empower operational managers to monitor customer cohorts continuously, isolating defection triggers at the exact intersection of contractual terms, payment channels, and service add-ons.",
         styles["AcadBodyTight"]
     ))
@@ -815,12 +815,12 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Paragraph("<b>2.2 Comparative Review: Rule-Based Systems vs Data-Driven Analytics</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "A critical comparison between traditional rule-based monitoring and comprehensive exploratory data analytics highlights substantial differences in operational efficacy:<br/>"
-        "• <b>Static Rule Systems:</b> Rely on rigid, hand-crafted business heuristics established by managerial intuition. "
+        "&bull; <b>Static Rule Systems:</b> Rely on rigid, hand-crafted business heuristics established by managerial intuition. "
         "Empirical research by Dal Pozzolo et al. (2015) proved that rule-based systems generate excessive false discovery rates, failing to scale as customer product catalogs diversify.<br/>"
-        "• <b>Black-Box Machine Learning:</b> Supervised classifiers such as Random Forests (Breiman, 2001) and XGBoost (Chen &amp; Guestrin, 2016) maximize predictive accuracy. "
+        "&bull; <b>Black-Box Machine Learning:</b> Supervised classifiers such as Random Forests (Breiman, 2001) and XGBoost (Chen &amp; Guestrin, 2016) maximize predictive accuracy. "
         "However, as highlighted by Rudin (2019) in <i>Stop Explaining Black Box Machine Learning Models for High Stakes Decisions</i>, black-box scores fail to establish domain trust. "
         "A business executive cannot restructure billing terms or modify contract pricing based purely on an uninterpretable probability score without understanding underlying statistical associations.<br/>"
-        "• <b>Exploratory Data Science &amp; SQL Analytics:</b> This paradigm provides complete mathematical transparency. "
+        "&bull; <b>Exploratory Data Science &amp; SQL Analytics:</b> This paradigm provides complete mathematical transparency. "
         "By utilizing descriptive statistics, contingency table hypothesis testing, and direct relational database querying, decision-makers obtain verifiable, auditable business truths.",
         styles["AcadBodyTight"]
     ))
@@ -836,7 +836,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "ROC-AUC or F1-scores using complex ensembles. They rarely examine whether the features driving predictions can be influenced by commercial business operations. "
         "Predicting that a customer will defect with 89% probability is practically useless if the operational drivers remain completely hidden.<br/><br/>"
         "<b>2. Neglect of Payment Channel Friction and Operational Billing Mechanisms:</b> Existing literature frequently treats payment method as an incidental demographic factor. "
-        "Few empirical studies investigate how manual, friction-heavy settlement mechanisms—such as non-automated electronic checks—exacerbate monthly billing salience and trigger defection.<br/><br/>"
+        "Few empirical studies investigate how manual, friction-heavy settlement mechanisms - such as non-automated electronic checks - exacerbate monthly billing salience and trigger defection.<br/><br/>"
         "<b>3. Disconnect Between Statistical Output and Financial ROI Modeling:</b> Most academic frameworks conclude with confusion matrices and accuracy tables, "
         "failing to translate statistical insights into financial balance-sheet language: Monthly Recurring Revenue (MRR) preservation, Customer Lifetime Value (CLV), and budget ROI.",
         styles["AcadBody"]
@@ -846,7 +846,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Paragraph("<b>2.4 Justification for Exploratory Data Science &amp; SQL Paradigm</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "To bridge these critical academic and operational literature gaps, this project adopts an auditable, transparent Data Science and Relational SQL framework. "
-        "By combining descriptive statistics, non-parametric contingency testing (Chi-Square and Cramér's V), parametric variance testing (Welch's t-test), and relational SQLite querying, "
+        "By combining descriptive statistics, non-parametric contingency testing (Chi-Square and Cramer's V), parametric variance testing (Welch's t-test), and relational SQLite querying, "
         "this investigation provides verifiable, explainable insights that directly empower executive intervention. "
         "Every identified vulnerability is mapped directly to an operational remedy and quantified in financial revenue terms.",
         styles["AcadBody"]
@@ -896,7 +896,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "Crucially, cross-referencing these 11 records against customer tenure revealed an operational pattern:<br/><br/>"
         "&nbsp;&nbsp;&nbsp;&nbsp;<b>All 11 whitespace records possessed a subscription tenure of exactly 0 months (tenure == 0).</b><br/><br/>"
         "This empirical finding confirms that these accounts represent brand-new subscribers who enrolled during the current billing cycle and have not yet completed their first monthly billing milestone. "
-        "Rather than improperly imputing these records using global mean or median values—which would artificially distort financial calculations—the cleaning pipeline "
+        "Rather than improperly imputing these records using global mean or median values - which would artificially distort financial calculations - the cleaning pipeline "
         "coerced <code>TotalCharges</code> to <code>float64</code> and systematically assigned a value of <b>$0.00</b> to accounts with zero tenure. "
         "This preserved mathematical integrity and avoided discarding valid newly onboarded accounts.",
         styles["AcadBody"]
@@ -1002,7 +1002,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "Exploratory data analysis commenced with univariate inspection of the primary target variable <code>Churn</code> and core financial driver <code>MonthlyCharges</code>. "
         "Across the complete customer base of 7,043 accounts, exactly 1,869 customers defected, representing an overall customer churn rate of <b>26.54%</b>, "
         "while 5,174 accounts (73.46%) were successfully retained. In monthly recurring revenue terms, defecting customers accounted for <b>$139,130.85</b> "
-        "out of the total enterprise monthly recurring revenue of $456,116.60—representing a 30.50% revenue exposure loss.",
+        "out of the total enterprise monthly recurring revenue of $456,116.60 - representing a 30.50% revenue exposure loss.",
         styles["AcadBodyTight"]
     ))
     story.append(Spacer(1, 2))
@@ -1018,7 +1018,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Paragraph(
         "Bivariate analysis isolating customer defection across contract agreement terms reveals that contractual commitment is the single strongest structural determinant of retention. "
         "Subscribers on <b>Month-to-month contracts suffer a catastrophic 42.71% churn rate</b> (1,655 defectors out of 3,875 accounts). In stark contrast, subscribers enrolled in "
-        "One-year contracts exhibit an 11.27% churn rate, while Two-year contracts demonstrate an exceptional <b>2.83% churn rate</b>—a fifteen-fold stability improvement. "
+        "One-year contracts exhibit an 11.27% churn rate, while Two-year contracts demonstrate an exceptional <b>2.83% churn rate</b> - a fifteen-fold stability improvement. "
         "Furthermore, Month-to-month contracts generate <b>88.55% of all enterprise customer defection volume</b>.",
         styles["AcadBodyTight"]
     ))
@@ -1036,7 +1036,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "Evaluating customer defection across broadband delivery architectures reveals a counter-intuitive finding: premium <b>Fiber optic subscribers experience an alarming 41.89% churn rate</b>, "
         "compared to 18.96% for DSL broadband and 7.40% for accounts with No internet service. Cross-tabulating service configurations reveals that Fiber optic plans carry higher monthly bills "
         "($91.50 average) and suffer severe churn when sold without protective value-added add-ons: accounts with <b>TechSupport</b> experience only a 15.16% churn rate, compared to <b>41.65%</b> "
-        "for accounts lacking technical support—a 2.7x retention protection multiplier.",
+        "for accounts lacking technical support - a 2.7x retention protection multiplier.",
         styles["AcadBodyTight"]
     ))
     story.append(Spacer(1, 2))
@@ -1087,9 +1087,9 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Paragraph(
         "To evaluate linear and monotonic dependencies among numerical features, Pearson and Spearman correlation matrices were computed across continuous dimensions. "
         "Key correlation findings include:<br/>"
-        "• <b>Tenure vs. Churn Binary:</b> Demonstrates a statistically significant negative correlation (<b>r = -0.352, p &lt; 0.0001</b>). As customer tenure advances, defection probability declines exponentially.<br/>"
-        "• <b>Monthly Charges vs. Churn Binary:</b> Displays a positive correlation (<b>r = +0.193, p &lt; 0.0001</b>), confirming that higher billing amounts exacerbate defection propensity.<br/>"
-        "• <b>Tenure vs. Total Charges:</b> Exhibits extremely strong positive collinearity (<b>r = +0.826, p &lt; 0.0001</b>), verifying that cumulative revenue is a direct function of subscriber longevity.",
+        "&bull; <b>Tenure vs. Churn Binary:</b> Demonstrates a statistically significant negative correlation (<b>r = -0.352, p &lt; 0.0001</b>). As customer tenure advances, defection probability declines exponentially.<br/>"
+        "&bull; <b>Monthly Charges vs. Churn Binary:</b> Displays a positive correlation (<b>r = +0.193, p &lt; 0.0001</b>), confirming that higher billing amounts exacerbate defection propensity.<br/>"
+        "&bull; <b>Tenure vs. Total Charges:</b> Exhibits extremely strong positive collinearity (<b>r = +0.826, p &lt; 0.0001</b>), verifying that cumulative revenue is a direct function of subscriber longevity.",
         styles["AcadBodyTight"]
     ))
     story.append(Spacer(1, 2))
@@ -1143,11 +1143,11 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     # ==========================================================================
     # PAGE 24 (16): CHAPTER 5: INFERENTIAL STATISTICAL INSIGHTS (Section 5.2)
     # ==========================================================================
-    story.append(Paragraph("<b>5.2 Chi-Square (Chi^2) Tests of Independence &amp; Cramér's V</b>", styles["AcadSubHead"]))
+    story.append(Paragraph("<b>5.2 Chi-Square (Chi^2) Tests of Independence &amp; Cramer's V</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "To test whether categorical attributes share a statistically significant dependency with customer churn, Pearson's Chi-Square (Chi^2) tests of independence were conducted across all categorical dimensions. "
         "The null hypothesis (H0) states that customer defection is independent of the evaluated categorical feature. Because sample size is large (N = 7,043), p-values approach zero; therefore, "
-        "Cramér's V effect size coefficients were calculated to quantify the substantive strength of association. Table 5.2 reports the statistical findings:",
+        "Cramer's V effect size coefficients were calculated to quantify the substantive strength of association. Table 5.2 reports the statistical findings:",
         styles["AcadBodyTight"]
     ))
     story.append(Spacer(1, 3))
@@ -1157,7 +1157,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
          Paragraph("<b>Chi-Square (Chi^2)</b>", styles["AcadTableHead"]),
          Paragraph("<b>d.f.</b>", styles["AcadTableHead"]),
          Paragraph("<b>p-value</b>", styles["AcadTableHead"]),
-         Paragraph("<b>Cramér's V</b>", styles["AcadTableHead"]),
+         Paragraph("<b>Cramer's V</b>", styles["AcadTableHead"]),
          Paragraph("<b>Association Strength</b>", styles["AcadTableHead"])],
         [Paragraph("<code>Contract</code>", styles["AcadTableCell"]), Paragraph("1184.60", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 0.0001", styles["AcadTableCellCenter"]), Paragraph("0.410", styles["AcadTableCellCenter"]), Paragraph("Very Strong", styles["AcadTableCellCenter"])],
         [Paragraph("<code>OnlineSecurity</code>", styles["AcadTableCell"]), Paragraph("849.99", styles["AcadTableCellCenter"]), Paragraph("2", styles["AcadTableCellCenter"]), Paragraph("&lt; 0.0001", styles["AcadTableCellCenter"]), Paragraph("0.347", styles["AcadTableCellCenter"]), Paragraph("Moderate-Strong", styles["AcadTableCellCenter"])],
@@ -1182,13 +1182,13 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     ]))
     story.append(t_chi)
     story.append(Spacer(1, 3))
-    story.append(Paragraph("<b>Table 5.2:</b> Chi-Square (Chi^2) Tests of Independence &amp; Cramér's V Coefficients.", styles["AcadCaption"]))
+    story.append(Paragraph("<b>Table 5.2:</b> Chi-Square (Chi^2) Tests of Independence &amp; Cramer's V Coefficients.", styles["AcadCaption"]))
     story.append(Spacer(1, 3))
 
     story.append(Paragraph(
         "<b>Crucial Statistical Insights:</b><br/>"
-        "• <b>Contract is the Dominant Factor:</b> Contract exhibits the highest Cramér's V coefficient (0.410), confirming it is the single largest structural driver of customer retention.<br/>"
-        "• <b>Gender Invariance:</b> <code>gender</code> yielded Chi^2 = 0.48, p = 0.487 (p &gt; 0.05). We fail to reject the null hypothesis, mathematically proving that defection is completely gender-neutral.",
+        "&bull; <b>Contract is the Dominant Factor:</b> Contract exhibits the highest Cramer's V coefficient (0.410), confirming it is the single largest structural driver of customer retention.<br/>"
+        "&bull; <b>Gender Invariance:</b> <code>gender</code> yielded Chi^2 = 0.48, p = 0.487 (p &gt; 0.05). We fail to reject the null hypothesis, mathematically proving that defection is completely gender-neutral.",
         styles["AcadBodyTight"]
     ))
     story.append(PageBreak())
@@ -1232,7 +1232,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
 
     story.append(Paragraph(
         "<b>Key Statistical Conclusions:</b><br/>"
-        "1. <b>Tenure Disparity is Huge (Cohen's d = -0.87):</b> Retained accounts have an average tenure of 37.57 months versus 17.98 months for churners—a statistically significant gap of 19.59 months (p &lt; 0.0001).<br/>"
+        "1. <b>Tenure Disparity is Huge (Cohen's d = -0.87):</b> Retained accounts have an average tenure of 37.57 months versus 17.98 months for churners - a statistically significant gap of 19.59 months (p &lt; 0.0001).<br/>"
         "2. <b>Statistically Significant Price Premium:</b> Departing customers pay a statistically significant monthly premium of <b>+$13.17 per month</b> ($74.44 vs $61.27, t = -16.54, p &lt; 0.0001), indicating high price sensitivity without sufficient perceived value.",
         styles["AcadBodyTight"]
     ))
@@ -1410,7 +1410,7 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     story.append(Paragraph("<b>7.1 Lifecycle Tenure Cohorts &amp; Defection Decay Dynamics</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "To operationalize customer retention workflows, accounts were segmented into four distinct lifecycle tenure cohorts: "
-        "<b>0–12 Months (Onboarding / Infancy)</b>, <b>13–24 Months (Early Growth)</b>, <b>25–48 Months (Established)</b>, and <b>49–72 Months (Mature / Loyal)</b>. "
+        "<b>0-12 Months (Onboarding / Infancy)</b>, <b>13-24 Months (Early Growth)</b>, <b>25-48 Months (Established)</b>, and <b>49-72 Months (Mature / Loyal)</b>. "
         "Evaluating defection rates across cohorts reveals an exponential retention decay curve:",
         styles["AcadBodyTight"]
     ))
@@ -1420,9 +1420,9 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     story.append(Spacer(1, 3))
 
     story.append(Paragraph(
-        "• <b>The Critical Onboarding Cliff (0–12 Months):</b> Subscribers in their first year experience an alarming <b>47.44% churn rate</b>. "
+        "&bull; <b>The Critical Onboarding Cliff (0-12 Months):</b> Subscribers in their first year experience an alarming <b>47.44% churn rate</b>. "
         "Nearly half of all new customers defect within 365 days, generating 1,037 defectors (55.48% of all churn volume).<br/>"
-        "• <b>The Loyalty Plateau (49–72 Months):</b> Once subscribers reach four years of tenure, churn drops to <b>9.51%</b>. "
+        "&bull; <b>The Loyalty Plateau (49-72 Months):</b> Once subscribers reach four years of tenure, churn drops to <b>9.51%</b>. "
         "These empirical findings confirm that retention capital must be disproportionately allocated to the first 90 to 180 days.",
         styles["AcadBodyTight"]
     ))
@@ -1433,7 +1433,7 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     # ==========================================================================
     story.append(Paragraph("<b>7.2 Two-Dimensional Tenure vs. Monthly Spend Vulnerability Matrix</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
-        "Cross-tabulating customer lifecycle cohorts against monthly billing spend tiers (Low: &lt; $35/mo, Medium: $35–$70/mo, High: &gt; $70/mo) "
+        "Cross-tabulating customer lifecycle cohorts against monthly billing spend tiers (Low: &lt; $35/mo, Medium: $35-$70/mo, High: &gt; $70/mo) "
         "yields a twelve-cell analytical segmentation matrix. Table 7.1 reports the empirical churn percentage for each cohort intersection:",
         styles["AcadBodyTight"]
     ))
@@ -1442,13 +1442,13 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     matrix_data = [
         [Paragraph("<b>Lifecycle Tenure Cohort</b>", styles["AcadTableHead"]),
          Paragraph("<b>Low Spend (&lt; $35/mo)</b>", styles["AcadTableHead"]),
-         Paragraph("<b>Medium Spend ($35–$70/mo)</b>", styles["AcadTableHead"]),
+         Paragraph("<b>Medium Spend ($35-$70/mo)</b>", styles["AcadTableHead"]),
          Paragraph("<b>High Spend (&gt; $70/mo)</b>", styles["AcadTableHead"]),
          Paragraph("<b>Cohort Weighted Churn</b>", styles["AcadTableHead"])],
-        [Paragraph("<b>0–12 Months (Onboarding)</b>", styles["AcadTableCell"]), Paragraph("29.40%", styles["AcadTableCellCenter"]), Paragraph("48.60%", styles["AcadTableCellCenter"]), Paragraph("<b>62.80% (Extreme)</b>", styles["AcadTableCellCenter"]), Paragraph("<b>47.44%</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<b>13–24 Months (Growth)</b>", styles["AcadTableCell"]), Paragraph("18.20%", styles["AcadTableCellCenter"]), Paragraph("28.40%", styles["AcadTableCellCenter"]), Paragraph("38.50%", styles["AcadTableCellCenter"]), Paragraph("28.70%"), styles["AcadTableCellCenter"]],
-        [Paragraph("<b>25–48 Months (Established)</b>", styles["AcadTableCell"]), Paragraph("10.50%", styles["AcadTableCellCenter"]), Paragraph("16.80%", styles["AcadTableCellCenter"]), Paragraph("24.10%", styles["AcadTableCellCenter"]), Paragraph("18.40%"), styles["AcadTableCellCenter"]],
-        [Paragraph("<b>49–72 Months (Mature)</b>", styles["AcadTableCell"]), Paragraph("3.80%", styles["AcadTableCellCenter"]), Paragraph("7.20%", styles["AcadTableCellCenter"]), Paragraph("12.60%", styles["AcadTableCellCenter"]), Paragraph("<b>9.51%</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>0-12 Months (Onboarding)</b>", styles["AcadTableCell"]), Paragraph("29.40%", styles["AcadTableCellCenter"]), Paragraph("48.60%", styles["AcadTableCellCenter"]), Paragraph("<b>62.80% (Extreme)</b>", styles["AcadTableCellCenter"]), Paragraph("<b>47.44%</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>13-24 Months (Growth)</b>", styles["AcadTableCell"]), Paragraph("18.20%", styles["AcadTableCellCenter"]), Paragraph("28.40%", styles["AcadTableCellCenter"]), Paragraph("38.50%", styles["AcadTableCellCenter"]), Paragraph("28.70%"), styles["AcadTableCellCenter"]],
+        [Paragraph("<b>25-48 Months (Established)</b>", styles["AcadTableCell"]), Paragraph("10.50%", styles["AcadTableCellCenter"]), Paragraph("16.80%", styles["AcadTableCellCenter"]), Paragraph("24.10%", styles["AcadTableCellCenter"]), Paragraph("18.40%"), styles["AcadTableCellCenter"]],
+        [Paragraph("<b>49-72 Months (Mature)</b>", styles["AcadTableCell"]), Paragraph("3.80%", styles["AcadTableCellCenter"]), Paragraph("7.20%", styles["AcadTableCellCenter"]), Paragraph("12.60%", styles["AcadTableCellCenter"]), Paragraph("<b>9.51%</b>", styles["AcadTableCellCenter"])],
         [Paragraph("<b>Overall Spend Churn</b>", styles["AcadTableHead"]), Paragraph("<b>10.90%</b>", styles["AcadTableHead"]), Paragraph("<b>24.80%</b>", styles["AcadTableHead"]), Paragraph("<b>34.50%</b>", styles["AcadTableHead"]), Paragraph("<b>26.54%</b>", styles["AcadTableHead"])]
     ]
     t_mat = Table(matrix_data, colWidths=[120, 75, 75, 75, 75])
@@ -1466,8 +1466,8 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
 
     story.append(Paragraph(
         "<b>Strategic Matrix Diagnosis:</b><br/>"
-        "• <b>The Acute Crisis Cell:</b> High-spend customers (&gt; $70/mo) in their first year suffer a devastating <b>62.80% churn rate</b>.<br/>"
-        "• <b>Spend Gradient Impact:</b> Across every single tenure tier, churn increases monotonically as monthly spend escalates. "
+        "&bull; <b>The Acute Crisis Cell:</b> High-spend customers (&gt; $70/mo) in their first year suffer a devastating <b>62.80% churn rate</b>.<br/>"
+        "&bull; <b>Spend Gradient Impact:</b> Across every single tenure tier, churn increases monotonically as monthly spend escalates. "
         "Subscribers paying premium rates without receiving active support perceive poor cost-to-value, triggering prompt switching.",
         styles["AcadBodyTight"]
     ))
@@ -1482,10 +1482,10 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
         "This high-vulnerability segment is defined by the intersection of three specific operational risk attributes:<br/><br/>"
         "&nbsp;&nbsp;&nbsp;&nbsp;<b>Danger Zone = (Contract == 'Month-to-month') AND (InternetService == 'Fiber optic') AND (PaymentMethod == 'Electronic check')</b><br/><br/>"
         "Executing SQL Query 9 isolates this segment and reveals extraordinary defection concentration:<br/>"
-        "• <b>Total Account Population:</b> Exactly <b>1,029 accounts</b> (14.61% of total enterprise customers).<br/>"
-        "• <b>Defected Accounts:</b> <b>562 customers churned</b> out of 1,029 accounts.<br/>"
-        "• <b>Danger Zone Churn Rate:</b> <b>54.62%</b>—more than double the baseline corporate average of 26.54%.<br/>"
-        "• <b>Revenue Exposure:</b> Accounts in this danger zone contribute <b>$90,320.00 in Monthly Recurring Revenue</b>, representing an annualized revenue exposure of <b>$1,083,840.00</b>.<br/><br/>"
+        "&bull; <b>Total Account Population:</b> Exactly <b>1,029 accounts</b> (14.61% of total enterprise customers).<br/>"
+        "&bull; <b>Defected Accounts:</b> <b>562 customers churned</b> out of 1,029 accounts.<br/>"
+        "&bull; <b>Danger Zone Churn Rate:</b> <b>54.62%</b> - more than double the baseline corporate average of 26.54%.<br/>"
+        "&bull; <b>Revenue Exposure:</b> Accounts in this danger zone contribute <b>$90,320.00 in Monthly Recurring Revenue</b>, representing an annualized revenue exposure of <b>$1,083,840.00</b>.<br/><br/>"
         "Because this segment is clearly defined and accessible via database queries, enterprise retention teams can launch targeted, surgical retention interventions "
         "without diluting marketing budgets across non-vulnerable customer cohorts.",
         styles["AcadBody"]
@@ -1553,13 +1553,13 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     story.append(Paragraph(
         "To achieve consumer-grade visual polish conforming to modern cloud SaaS enterprise design standards, the user interface rejects default Streamlit styling "
         "in favor of a custom-engineered CSS architecture injected directly via <code>st.markdown(unsafe_allow_html=True)</code>:<br/><br/>"
-        "• <b>Deep Space Navy Color Palette:</b> The canvas background is locked to <code>#090D16</code>, with elevated container cards rendered in <code>#0E1424</code> "
+        "&bull; <b>Deep Space Navy Color Palette:</b> The canvas background is locked to <code>#090D16</code>, with elevated container cards rendered in <code>#0E1424</code> "
         "and bordered by crisp 1px strokes of <code>#1E293B</code>. This high-contrast dark theme reduces visual fatigue during extended executive review.<br/><br/>"
-        "• <b>Custom Navigation Pills:</b> Streamlit's native radio inputs are restyled into modern glowing pills. Default circular radio dots are hidden via "
+        "&bull; <b>Custom Navigation Pills:</b> Streamlit's native radio inputs are restyled into modern glowing pills. Default circular radio dots are hidden via "
         "CSS (<code>display: none !important;</code>), and active pages are highlighted with luminous cyan borders (<code>#0284C7</code>) and soft radial box-shadows.<br/><br/>"
-        "• <b>Popover Control Drawers:</b> To preserve prime dashboard screen space, the 5 cohort dropdowns and the CSV file uploader are housed inside compact "
+        "&bull; <b>Popover Control Drawers:</b> To preserve prime dashboard screen space, the 5 cohort dropdowns and the CSV file uploader are housed inside compact "
         "popover containers (<code>st.popover('Filters')</code> and <code>st.popover('Upload CSV')</code>). This eliminates layout clutter and guarantees zero header collision.<br/><br/>"
-        "• <b>Interactive SVG Telemetry:</b> Core metrics are coupled with bespoke Plotly visualizations utilizing custom SVG gauge indicators, center-donut KPI callouts, "
+        "&bull; <b>Interactive SVG Telemetry:</b> Core metrics are coupled with bespoke Plotly visualizations utilizing custom SVG gauge indicators, center-donut KPI callouts, "
         "and hovertool crosshairs formatted with currency symbols and percentage labels.",
         styles["AcadBody"]
     ))
@@ -1576,9 +1576,9 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     story.append(Paragraph(
         "Empirical findings confirm that Month-to-month contracts generate <b>88.55% of all customer defection volume</b>. "
         "The single most impactful strategic intervention is a targeted term migration campaign:<br/>"
-        "• <b>The Incentive Architecture:</b> Rather than passive renewal, offer Month-to-month subscribers a 'Lock-and-Save' promotion: "
+        "&bull; <b>The Incentive Architecture:</b> Rather than passive renewal, offer Month-to-month subscribers a 'Lock-and-Save' promotion: "
         "transition to a 12-month agreement in exchange for a 10% monthly discount or a free high-speed bandwidth tier upgrade.<br/>"
-        "• <b>Economic Justification:</b> Even with a 10% discount ($6.50/month reduction), transitioning an account from Month-to-month (42.71% churn) "
+        "&bull; <b>Economic Justification:</b> Even with a 10% discount ($6.50/month reduction), transitioning an account from Month-to-month (42.71% churn) "
         "to a One-year contract (11.27% churn) reduces annualized defection probability by nearly four-fold, preserving thousands in lifetime recurring revenue.",
         styles["AcadBodyTight"]
     ))
@@ -1588,9 +1588,9 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     story.append(Paragraph(
         "Electronic Check settlement drives an alarming <b>45.29% churn rate</b>, accounting for 1,071 lost customers. "
         "Paying manually by electronic check forces subscribers to actively evaluate their bills each month, transforming billing into an active friction event:<br/>"
-        "• <b>Operational Remedy:</b> Implement a corporate 'Zero-Friction Auto-Pay' initiative. Offer a recurring $5.00 monthly bill credit "
+        "&bull; <b>Operational Remedy:</b> Implement a corporate 'Zero-Friction Auto-Pay' initiative. Offer a recurring $5.00 monthly bill credit "
         "or a one-time $25.00 statement credit for accounts that enroll in automated Credit Card or Bank Transfer settlement.<br/>"
-        "• <b>Expected Impact:</b> Migrating accounts to automated billing aligns them with the Credit Card cohort, which enjoys a stellar 15.24% churn rate.",
+        "&bull; <b>Expected Impact:</b> Migrating accounts to automated billing aligns them with the Credit Card cohort, which enjoys a stellar 15.24% churn rate.",
         styles["AcadBodyTight"]
     ))
     story.append(PageBreak())
@@ -1601,10 +1601,10 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     story.append(Paragraph("<b>9.3 Strategic Pillar 3: The First 90 Days Customer Care Journey</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
         "With <b>55.48% of all churn concentrated in the first twelve months</b>, customer onboarding represents the decisive battleground for customer retention:<br/>"
-        "• <b>Day 7 Courtesy Health-Check:</b> Deploy automated, multi-channel messaging (SMS / WhatsApp) to confirm equipment operation and verify installation satisfaction.<br/>"
-        "• <b>Day 30 First-Bill Orientation:</b> Dispatch an annotated digital billing guide explaining initial one-time connection fees, pro-rated charges, "
+        "&bull; <b>Day 7 Courtesy Health-Check:</b> Deploy automated, multi-channel messaging (SMS / WhatsApp) to confirm equipment operation and verify installation satisfaction.<br/>"
+        "&bull; <b>Day 30 First-Bill Orientation:</b> Dispatch an annotated digital billing guide explaining initial one-time connection fees, pro-rated charges, "
         "and recurring fees, preempting the severe 'bill shock' that frequently triggers early cancellations.<br/>"
-        "• <b>Day 60 Proactive NPS Pulse Survey:</b> Identify dissatisfied or neutral subscribers before they contact competing operators, routing negative sentiment accounts to VIP care teams.",
+        "&bull; <b>Day 60 Proactive NPS Pulse Survey:</b> Identify dissatisfied or neutral subscribers before they contact competing operators, routing negative sentiment accounts to VIP care teams.",
         styles["AcadBodyTight"]
     ))
     story.append(Spacer(1, 4))
@@ -1613,7 +1613,7 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
     story.append(Paragraph(
         "Fiber optic broadband represents the operator's fastest-growing but highest-churn product (41.89% churn). "
         "However, empirical data demonstrates that accounts equipped with <b>TechSupport</b> experience only a <b>15.16% churn rate</b>:<br/>"
-        "• <b>Restructure Service Packaging:</b> Re-engineer product catalog tiers to bundle <code>TechSupport</code> and <code>OnlineSecurity</code> directly into standard Fiber optic packages, "
+        "&bull; <b>Restructure Service Packaging:</b> Re-engineer product catalog tiers to bundle <code>TechSupport</code> and <code>OnlineSecurity</code> directly into standard Fiber optic packages, "
         "eliminating optional standalone fees. Positioning technical assistance as an inclusive brand feature removes friction, elevates customer satisfaction, and builds an insurmountable competitive switching moat.",
         styles["AcadBodyTight"]
     ))
@@ -1670,9 +1670,9 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
 
     roadmap_data = [
         [Paragraph("<b>Execution Phase</b>", styles["AcadTableHead"]), Paragraph("<b>Target Workstream</b>", styles["AcadTableHead"]), Paragraph("<b>Operational Initiatives &amp; Deliverables</b>", styles["AcadTableHead"]), Paragraph("<b>Responsible Owner</b>", styles["AcadTableHead"]), Paragraph("<b>Success Milestone</b>", styles["AcadTableHead"])],
-        [Paragraph("<b>Phase 1<br/>Days 1–30</b>", styles["AcadTableCellCenter"]), Paragraph("Danger Zone Quarantine", styles["AcadTableCell"]), Paragraph("Query database for 1,029 accounts in Danger Zone; deploy VIP customer service outreach.", styles["AcadTableCell"]), Paragraph("VP of Customer Operations", styles["AcadTableCell"]), Paragraph("Contact 100% of high-risk cohort; resolve 80% grievances.", styles["AcadTableCell"])],
-        [Paragraph("<b>Phase 2<br/>Days 31–60</b>", styles["AcadTableCellCenter"]), Paragraph("Billing Friction Elimination", styles["AcadTableCell"]), Paragraph("Launch $5/month Auto-Pay statement credit; redesign digital invoices for clarity.", styles["AcadTableCell"]), Paragraph("Billing &amp; Finance Director", styles["AcadTableCell"]), Paragraph("Migrate 40% of electronic check accounts to auto-pay.", styles["AcadTableCell"])],
-        [Paragraph("<b>Phase 3<br/>Days 61–90</b>", styles["AcadTableCellCenter"]), Paragraph("Service Bundling &amp; Onboarding", styles["AcadTableCell"]), Paragraph("Roll out complimentary TechSupport bundle for Fiber optic; launch 90-day care journey.", styles["AcadTableCell"]), Paragraph("Chief Product Officer", styles["AcadTableCell"]), Paragraph("Achieve 3.5% enterprise churn reduction; preserve $268k ARR.", styles["AcadTableCell"])]
+        [Paragraph("<b>Phase 1<br/>Days 1-30</b>", styles["AcadTableCellCenter"]), Paragraph("Danger Zone Quarantine", styles["AcadTableCell"]), Paragraph("Query database for 1,029 accounts in Danger Zone; deploy VIP customer service outreach.", styles["AcadTableCell"]), Paragraph("VP of Customer Operations", styles["AcadTableCell"]), Paragraph("Contact 100% of high-risk cohort; resolve 80% grievances.", styles["AcadTableCell"])],
+        [Paragraph("<b>Phase 2<br/>Days 31-60</b>", styles["AcadTableCellCenter"]), Paragraph("Billing Friction Elimination", styles["AcadTableCell"]), Paragraph("Launch $5/month Auto-Pay statement credit; redesign digital invoices for clarity.", styles["AcadTableCell"]), Paragraph("Billing &amp; Finance Director", styles["AcadTableCell"]), Paragraph("Migrate 40% of electronic check accounts to auto-pay.", styles["AcadTableCell"])],
+        [Paragraph("<b>Phase 3<br/>Days 61-90</b>", styles["AcadTableCellCenter"]), Paragraph("Service Bundling &amp; Onboarding", styles["AcadTableCell"]), Paragraph("Roll out complimentary TechSupport bundle for Fiber optic; launch 90-day care journey.", styles["AcadTableCell"]), Paragraph("Chief Product Officer", styles["AcadTableCell"]), Paragraph("Achieve 3.5% enterprise churn reduction; preserve $268k ARR.", styles["AcadTableCell"])]
     ]
     t_road = Table(roadmap_data, colWidths=[60, 85, 145, 65, 65])
     t_road.setStyle(TableStyle([
@@ -1706,8 +1706,8 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;
         "This research project designed, developed, and deployed an enterprise-grade Customer Churn Analysis and Business Intelligence Dashboard "
         "anchored strictly in transparent Data Science, inferential statistical hypothesis testing, and relational SQL database engineering. "
         "Key empirical findings include:<br/>"
-        "1. <b>Contract Horizon is Determinant #1:</b> Month-to-month contracts suffer a 42.71% churn rate, contributing 88.55% of all defection volume. Two-year agreements cut churn to 2.83% (Cramér's V = 0.410, p &lt; 0.0001).<br/>"
-        "2. <b>Payment Friction Exacerbates Attrition:</b> Electronic Check settlement generates an alarming 45.29% churn rate—2.5x higher than automated credit card settlement (15.24%).<br/>"
+        "1. <b>Contract Horizon is Determinant #1:</b> Month-to-month contracts suffer a 42.71% churn rate, contributing 88.55% of all defection volume. Two-year agreements cut churn to 2.83% (Cramer's V = 0.410, p &lt; 0.0001).<br/>"
+        "2. <b>Payment Friction Exacerbates Attrition:</b> Electronic Check settlement generates an alarming 45.29% churn rate - 2.5x higher than automated credit card settlement (15.24%).<br/>"
         "3. <b>Tech Support Protects Fiber Optic Accounts:</b> While standalone Fiber optic accounts defect at 49.37%, bundling Tech Support cuts churn to 15.16% (a 70% reduction).<br/>"
         "4. <b>Front-Loaded Onboarding Vulnerability:</b> Defection is heavily concentrated in the first 12 months (47.44% churn rate, mean tenure of 17.98 months for churners vs 37.57 months for retained).",
         styles["AcadBody"]
@@ -1839,9 +1839,9 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     ))
     story.append(Spacer(1, 3))
 
-    story.append(Paragraph("<b>2. Cramér's V Effect Size Coefficient</b>", styles["AcadSubHead"]))
+    story.append(Paragraph("<b>2. Cramer's V Effect Size Coefficient</b>", styles["AcadSubHead"]))
     story.append(Paragraph(
-        "Because large samples (N = 7,043) inflate Chi-Square statistics, Cramér's V scales Chi^2 to bounded interval [0, 1]:<br/>"
+        "Because large samples (N = 7,043) inflate Chi-Square statistics, Cramer's V scales Chi^2 to bounded interval [0, 1]:<br/>"
         "&nbsp;&nbsp;&nbsp;&nbsp;<b>V = sqrt( Chi^2 / ( N * min(r - 1, c - 1) ) )</b><br/>"
         "Interpretation: V &lt; 0.10: Negligible; 0.10 &lt;= V &lt; 0.20: Weak; 0.20 &lt;= V &lt; 0.35: Moderate; V &gt;= 0.35: Strong association.",
         styles["AcadMathBody"]
@@ -1852,7 +1852,7 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     story.append(Paragraph(
         "Welch's t-test evaluates whether two independent groups with unequal variances possess significantly different means:<br/>"
         "&nbsp;&nbsp;&nbsp;&nbsp;<b>t = ( x_bar_1 - x_bar_2 ) / sqrt( (s1^2 / N1) + (s2^2 / N2) )</b><br/>"
-        "The degrees of freedom (df) are approximated via the Welch–Satterthwaite equation:<br/>"
+        "The degrees of freedom (df) are approximated via the Welch-Satterthwaite equation:<br/>"
         "&nbsp;&nbsp;&nbsp;&nbsp;<b>df = [ (s1^2/N1 + s2^2/N2)^2 ] / [ (s1^2/N1)^2/(N1 - 1) + (s2^2/N2)^2/(N2 - 1) ]</b>.",
         styles["AcadMathBody"]
     ))
@@ -1929,12 +1929,12 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     story.append(Spacer(1, 3))
 
     slides_1_6 = [
-        [Paragraph("<b>Slide 1: Title Slide</b><br/>• Customer Churn Analysis &amp; BI Dashboard<br/>• G Mythili, K Ashiwith, D Niyati<br/>• Guide: Mr. Syed. Mazharuddin • SNIST CSE-DS", styles["AcadTableCell"]),
-         Paragraph("<b>Slide 2: Problem Statement</b><br/>• High Telecom Churn: 26.54% attrition rate<br/>• $139k Monthly Recurring Revenue lost<br/>• Failure of heuristic rules &amp; black-box ML", styles["AcadTableCell"])],
-        [Paragraph("<b>Slide 3: Motivation &amp; Objectives</b><br/>• Retaining accounts is 5–7x cheaper than acquisition<br/>• Build an interpretable, transparent SQL BI stack<br/>• Deliver actionable executive retention pillars", styles["AcadTableCell"]),
-         Paragraph("<b>Slide 4: Literature Survey Summary</b><br/>• Review of static rules vs ML classifiers<br/>• Identified lack of causal transparency in ML<br/>• Justification for pure Data Science &amp; SQL", styles["AcadTableCell"])],
-        [Paragraph("<b>Slide 5: Research Gap &amp; Scope</b><br/>• Existing models neglect billing channel friction<br/>• Failure to link churn predictions to ROI dollars<br/>• Absence of production executive dashboards", styles["AcadTableCell"]),
-         Paragraph("<b>Slide 6: Proposed System</b><br/>• 4-tier architecture: Ingest -> SQLite -> Stats -> UI<br/>• 28 cleaned &amp; engineered attributes<br/>• Chi-Square &amp; Welch's T-Test hypothesis testing", styles["AcadTableCell"])]
+        [Paragraph("<b>Slide 1: Title Slide</b><br/>&bull; Customer Churn Analysis &amp; BI Dashboard<br/>&bull; G Mythili, K Ashiwith, D Niyati<br/>&bull; Guide: Mr. Syed. Mazharuddin &bull; SNIST CSE-DS", styles["AcadTableCell"]),
+         Paragraph("<b>Slide 2: Problem Statement</b><br/>&bull; High Telecom Churn: 26.54% attrition rate<br/>&bull; $139k Monthly Recurring Revenue lost<br/>&bull; Failure of heuristic rules &amp; black-box ML", styles["AcadTableCell"])],
+        [Paragraph("<b>Slide 3: Motivation &amp; Objectives</b><br/>&bull; Retaining accounts is 5-7x cheaper than acquisition<br/>&bull; Build an interpretable, transparent SQL BI stack<br/>&bull; Deliver actionable executive retention pillars", styles["AcadTableCell"]),
+         Paragraph("<b>Slide 4: Literature Survey Summary</b><br/>&bull; Review of static rules vs ML classifiers<br/>&bull; Identified lack of causal transparency in ML<br/>&bull; Justification for pure Data Science &amp; SQL", styles["AcadTableCell"])],
+        [Paragraph("<b>Slide 5: Research Gap &amp; Scope</b><br/>&bull; Existing models neglect billing channel friction<br/>&bull; Failure to link churn predictions to ROI dollars<br/>&bull; Absence of production executive dashboards", styles["AcadTableCell"]),
+         Paragraph("<b>Slide 6: Proposed System</b><br/>&bull; 4-tier architecture: Ingest -> SQLite -> Stats -> UI<br/>&bull; 28 cleaned &amp; engineered attributes<br/>&bull; Chi-Square &amp; Welch's T-Test hypothesis testing", styles["AcadTableCell"])]
     ]
     t_sl1 = Table(slides_1_6, colWidths=[205, 210])
     t_sl1.setStyle(TableStyle([
@@ -1961,12 +1961,12 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     story.append(Spacer(1, 3))
 
     slides_7_12 = [
-        [Paragraph("<b>Slide 7: System Architecture</b><br/>• End-to-end data flow diagram<br/>• SQLite with B-tree indexing for instant queries<br/>• Streamlit reactive state &amp; caching pipeline", styles["AcadTableCell"]),
-         Paragraph("<b>Slide 8: Methodology &amp; Engineering</b><br/>• Whitespace imputation for TotalCharges (tenure=0)<br/>• 1.5xIQR boundary outlier validation<br/>• Parametric &amp; non-parametric statistical inference", styles["AcadTableCell"])],
-        [Paragraph("<b>Slide 9: Implementation Modules</b><br/>• <code>data_cleaning.py</code>, <code>sql_analysis.py</code><br/>• <code>descriptive_statistics.py</code>, <code>eda.py</code><br/>• <code>streamlit_app.py</code> with 9 interactive pages", styles["AcadTableCell"]),
-         Paragraph("<b>Slide 10: Results &amp; Analysis</b><br/>• Month-to-month contracts drive 88.5% of churn<br/>• Electronic check friction drives 45.3% churn<br/>• Tech Support cuts Fiber Optic churn by 70%", styles["AcadTableCell"])],
-        [Paragraph("<b>Slide 11: Conclusion &amp; Future Scope</b><br/>• 3% churn cut preserves $188k/yr recurring revenue<br/>• Future integration of real-time Kafka streams<br/>• Automated webhook SMS retention triggers", styles["AcadTableCell"]),
-         Paragraph("<b>Slide 12: Project Demo &amp; Queries</b><br/>• Live Streamlit BI Dashboard demonstration<br/>• Interactive SQL sandbox &amp; ROI simulation<br/>• Faculty Committee Q&amp;A session", styles["AcadTableCell"])]
+        [Paragraph("<b>Slide 7: System Architecture</b><br/>&bull; End-to-end data flow diagram<br/>&bull; SQLite with B-tree indexing for instant queries<br/>&bull; Streamlit reactive state &amp; caching pipeline", styles["AcadTableCell"]),
+         Paragraph("<b>Slide 8: Methodology &amp; Engineering</b><br/>&bull; Whitespace imputation for TotalCharges (tenure=0)<br/>&bull; 1.5xIQR boundary outlier validation<br/>&bull; Parametric &amp; non-parametric statistical inference", styles["AcadTableCell"])],
+        [Paragraph("<b>Slide 9: Implementation Modules</b><br/>&bull; <code>data_cleaning.py</code>, <code>sql_analysis.py</code><br/>&bull; <code>descriptive_statistics.py</code>, <code>eda.py</code><br/>&bull; <code>streamlit_app.py</code> with 9 interactive pages", styles["AcadTableCell"]),
+         Paragraph("<b>Slide 10: Results &amp; Analysis</b><br/>&bull; Month-to-month contracts drive 88.5% of churn<br/>&bull; Electronic check friction drives 45.3% churn<br/>&bull; Tech Support cuts Fiber Optic churn by 70%", styles["AcadTableCell"])],
+        [Paragraph("<b>Slide 11: Conclusion &amp; Future Scope</b><br/>&bull; 3% churn cut preserves $188k/yr recurring revenue<br/>&bull; Future integration of real-time Kafka streams<br/>&bull; Automated webhook SMS retention triggers", styles["AcadTableCell"]),
+         Paragraph("<b>Slide 12: Project Demo &amp; Queries</b><br/>&bull; Live Streamlit BI Dashboard demonstration<br/>&bull; Interactive SQL sandbox &amp; ROI simulation<br/>&bull; Faculty Committee Q&amp;A session", styles["AcadTableCell"])]
     ]
     t_sl2 = Table(slides_7_12, colWidths=[205, 210])
     t_sl2.setStyle(TableStyle([
@@ -1996,7 +1996,7 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     manifest_data = [
         [Paragraph("<b>Source File Path</b>", styles["AcadTableHead"]), Paragraph("<b>Core Module Class / Script</b>", styles["AcadTableHead"]), Paragraph("<b>Lines of Code</b>", styles["AcadTableHead"]), Paragraph("<b>Operational Responsibility &amp; Functions</b>", styles["AcadTableHead"])],
         [Paragraph("<code>src/data_cleaning.py</code>", styles["AcadTableCell"]), Paragraph("<code>TelcoDataCleaner</code>", styles["AcadTableCellCenter"]), Paragraph("265 lines", styles["AcadTableCellCenter"]), Paragraph("Schema auditing, whitespace type coercion, 1.5xIQR outlier fences, feature store enrichment, SQLite database loading.", styles["AcadTableCell"])],
-        [Paragraph("<code>src/descriptive_statistics.py</code>", styles["AcadTableCell"]), Paragraph("<code>TelcoStatsAnalyzer</code>", styles["AcadTableCellCenter"]), Paragraph("310 lines", styles["AcadTableCellCenter"]), Paragraph("Parametric mean/std/skewness/kurtosis, Pearson/Spearman correlations, Chi-Square independence, Cramér's V, Welch's t-test.", styles["AcadTableCell"])],
+        [Paragraph("<code>src/descriptive_statistics.py</code>", styles["AcadTableCell"]), Paragraph("<code>TelcoStatsAnalyzer</code>", styles["AcadTableCellCenter"]), Paragraph("310 lines", styles["AcadTableCellCenter"]), Paragraph("Parametric mean/std/skewness/kurtosis, Pearson/Spearman correlations, Chi-Square independence, Cramer's V, Welch's t-test.", styles["AcadTableCell"])],
         [Paragraph("<code>src/sql_analysis.py</code>", styles["AcadTableCell"]), Paragraph("<code>TelcoSQLAnalyzer</code>", styles["AcadTableCellCenter"]), Paragraph("340 lines", styles["AcadTableCellCenter"]), Paragraph("SQLite relational database engine, B-Tree indexes, execution of 10 business SQL queries, financial retention ROI calculator.", styles["AcadTableCell"])],
         [Paragraph("<code>src/eda.py</code>", styles["AcadTableCell"]), Paragraph("Plotly Visualization Engine", styles["AcadTableCellCenter"]), Paragraph("420 lines", styles["AcadTableCellCenter"]), Paragraph("Exact split-donut charts, contract MRR horizontal progress bars, tenure scatter plots, correlation heatmaps, static image exports.", styles["AcadTableCell"])],
         [Paragraph("<code>app/streamlit_app.py</code>", styles["AcadTableCell"]), Paragraph("Streamlit BI Dashboard", styles["AcadTableCellCenter"]), Paragraph("1,280 lines", styles["AcadTableCellCenter"]), Paragraph("Full 9-page reactive SaaS analytics interface, dark theme CSS injection, popover filters, live cohort telemetry.", styles["AcadTableCell"])],
@@ -2024,24 +2024,24 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     refs = [
         "<b>[1]</b> Berson, A., Smith, S., &amp; Thearling, K., <i>Building Data Mining Applications for CRM</i>, McGraw-Hill, New York, 2000.",
         "<b>[2]</b> Blattberg, R. C., Kim, B. D., &amp; Neslin, S. A., <i>Database Marketing: Analyzing and Managing Customers</i>, Springer Science &amp; Business Media, New York, 2008.",
-        "<b>[3]</b> Breiman, L., “Random Forests”, <i>Machine Learning Journal</i>, 45(1): 5–32, Oct. 2001.",
-        "<b>[4]</b> Chen, T., &amp; Guestrin, C., “XGBoost: A Scalable Tree Boosting System”, in <i>Proc. of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</i>, pp. 785–794, Aug. 2016.",
-        "<b>[5]</b> Dal Pozzolo, A., Caelen, O., Johnson, R. A., &amp; Bontempi, G., “Calibrating Probability with Undersampling for Unbalanced Classification”, <i>IEEE Symposium Series on Computational Intelligence</i>, pp. 159–166, Dec. 2015.",
-        "<b>[6]</b> Géron, A., <i>Hands-On Machine Learning with Scikit-Learn, Keras &amp; TensorFlow</i>, 2nd Edition, O'Reilly Media, Sebastopol, CA, 2019.",
-        "<b>[7]</b> IBM Corporation, “Telco Customer Churn Public Analytical Dataset”, Cognos Analytics Sample Data, 2018. Available: <i>https://www.kaggle.com/datasets/blastchar/telco-customer-churn</i>.",
-        "<b>[8]</b> K. M. Chandy and L. Lamport, “Distributed snapshots: Determining global states of distributed systems”, <i>ACM Transactions on Computer Systems</i>, 3(1): 63–75, Feb. 1985.",
+        "<b>[3]</b> Breiman, L., 'Random Forests', <i>Machine Learning Journal</i>, 45(1): 5-32, Oct. 2001.",
+        "<b>[4]</b> Chen, T., &amp; Guestrin, C., 'XGBoost: A Scalable Tree Boosting System', in <i>Proc. of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</i>, pp. 785-794, Aug. 2016.",
+        "<b>[5]</b> Dal Pozzolo, A., Caelen, O., Johnson, R. A., &amp; Bontempi, G., 'Calibrating Probability with Undersampling for Unbalanced Classification', <i>IEEE Symposium Series on Computational Intelligence</i>, pp. 159-166, Dec. 2015.",
+        "<b>[6]</b> Geron, A., <i>Hands-On Machine Learning with Scikit-Learn, Keras &amp; TensorFlow</i>, 2nd Edition, O'Reilly Media, Sebastopol, CA, 2019.",
+        "<b>[7]</b> IBM Corporation, 'Telco Customer Churn Public Analytical Dataset', Cognos Analytics Sample Data, 2018. Available: <i>https://www.kaggle.com/datasets/blastchar/telco-customer-churn</i>.",
+        "<b>[8]</b> K. M. Chandy and L. Lamport, 'Distributed snapshots: Determining global states of distributed systems', <i>ACM Transactions on Computer Systems</i>, 3(1): 63-75, Feb. 1985.",
         "<b>[9]</b> Lynch, A. B. (Ed.), <i>Technical Writing and Academic Documentation Guidelines</i>, Prentice Hall, London, 1972.",
         "<b>[10]</b> McKinney, W., <i>Python for Data Analysis: Data Wrangling with Pandas, NumPy, and Jupyter</i>, 3rd Edition, O'Reilly Media, 2022.",
-        "<b>[11]</b> Plotly Technologies Inc., “Collaborative Data Science and Interactive Visual Web Graphics”, Montréal, QC, 2024. Available: <i>https://plotly.com/python/</i>.",
-        "<b>[12]</b> Reinartz, W., &amp; Kumar, V., “The Impact of Customer Relationship Characteristics on Profitable Lifetime Duration”, <i>Journal of Marketing</i>, 67(1): 77–99, Jan. 2003.",
-        "<b>[13]</b> Rudin, C., “Stop Explaining Black Box Machine Learning Models for High Stakes Decisions and Use Interpretable Models Instead”, <i>Nature Machine Intelligence</i>, 1(5): 206–215, May 2019.",
+        "<b>[11]</b> Plotly Technologies Inc., 'Collaborative Data Science and Interactive Visual Web Graphics', Montreal, QC, 2024. Available: <i>https://plotly.com/python/</i>.",
+        "<b>[12]</b> Reinartz, W., &amp; Kumar, V., 'The Impact of Customer Relationship Characteristics on Profitable Lifetime Duration', <i>Journal of Marketing</i>, 67(1): 77-99, Jan. 2003.",
+        "<b>[13]</b> Rudin, C., 'Stop Explaining Black Box Machine Learning Models for High Stakes Decisions and Use Interpretable Models Instead', <i>Nature Machine Intelligence</i>, 1(5): 206-215, May 2019.",
         "<b>[14]</b> Sreenidhi Institute of Science and Technology (SNIST), <i>Guidelines for the Preparation and Presentation of Seminar and Project Reports for B.Tech Academic Programmes</i>, Department of Data Science (CSE-DS), Hyderabad, Oct. 2026.",
         "<b>[15]</b> Stallings, W., <i>Data and Computer Communications</i>, 5th Edition, Prentice Hall of India (PHI) Publication, New Delhi, 2003.",
-        "<b>[16]</b> Streamlit Inc., “Streamlit: The Fastest Way to Build and Share Data Apps”, Snowflake Inc., 2024. Available: <i>https://docs.streamlit.io/</i>.",
+        "<b>[16]</b> Streamlit Inc., 'Streamlit: The Fastest Way to Build and Share Data Apps', Snowflake Inc., 2024. Available: <i>https://docs.streamlit.io/</i>.",
         "<b>[17]</b> Tukey, J. W., <i>Exploratory Data Analysis</i>, Addison-Wesley Publishing Company, Reading, MA, 1977.",
-        "<b>[18]</b> Welch, B. L., “The Generalization of 'Student\'s' Problem when Several Different Population Variances are Involved”, <i>Biometrika</i>, 34(1/2): 28–35, Jan. 1947.",
-        "<b>[19]</b> Cramér, H., <i>Mathematical Methods of Statistics</i>, Princeton University Press, Princeton, NJ, 1946.",
-        "<b>[20]</b> SQLite Development Team, “SQLite In-Process Relational Database Architecture and B-Tree Implementation”, 2024. Available: <i>https://www.sqlite.org/arch.html</i>."
+        "<b>[18]</b> Welch, B. L., 'The Generalization of 'Student\'s' Problem when Several Different Population Variances are Involved', <i>Biometrika</i>, 34(1/2): 28-35, Jan. 1947.",
+        "<b>[19]</b> Cramer, H., <i>Mathematical Methods of Statistics</i>, Princeton University Press, Princeton, NJ, 1946.",
+        "<b>[20]</b> SQLite Development Team, 'SQLite In-Process Relational Database Architecture and B-Tree Implementation', 2024. Available: <i>https://www.sqlite.org/arch.html</i>."
     ]
 
     for ref in refs:

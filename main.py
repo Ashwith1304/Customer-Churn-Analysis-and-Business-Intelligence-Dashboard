@@ -1461,7 +1461,7 @@ elif "About Project" in selected_page or "Project Information" in selected_page:
         - **Institution:** Sreenidhi Institute of Science and Technology (Autonomous), Hyderabad
         - **Department:** Department of Data Science (CSE-DS)
         - **Academic Period:** III Year I Semester — November 2026
-        - **Project Coordinator:** Mr. P. V. K. Sandeep
+        - **Internship Coordinator:** Mr. Syed. Mazharuddin
         - **Head of Department:** Dr. Md. Jaffar Sadiq
         - **Dataset:** IBM Telco Customer Churn (7,043 Customer Records, 28 Analytical Attributes)
         

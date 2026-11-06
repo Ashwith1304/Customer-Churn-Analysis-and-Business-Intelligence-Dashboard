@@ -7,7 +7,7 @@ Team Members:
   - G Mythili (24311A67H8)
   - K Ashiwith (24311A67H6)
   - D Niyati (24311A67H7)
-Guide / Supervisor: Mr. P. V. K. Sandeep
+Internship Coordinator: Mr. Syed. Mazharuddin
 Head of Department: Dr. Md. Jaffar Sadiq
 Date: October / November 2026
 Format: Strictly following SNIST Guidelines (A4, Times New Roman, 1.5 line spacing, Justified, Double Border Lines, Exactly 48 Pages)
@@ -104,105 +104,110 @@ def get_academic_styles():
     dark_gray = colors.HexColor("#1E293B")
     body_color = colors.HexColor("#0F172A")
 
+    # Chapter / Main section heading: Bold, 14pt (SNIST Guideline)
     styles.add(ParagraphStyle(
         "AcadChapterHead",
         fontName="Times-Bold",
-        fontSize=13,
-        leading=17,
+        fontSize=14,
+        leading=19,
         alignment=TA_LEFT,
         textColor=navy,
-        spaceAfter=4
+        spaceAfter=5
     ))
 
     styles.add(ParagraphStyle(
         "AcadChapterHeadCenter",
         fontName="Times-Bold",
-        fontSize=13,
-        leading=17,
+        fontSize=14,
+        leading=19,
         alignment=TA_CENTER,
         textColor=navy,
-        spaceAfter=7
+        spaceAfter=8
     ))
 
+    # Sub section heading: Bold, 12pt (SNIST Guideline)
     styles.add(ParagraphStyle(
         "AcadSubHead",
         fontName="Times-Bold",
-        fontSize=10.5,
-        leading=14.5,
+        fontSize=11.5,
+        leading=15.5,
         alignment=TA_LEFT,
         textColor=dark_gray,
-        spaceBefore=3.5,
-        spaceAfter=2
+        spaceBefore=4,
+        spaceAfter=2.5
     ))
 
+    # Sub-sub section heading: Bold + italics, 11pt
     styles.add(ParagraphStyle(
         "AcadSubSubHead",
         fontName="Times-BoldItalic",
-        fontSize=10,
-        leading=13.5,
+        fontSize=11,
+        leading=14.5,
         alignment=TA_LEFT,
         textColor=dark_gray,
-        spaceBefore=2.5,
-        spaceAfter=1.5
+        spaceBefore=3,
+        spaceAfter=2
     ))
 
+    # Body text: Normal, 10.5pt, 1.5 line spacing (15pt leading), Justified (SNIST Guideline)
     styles.add(ParagraphStyle(
         "AcadBody",
         fontName="Times-Roman",
-        fontSize=10,
-        leading=14,
+        fontSize=10.5,
+        leading=15.0,
         alignment=TA_JUSTIFY,
         textColor=body_color,
-        spaceAfter=3.5
+        spaceAfter=4
     ))
 
     styles.add(ParagraphStyle(
         "AcadBodyTight",
         fontName="Times-Roman",
-        fontSize=9.5,
-        leading=13.2,
+        fontSize=10.0,
+        leading=14.0,
         alignment=TA_JUSTIFY,
         textColor=body_color,
-        spaceAfter=2.5
+        spaceAfter=3
     ))
 
     styles.add(ParagraphStyle(
         "AcadEmph",
         fontName="Times-Italic",
-        fontSize=10,
-        leading=14,
+        fontSize=10.5,
+        leading=15.0,
         alignment=TA_JUSTIFY,
         textColor=body_color,
-        spaceAfter=3.5
+        spaceAfter=4
     ))
 
+    # Figures and Table description: Normal, 9.5pt (SNIST Guideline: 10pt)
     styles.add(ParagraphStyle(
         "AcadCaption",
         fontName="Times-Roman",
-        fontSize=8.5,
-        leading=11.5,
+        fontSize=9.5,
+        leading=12.5,
         alignment=TA_CENTER,
         textColor=colors.HexColor("#334155"),
-        spaceBefore=2.5,
-        spaceAfter=3.5
+        spaceBefore=3,
+        spaceAfter=4
     ))
 
     styles.add(ParagraphStyle(
         "AcadBullet",
         fontName="Times-Roman",
-        fontSize=9.5,
-        leading=13.2,
+        fontSize=10.0,
+        leading=14.0,
         alignment=TA_JUSTIFY,
         textColor=body_color,
-        leftIndent=11,
-        spaceAfter=2
+        leftIndent=12,
+        spaceAfter=2.5
     ))
 
     styles.add(ParagraphStyle(
         "AcadCode",
         fontName="Courier",
-        fontSize=6.0,
-        leading=7.5,
+        fontSize=6.1,
+        leading=7.6,
         alignment=TA_LEFT,
         textColor=colors.HexColor("#0F172A")
     ))
@@ -210,8 +215,8 @@ def get_academic_styles():
     styles.add(ParagraphStyle(
         "AcadTableHead",
         fontName="Times-Bold",
-        fontSize=8,
-        leading=10.5,
+        fontSize=8.5,
+        leading=11.0,
         alignment=TA_CENTER,
         textColor=colors.white
     ))
@@ -219,8 +224,8 @@ def get_academic_styles():
     styles.add(ParagraphStyle(
         "AcadTableCell",
         fontName="Times-Roman",
-        fontSize=7.6,
-        leading=9.8,
+        fontSize=8.0,
+        leading=10.5,
         alignment=TA_LEFT,
         textColor=body_color
     ))
@@ -228,8 +233,8 @@ def get_academic_styles():
     styles.add(ParagraphStyle(
         "AcadTableCellCenter",
         fontName="Times-Roman",
-        fontSize=7.6,
-        leading=9.8,
+        fontSize=8.0,
+        leading=10.5,
         alignment=TA_CENTER,
         textColor=body_color
     ))
@@ -309,123 +314,163 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     # ==========================================================================
     # PAGE 1 (i): MAIN COVER / TITLE PAGE
     # ==========================================================================
-    story.append(Paragraph("<b>SUMMER INTERNSHIP REPORT</b>", ParagraphStyle("CoverTopHead", fontName="Times-Bold", fontSize=13, leading=17, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
-    story.append(Spacer(1, 10))
+    # Batch No in top-right corner exactly as shown in reference page 1
+    story.append(Paragraph(
+        "<b>Batch No: _______________</b><br/><i>(Office Use)</i>",
+        ParagraphStyle("BatchBox", fontName="Times-Roman", fontSize=10, leading=13, alignment=TA_RIGHT, textColor=colors.HexColor("#0F172A"))
+    ))
+    story.append(Spacer(1, 35))
 
     story.append(Paragraph(
-        "<b>CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD</b>",
-        ParagraphStyle("CoverTitle", fontName="Times-Bold", fontSize=15, leading=22, alignment=TA_CENTER, textColor=colors.HexColor("#1E3A8A"))
+        "<b>CUSTOMER CHURN ANALYSIS</b>",
+        ParagraphStyle("CoverTitle1", fontName="Times-Bold", fontSize=16, leading=22, alignment=TA_CENTER, textColor=colors.HexColor("#DC2626"))
+    ))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph(
+        "<b>AND BUSINESS INTELLIGENCE DASHBOARD</b>",
+        ParagraphStyle("CoverTitle2", fontName="Times-Bold", fontSize=14, leading=20, alignment=TA_CENTER, textColor=colors.HexColor("#DC2626"))
+    ))
+    story.append(Spacer(1, 24))
+
+    story.append(Paragraph(
+        "A Summer Industry Internship Report<br/>"
+        "Submitted in Partial Fulfillment of the Requirements<br/>"
+        "For the award of the Degree of",
+        ParagraphStyle("CoverSub1", fontName="Times-Roman", fontSize=11, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
     ))
     story.append(Spacer(1, 12))
 
-    story.append(Paragraph("<b>A SUMMER INTERNSHIP REPORT SUBMITTED TO</b>", ParagraphStyle("CoverSub1", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
+    story.append(Paragraph(
+        "<b>Bachelor of Technology in</b>",
+        ParagraphStyle("CoverDegree1", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
+    ))
     story.append(Spacer(1, 4))
-    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE &amp; TECHNOLOGY</b>", ParagraphStyle("CoverColHead", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#C2410C"))))
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("In partial fulfilment of requirement for the award of", ParagraphStyle("CoverReq", fontName="Times-Roman", fontSize=11, leading=15, alignment=TA_CENTER)))
-    story.append(Spacer(1, 4))
-    story.append(Paragraph("<b>DEGREE IN BACHELOR OF TECHNOLOGY</b>", ParagraphStyle("CoverDegree", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
-    story.append(Spacer(1, 8))
+    story.append(Paragraph(
+        "<b>Computer Science and Engineering – Data Science (CSE-DS)</b>",
+        ParagraphStyle("CoverDegree2", fontName="Times-Bold", fontSize=12, leading=16, alignment=TA_CENTER, textColor=colors.HexColor("#0284C7"))
+    ))
+    story.append(Spacer(1, 20))
 
-    story.append(Paragraph("<i>By</i>", ParagraphStyle("ByText", fontName="Times-Italic", fontSize=11, alignment=TA_CENTER)))
-    story.append(Spacer(1, 10))
-
-    if os.path.exists(logo_path):
-        story.append(Image(logo_path, width=350, height=54.1))
-        story.append(Spacer(1, 14))
+    story.append(Paragraph("By", ParagraphStyle("ByText", fontName="Times-Roman", fontSize=11, alignment=TA_CENTER)))
+    story.append(Spacer(1, 12))
 
     authors_data = [
-        [Paragraph("<b>G MYTHILI</b>", styles["AcadTableCellCenter"]), Paragraph("<b>24311A67H8</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<b>K ASHIWITH</b>", styles["AcadTableCellCenter"]), Paragraph("<b>24311A67H6</b>", styles["AcadTableCellCenter"])],
-        [Paragraph("<b>D NIYATI</b>", styles["AcadTableCellCenter"]), Paragraph("<b>24311A67H7</b>", styles["AcadTableCellCenter"])]
+        [Paragraph("<b>GAVUJI MYTHILI</b>", ParagraphStyle("AuthN1", fontName="Times-Bold", fontSize=10.5, leading=14, alignment=TA_LEFT)),
+         Paragraph("<b>24311A67H8</b>", ParagraphStyle("AuthR1", fontName="Times-Bold", fontSize=10.5, leading=14, alignment=TA_RIGHT))],
+        [Paragraph("<b>KONDAMADUGU ASHIWITH</b>", ParagraphStyle("AuthN2", fontName="Times-Bold", fontSize=10.5, leading=14, alignment=TA_LEFT)),
+         Paragraph("<b>24311A67H6</b>", ParagraphStyle("AuthR2", fontName="Times-Bold", fontSize=10.5, leading=14, alignment=TA_RIGHT))],
+        [Paragraph("<b>DOMA NIYATI</b>", ParagraphStyle("AuthN3", fontName="Times-Bold", fontSize=10.5, leading=14, alignment=TA_LEFT)),
+         Paragraph("<b>24311A67H7</b>", ParagraphStyle("AuthR3", fontName="Times-Bold", fontSize=10.5, leading=14, alignment=TA_RIGHT))]
     ]
     t_auth = Table(authors_data, colWidths=[200, 160])
     t_auth.setStyle(TableStyle([
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
-        ('TOPPADDING', (0,0), (-1,-1), 2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(t_auth)
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 26))
 
-    story.append(Paragraph("<b>DEPARTMENT OF DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("CoverDept", fontName="Times-Bold", fontSize=11.5, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#1E3A8A"))))
-    story.append(Spacer(1, 4))
+    if os.path.exists(logo_path):
+        story.append(Image(logo_path, width=340, height=52.5))
+        story.append(Spacer(1, 16))
+
     story.append(Paragraph(
-        "<b>Sreenidhi Institute of Science &amp; Technology (Autonomous)</b><br/>"
-        "<i>(Affiliated to Jawaharlal Nehru Technological University, Hyderabad) Approved by AICTE</i><br/>"
-        "<b>HYDERABAD – 501 301</b>",
-        ParagraphStyle("CoverFoot", fontName="Times-Roman", fontSize=10, leading=14, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
+        "<b>DEPARTMENT OF DATA SCIENCE (CSE-DS)</b>",
+        ParagraphStyle("CoverDept", fontName="Times-Bold", fontSize=11.5, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
+    ))
+    story.append(Spacer(1, 6))
+    story.append(Paragraph(
+        "<b>SREENIDHI INSTITUTE OF SCIENCE AND TECHNOLOGY</b>",
+        ParagraphStyle("CoverColName", fontName="Times-Bold", fontSize=11.5, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
+    ))
+    story.append(Spacer(1, 20))
+    story.append(Paragraph(
+        "<b>November 2026</b>",
+        ParagraphStyle("CoverDate", fontName="Times-Roman", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))
     ))
     story.append(PageBreak())
 
     # ==========================================================================
-    # PAGE 2 (ii): PROJECT ACCEPTANCE CERTIFICATE (PRC)
+    # PAGE 2 (ii): ACCEPTANCE BY INTERNAL TECHNICAL REVIEW COMMITTEE
     # ==========================================================================
-    story.append(Paragraph("<b>PROJECT ACCEPTANCE CERTIFICATE BY PROJECT REVIEW COMMITTEE</b>", styles["AcadChapterHeadCenter"]))
-    story.append(Paragraph("<i>(For Department / Office use)</i>", ParagraphStyle("CertSub", fontName="Times-Italic", fontSize=10, alignment=TA_CENTER, textColor=colors.HexColor("#475569"))))
-    story.append(Spacer(1, 14))
+    story.append(Paragraph("<b>ACCEPTANCE BY INTERNAL TECHNICAL REVIEW COMMITTEE</b>", styles["AcadChapterHeadCenter"]))
+    story.append(Paragraph("<i>(For Internal Department use only)</i>", ParagraphStyle("CertSub", fontName="Times-Italic", fontSize=9.5, alignment=TA_CENTER, textColor=colors.HexColor("#475569"))))
+    story.append(Spacer(1, 10))
 
     story.append(Paragraph(
-        "I / We hereby approve the Documentation / Presentation of the Project work / Internship titled:<br/><br/>"
-        "<b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b><br/><br/>"
-        "Submitted by Roll No. <b>24311A67H8 (G Mythili)</b>, <b>24311A67H6 (K Ashiwith)</b>, <b>24311A67H7 (D Niyati)</b>, "
-        "studying in the B.Tech <b>Computer Science and Engineering – Data Science (CSE-DS)</b> branch in <b>III Year I Semester</b>.<br/><br/>"
-        "This project has been thoroughly reviewed and evaluated in accordance with the academic standards prescribed by the "
-        "Department Project Review Committee (PRC) and is hereby formally accepted for evaluation.",
+        "We hereby approve the Presentation and Report of the Summer Industry Internship work titled:<br/><br/>"
+        "<font color='#1E3A8A'><b>CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD</b></font><br/><br/>"
+        "Submitted by Roll No. <b>24311A67H8, 24311A67H6, 24311A67H7</b>, studying in the B.Tech <b>CSE- DATA SCIENCE</b> branch in <b>III rd Year I st Semester</b>.",
         styles["AcadBody"]
     ))
-    story.append(Spacer(1, 35))
+    story.append(Spacer(1, 14))
 
     prc_sigs = [
-        [Paragraph("<b>Mr. P. V. K. SANDEEP</b><br/>Project Guide / Supervisor<br/>Assistant Professor, CSE-DS", styles["AcadTableCellCenter"]),
-         Paragraph("<b>PROJECT COORDINATOR</b><br/>Project Review Committee<br/>Department of Data Science", styles["AcadTableCellCenter"])],
-        [Paragraph("<br/><br/><b>HEAD OF THE DEPARTMENT</b><br/><b>Dr. Md. JAFFAR SADIQ</b><br/>Professor &amp; HoD, CSE-DS", styles["AcadTableCellCenter"]),
-         Paragraph("<br/><br/><b>PRC MEMBER / EXAMINER</b><br/>Department of Data Science<br/>SNIST, Hyderabad", styles["AcadTableCellCenter"])]
+        [Paragraph("<b>Committee Members</b>", styles["AcadTableCell"]), Paragraph("<b>Signature with Date</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>1. Name: Dr. Md. Jaffar Sadiq</b><br/>&nbsp;&nbsp;&nbsp;&nbsp;<b>Designation: Prof. &amp; HoD</b>", styles["AcadTableCell"]),
+         Paragraph("___________________________", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>2. Name: Mr. Syed. Mazharuddin</b><br/>&nbsp;&nbsp;&nbsp;&nbsp;<b>Designation: Coordinator</b>", styles["AcadTableCell"]),
+         Paragraph("___________________________", styles["AcadTableCellCenter"])]
     ]
-    t_prc = Table(prc_sigs, colWidths=[205, 205])
+    t_prc = Table(prc_sigs, colWidths=[250, 160])
     t_prc.setStyle(TableStyle([
-        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ('LINEBELOW', (0,0), (-1,0), 0.8, colors.HexColor("#1E3A8A")),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('BOTTOMPADDING', (0,0), (-1,-1), 8),
         ('TOPPADDING', (0,0), (-1,-1), 8),
     ]))
     story.append(t_prc)
-    story.append(Spacer(1, 30))
-    story.append(Paragraph("____________________________________________________________________________________________", styles["AcadCaption"]))
+    story.append(Spacer(1, 16))
+
+    story.append(Paragraph("*********", ParagraphStyle("Stars", fontName="Times-Bold", fontSize=10, alignment=TA_CENTER, textColor=colors.HexColor("#64748B"))))
+    story.append(Spacer(1, 8))
+
+    story.append(Paragraph("<b>For Faculty/ Evaluator Use Only:</b>", ParagraphStyle("EvalHead", fontName="Times-Bold", fontSize=10, leading=14, textColor=colors.HexColor("#0F172A"))))
+    story.append(Paragraph("If you choose not to sign the acceptance certificate above, please indicate the reason(s):", styles["AcadBodyTight"]))
+    story.append(Paragraph(
+        "1.&nbsp;&nbsp;&nbsp;&nbsp;The amount of time and effort put in by the student is not sufficient<br/>"
+        "2.&nbsp;&nbsp;&nbsp;&nbsp;The report doesn't represent the actual work done/ expected to be done<br/>"
+        "3.&nbsp;&nbsp;&nbsp;&nbsp;The presentation of the seminar or report by the student is not up to the mark<br/>"
+        "4.&nbsp;&nbsp;&nbsp;&nbsp;Any other objection (please elaborate): __________________________________________________",
+        styles["AcadBodyTight"]
+    ))
     story.append(PageBreak())
 
     # ==========================================================================
     # PAGE 3 (iii): INSTITUTIONAL CERTIFICATE
     # ==========================================================================
-    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE &amp; TECHNOLOGY</b><br/><b>(AUTONOMOUS)</b><br/><b>DEPARTMENT OF DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("CertHeadTop", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
-    story.append(Spacer(1, 6))
-
     if os.path.exists(logo_path):
-        story.append(Image(logo_path, width=340, height=52.5))
-        story.append(Spacer(1, 8))
+        story.append(Image(logo_path, width=350, height=54.1))
+        story.append(Spacer(1, 6))
+
+    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE AND TECHNOLOGY</b><br/><b>(AUTONOMOUS)</b><br/><b>DEPARTMENT OF CSE – DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("CertHeadTop", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
+    story.append(Spacer(1, 10))
 
     story.append(Paragraph("<b>CERTIFICATE</b>", styles["AcadChapterHeadCenter"]))
-    story.append(Spacer(1, 5))
+    story.append(Spacer(1, 8))
 
     story.append(Paragraph(
-        "The project report titled <b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> "
-        "submitted by <b>G Mythili [24311A67H8]</b>, <b>K Ashiwith [24311A67H6]</b>, <b>D Niyati [24311A67H7]</b> "
-        "for the partial fulfilment of award of degree in Bachelor of Technology, has been carried out under the supervision "
-        "at the Department of Data Science of Sreenidhi Institute of Science and Technology, Hyderabad. "
-        "The work is comprehensive, complete and fit for the evaluation.<br/><br/>",
+        "This is to certify that the Summer Industry Internship work titled <b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> "
+        "submitted by the Students <b>G Mythili, K Ashiwith and D Niyati</b> bearing Roll No. <b>24311A67H8, 24311A67H6 and 24311A67H7</b>, "
+        "towards partial fulfillment for the award of Bachelors Degree in Computer Science and Engineering Data Science (CSE-DS) from "
+        "Sreenidhi Institute of Science and Technology, Ghatkesar, Hyderabad, is a record of Bonafide work done by him/ her. "
+        "The results embodied in the work are not submitted to any other University or Institute for the award of any other degree or diploma.<br/><br/>",
         styles["AcadBody"]
     ))
-    story.append(Spacer(1, 14))
+    story.append(Spacer(1, 28))
 
     cert_sigs = [
-        [Paragraph("<b>Forwarded by:</b><br/><br/><br/><b>Dr. Md. JAFFAR SADIQ</b><br/>Head of Data Science (CSE-DS),<br/>SNIST, Hyderabad.", styles["AcadTableCellCenter"]),
-         Paragraph("<b>Supervisor / Guide:</b><br/><br/><br/><b>Mr. P. V. K. SANDEEP</b><br/>Assistant Professor, Dept. of Data Science,<br/>SNIST, Hyderabad.", styles["AcadTableCellCenter"])],
-        [Paragraph("<br/><br/><b>External Examiner:</b><br/><br/>_______________________________", styles["AcadTableCellCenter"]),
-         Paragraph("<br/><br/><b>Internal PRC Member:</b><br/><br/>_______________________________", styles["AcadTableCellCenter"])]
+        [Paragraph("<b>Mr. Syed. Mazharuddin</b><br/>Coordinator", styles["AcadTableCellCenter"]),
+         Paragraph("<b>Dr. Md. Jaffar Sadiq</b><br/>HoD, CSE-DS", styles["AcadTableCellCenter"])],
+        [Paragraph("<br/><br/><br/><b>External Examiner Signature</b><br/>_______________________________", styles["AcadTableCellCenter"]),
+         Paragraph("", styles["AcadTableCellCenter"])]
     ]
     t_cert = Table(cert_sigs, colWidths=[205, 205])
     t_cert.setStyle(TableStyle([
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
+        ('SPAN', (0,1), (1,1)),
         ('BOTTOMPADDING', (0,0), (-1,-1), 6),
         ('TOPPADDING', (0,0), (-1,-1), 6),
     ]))
@@ -435,37 +480,34 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     # ==========================================================================
     # PAGE 4 (iv): DECLARATION
     # ==========================================================================
-    story.append(Paragraph("<b>SREENIDHI INSTITUTE OF SCIENCE &amp; TECHNOLOGY</b><br/><b>(AUTONOMOUS)</b><br/><b>DEPARTMENT OF DATA SCIENCE (CSE-DS)</b>", ParagraphStyle("DeclHeadTop", fontName="Times-Bold", fontSize=11, leading=15, alignment=TA_CENTER, textColor=colors.HexColor("#0F172A"))))
-    story.append(Spacer(1, 6))
-
-    if os.path.exists(logo_path):
-        story.append(Image(logo_path, width=340, height=52.5))
-        story.append(Spacer(1, 8))
-
     story.append(Paragraph("<b>DECLARATION</b>", styles["AcadChapterHeadCenter"]))
-    story.append(Spacer(1, 5))
-
-    story.append(Paragraph(
-        "I / We hereby declare that the project report titled <b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> "
-        "submitted here in the Department of Data Science of Sreenidhi Institute of Science and Technology, Hyderabad for the partial fulfilment "
-        "of award of Degree in Bachelor of Technology, represents our own ideas and in places where other's ideas have been included, "
-        "I / We have provided necessary citation and reference to the original source. "
-        "The work is original and has not been submitted earlier as a whole or in part for the award of any degree / diploma at this or any other Institution / University.",
-        styles["AcadBody"]
-    ))
     story.append(Spacer(1, 16))
 
+    story.append(Paragraph(
+        "We, <b>G Mythili (24311A67H8)</b>, <b>K Ashiwith (24311A67H6)</b>, and <b>D Niyati (24311A67H7)</b> students of "
+        "Sreenidhi Institute of Science and Technology, Yamnampet, Ghatkesar, studying <b>III Year, I Semester</b>, "
+        "Bachelor of Technology in <b>Computer Science and Engineering – Data Science (CSE–DS)</b>, hereby solemnly declare that the project report "
+        "titled <b>“CUSTOMER CHURN ANALYSIS AND BUSINESS INTELLIGENCE DASHBOARD”</b> is submitted in partial fulfillment for the award of the degree of "
+        "<b>Bachelor of Technology in Computer Science and Engineering – Data Science (CSE–DS)</b>.<br/><br/>"
+        "It is further declared that, to the best of our knowledge, the work reported in this project has not been submitted earlier, "
+        "either in part or in full, to any other University or Institute for the award of any degree or diploma.",
+        styles["AcadBody"]
+    ))
+    story.append(Spacer(1, 40))
+
     decl_sigs = [
-        [Paragraph("<b>Date:</b> October / November 2026<br/><b>Place:</b> Hyderabad.", styles["AcadTableCell"]),
-         Paragraph("<b>G MYTHILI</b> (24311A67H8)<br/>Student Signature: _______________<br/><br/>"
-                   "<b>K ASHIWITH</b> (24311A67H6)<br/>Student Signature: _______________<br/><br/>"
-                   "<b>D NIYATI</b> (24311A67H7)<br/>Student Signature: _______________", styles["AcadTableCell"])]
+        [Paragraph("<b>G MYTHILI</b><br/><b>24311A67H8</b>", styles["AcadTableCell"]),
+         Paragraph("<b>SIGNATURE</b><br/>___________________________", styles["AcadTableCellCenter"])],
+        [Paragraph("<br/><br/><b>K ASHIWITH</b><br/><b>24311A67H6</b>", styles["AcadTableCell"]),
+         Paragraph("<br/><br/><b>SIGNATURE</b><br/>___________________________", styles["AcadTableCellCenter"])],
+        [Paragraph("<br/><br/><b>D NIYATI</b><br/><b>24311A67H7</b>", styles["AcadTableCell"]),
+         Paragraph("<br/><br/><b>SIGNATURE</b><br/>___________________________", styles["AcadTableCellCenter"])]
     ]
-    t_decl = Table(decl_sigs, colWidths=[170, 240])
+    t_decl = Table(decl_sigs, colWidths=[200, 180])
     t_decl.setStyle(TableStyle([
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 10),
+        ('TOPPADDING', (0,0), (-1,-1), 8),
     ]))
     story.append(t_decl)
     story.append(PageBreak())
@@ -480,7 +522,7 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
         "It gives us immense satisfaction and profound pride to express our gratitude on the successful completion of our academic internship project. "
         "However, this undertaking would remain incomplete without acknowledging the support, guidance, and encouragement of the individuals who played an instrumental role in shaping this endeavor. "
         "We take this opportunity to sincerely thank all those who contributed directly and indirectly to the completion of this research project.<br/><br/>"
-        "At the outset, we express our sincere thanks and deep sense of gratitude to <b>Mr. P. V. K. Sandeep</b>, our Project Guide and Project Coordinator, "
+        "At the outset, we express our sincere thanks and deep sense of gratitude to <b>Mr. Syed. Mazharuddin</b>, Project Coordinator, "
         "for his continuous guidance, valuable suggestions, and constant encouragement throughout the course of this project. "
         "His insightful feedback, rigorous technical mentoring, and intellectual motivation helped us overcome intricate data engineering hurdles, "
         "formulate robust statistical hypotheses, and complete our work successfully.<br/><br/>"
@@ -494,11 +536,16 @@ def generate_full_48_page_report(output_pdf_path: str, viz_dir: str):
     story.append(Spacer(1, 35))
 
     ack_names = [
-        [Paragraph("<b>G Mythili</b> (24311A67H8)", styles["AcadTableCellCenter"]),
-         Paragraph("<b>K Ashiwith</b> (24311A67H6)", styles["AcadTableCellCenter"]),
-         Paragraph("<b>D Niyati</b> (24311A67H7)", styles["AcadTableCellCenter"])]
+        [Paragraph("<b>G MYTHILI</b>", styles["AcadTableCellCenter"]), Paragraph("<b>24311A67H8</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>K ASHIWITH</b>", styles["AcadTableCellCenter"]), Paragraph("<b>24311A67H6</b>", styles["AcadTableCellCenter"])],
+        [Paragraph("<b>D NIYATI</b>", styles["AcadTableCellCenter"]), Paragraph("<b>24311A67H7</b>", styles["AcadTableCellCenter"])]
     ]
-    t_ack = Table(ack_names, colWidths=[135, 135, 140])
+    t_ack = Table(ack_names, colWidths=[180, 160])
+    t_ack.setStyle(TableStyle([
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+    ]))
     story.append(t_ack)
     story.append(PageBreak())
 
@@ -1882,7 +1929,7 @@ FROM customers WHERE MonthlyCharges > 80.00 GROUP BY Contract;"""
     story.append(Spacer(1, 3))
 
     slides_1_6 = [
-        [Paragraph("<b>Slide 1: Title Slide</b><br/>• Customer Churn Analysis &amp; BI Dashboard<br/>• G Mythili, K Ashiwith, D Niyati<br/>• Guide: Mr. P. V. K. Sandeep • SNIST CSE-DS", styles["AcadTableCell"]),
+        [Paragraph("<b>Slide 1: Title Slide</b><br/>• Customer Churn Analysis &amp; BI Dashboard<br/>• G Mythili, K Ashiwith, D Niyati<br/>• Guide: Mr. Syed. Mazharuddin • SNIST CSE-DS", styles["AcadTableCell"]),
          Paragraph("<b>Slide 2: Problem Statement</b><br/>• High Telecom Churn: 26.54% attrition rate<br/>• $139k Monthly Recurring Revenue lost<br/>• Failure of heuristic rules &amp; black-box ML", styles["AcadTableCell"])],
         [Paragraph("<b>Slide 3: Motivation &amp; Objectives</b><br/>• Retaining accounts is 5–7x cheaper than acquisition<br/>• Build an interpretable, transparent SQL BI stack<br/>• Deliver actionable executive retention pillars", styles["AcadTableCell"]),
          Paragraph("<b>Slide 4: Literature Survey Summary</b><br/>• Review of static rules vs ML classifiers<br/>• Identified lack of causal transparency in ML<br/>• Justification for pure Data Science &amp; SQL", styles["AcadTableCell"])],

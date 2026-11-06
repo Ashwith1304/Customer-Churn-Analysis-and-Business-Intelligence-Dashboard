@@ -340,6 +340,96 @@ def create_plotly_churn_donut(df: pd.DataFrame) -> go.Figure:
 create_exact_churn_donut = create_plotly_churn_donut
 
 
+def create_exact_split_donut(df: pd.DataFrame) -> go.Figure:
+    """Renders the clean cyan and dark navy donut chart with centered KPI for the retention card."""
+    if df is None or len(df) == 0:
+        fig = go.Figure()
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+        return fig
+
+    if "Churn" in df.columns:
+        counts = df["Churn"].value_counts()
+        ret_cnt = int(counts.get("No", 0))
+        churn_cnt = int(counts.get("Yes", 0))
+    elif "ChurnBinary" in df.columns:
+        churn_cnt = int(df["ChurnBinary"].sum())
+        ret_cnt = len(df) - churn_cnt
+    else:
+        ret_cnt = len(df)
+        churn_cnt = 0
+
+    total = ret_cnt + churn_cnt
+    churn_pct = (churn_cnt / total * 100) if total > 0 else 0
+
+    fig = go.Figure(data=[
+        go.Pie(
+            values=[ret_cnt, churn_cnt],
+            hole=0.68,
+            marker=dict(
+                colors=["#00D2FF", "#0C243B"],
+                line=dict(color="#090D16", width=2)
+            ),
+            textinfo="none",
+            hoverinfo="none",
+            direction="clockwise",
+            sort=False
+        )
+    ])
+
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        showlegend=False,
+        margin=dict(l=0, r=0, t=0, b=0),
+        height=220,
+        annotations=[
+            dict(
+                text=f"<span style='font-size:24px;font-weight:800;color:#FFFFFF;'>{churn_pct:.1f}%</span><br><span style='font-size:10px;font-weight:700;color:#64748B;letter-spacing:0.06em;'>CHURN RATE</span>",
+                x=0.5, y=0.5,
+                font=dict(family="Plus Jakarta Sans, sans-serif"),
+                showarrow=False
+            )
+        ]
+    )
+    return fig
+
+
+def create_contract_mrr_bars(df: pd.DataFrame) -> go.Figure:
+    """Renders Monthly MRR by Contract Type bars matching SaaS theme."""
+    if df is None or len(df) == 0:
+        fig = go.Figure()
+        fig.update_layout(get_base_plotly_layout(""))
+        return fig
+
+    grp = df.groupby("Contract", observed=False)["MonthlyCharges"].sum().reindex(
+        ["Month-to-month", "One year", "Two year"]
+    ).fillna(0)
+    labels = ["Month-to-month", "One year", "Two year"]
+    vals = grp.values
+    text_labels = [f"${v/1000:.1f}k" for v in vals]
+
+    fig = go.Figure(data=[
+        go.Bar(
+            x=labels,
+            y=vals,
+            text=text_labels,
+            textposition="outside",
+            textfont=dict(color="#FFFFFF", size=10, family="Plus Jakarta Sans"),
+            marker=dict(color="#0084FF", line=dict(color="#090D16", width=1)),
+            width=0.45
+        )
+    ])
+    layout = get_base_plotly_layout("")
+    layout["margin"] = dict(l=15, r=15, t=15, b=25)
+    layout["height"] = 240
+    layout["xaxis"]["title"] = None
+    layout["yaxis"]["title"] = dict(text="Monthly MRR ($)", font=dict(size=10, color=TEXT_MUTED))
+    layout["yaxis"]["tickformat"] = "$,.0f"
+    layout["showlegend"] = False
+    fig.update_layout(layout)
+    return fig
+
+
 # 2. Churn Rate by Contract Type (Vertical Bar Chart)
 def create_plotly_contract_churn(df: pd.DataFrame) -> go.Figure:
     """Renders a vertical bar chart comparing churn rates across contract agreements."""
@@ -702,6 +792,8 @@ __all__ = [
     "generate_static_visualizations",
     "create_plotly_churn_donut",
     "create_exact_churn_donut",
+    "create_exact_split_donut",
+    "create_contract_mrr_bars",
     "create_plotly_retention_gauge",
     "create_plotly_revenue_spline",
     "create_exact_revenue_trend",

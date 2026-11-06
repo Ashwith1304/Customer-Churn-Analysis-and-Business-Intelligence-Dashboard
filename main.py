@@ -1,6 +1,6 @@
 """
-Customer Churn Analysis and Business Intelligence Dashboard
-A Data Analytics and Business Intelligence Project
+Customer Churn Analysis & Business Intelligence Dashboard
+Enterprise Retention Analytics
 Institution: Sreenidhi Institute of Science and Technology (Autonomous)
 Department of Data Science (CSE-DS)
 Team Members:
@@ -34,6 +34,8 @@ from src.descriptive_statistics import DescriptiveStatisticsEngine
 from src.sql_analysis import TelcoSQLAnalyzer
 from src.eda import (
     create_exact_churn_donut,
+    create_exact_split_donut,
+    create_contract_mrr_bars,
     create_exact_contract_bars,
     create_exact_revenue_trend,
     create_exact_tenure_bars,
@@ -59,7 +61,7 @@ from src.eda import (
 # STREAMLIT CONFIGURATION & CUSTOM DESIGN SYSTEM
 # ==============================================================================
 st.set_page_config(
-    page_title="Customer Churn Analysis and BI Dashboard",
+    page_title="Customer Churn Analysis & Business Intelligence Dashboard",
     page_icon="👥",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -74,31 +76,31 @@ CUSTOM_UI_CSS = """
         color: #E2E8F0;
     }
 
-    /* Deep Navy Dark Theme */
+    /* Deep Slate Navy Background matching Enterprise Dashboard */
     .stApp {
-        background-color: #080E1A;
+        background-color: #090D16 !important;
         background-image: 
-            radial-gradient(at 20% 15%, rgba(0, 132, 255, 0.08) 0px, transparent 55%),
-            radial-gradient(at 80% 85%, rgba(139, 92, 246, 0.06) 0px, transparent 55%);
+            radial-gradient(at 15% 10%, rgba(0, 132, 255, 0.08) 0px, transparent 50%),
+            radial-gradient(at 85% 90%, rgba(14, 165, 233, 0.05) 0px, transparent 50%) !important;
     }
 
-    /* Keep Streamlit header transparent */
+    /* Transparent Streamlit Header */
     header[data-testid="stHeader"] {
         background: transparent !important;
     }
 
     /* Top clearance so Streamlit Cloud fixed top bar never overlaps dashboard content */
     .block-container {
-        padding-top: 5.8rem !important;
+        padding-top: 5.2rem !important;
         padding-bottom: 3rem !important;
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
-        max-width: 1540px !important;
+        padding-left: 2.2rem !important;
+        padding-right: 2.2rem !important;
+        max-width: 1560px !important;
     }
 
     @media (max-width: 768px) {
         .block-container {
-            padding-top: 6.2rem !important;
+            padding-top: 5.8rem !important;
             padding-left: 1rem !important;
             padding-right: 1rem !important;
         }
@@ -106,11 +108,11 @@ CUSTOM_UI_CSS = """
 
     /* Left Sidebar Styling */
     section[data-testid="stSidebar"] {
-        background-color: #080E1A !important;
+        background-color: #0B111E !important;
         border-right: 1px solid #1E293B !important;
     }
     section[data-testid="stSidebar"] .block-container {
-        padding-top: 3.6rem !important;
+        padding-top: 3.2rem !important;
         padding-left: 1.1rem !important;
         padding-right: 1.1rem !important;
     }
@@ -120,19 +122,19 @@ CUSTOM_UI_CSS = """
         display: flex;
         align-items: center;
         gap: 12px;
-        padding-bottom: 18px;
-        margin-bottom: 16px;
-        border-bottom: 1px solid #1E293B;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
     }
-    .brand-avatar {
+    .brand-avatar-box {
         width: 38px;
         height: 38px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #0084FF, #00C6FF);
+        border-radius: 9px;
+        background: linear-gradient(135deg, rgba(0, 132, 255, 0.25), rgba(0, 210, 255, 0.12));
+        border: 1px solid rgba(0, 210, 255, 0.4);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 12px rgba(0, 132, 255, 0.35);
+        box-shadow: 0 0 16px rgba(0, 210, 255, 0.22);
     }
     .brand-title {
         font-size: 1.05rem;
@@ -143,12 +145,55 @@ CUSTOM_UI_CSS = """
     }
     .brand-sub {
         font-size: 0.72rem;
-        color: #38BDF8;
-        font-weight: 600;
-        letter-spacing: 0.02em;
+        color: #64748B;
+        font-weight: 500;
+        margin-top: 2px;
     }
 
-    /* Hide Streamlit Radio Dots & Indicators on all versions */
+    /* Live Status Pill */
+    .sidebar-status-pill {
+        background: #111927;
+        border: 1px solid #1E293B;
+        border-radius: 8px;
+        padding: 7px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+    }
+    .status-live {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #FFFFFF;
+    }
+    .pulse-dot {
+        width: 7px;
+        height: 7px;
+        background: #0084FF;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #0084FF;
+    }
+    .status-count {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #64748B;
+    }
+
+    /* Sidebar Section Header */
+    .sidebar-section-header {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #64748B;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        padding-left: 4px;
+    }
+
+    /* Hide Streamlit Radio Dots & Indicators completely */
     div[data-testid="stRadio"] input[type="radio"],
     div[data-testid="stRadio"] input + div,
     div[data-testid="stRadio"] label > div:first-of-type,
@@ -174,19 +219,20 @@ CUSTOM_UI_CSS = """
         border: none !important;
         pointer-events: none !important;
     }
+
     div[data-testid="stRadio"] div[role="radiogroup"] {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 4px;
     }
     div[data-testid="stRadio"] div[role="radiogroup"] > label,
     div[data-testid="stRadio"] [data-baseweb="radio"] {
         background: transparent;
-        padding: 9px 14px;
-        border-radius: 9px;
+        padding: 9px 12px;
+        border-radius: 8px;
         margin: 0;
         cursor: pointer;
-        transition: all 0.18s ease-in-out;
+        transition: all 0.15s ease-in-out;
         display: flex;
         align-items: center;
         border: 1px solid transparent;
@@ -195,13 +241,13 @@ CUSTOM_UI_CSS = """
     }
     div[data-testid="stRadio"] div[role="radiogroup"] > label:hover,
     div[data-testid="stRadio"] [data-baseweb="radio"]:hover {
-        background: rgba(30, 41, 59, 0.6);
+        background: rgba(30, 41, 59, 0.45);
     }
     div[data-testid="stRadio"] div[role="radiogroup"] > label p,
     div[data-testid="stRadio"] div[role="radiogroup"] > label span,
     div[data-testid="stRadio"] [data-baseweb="radio"] p,
     div[data-testid="stRadio"] [data-baseweb="radio"] span {
-        font-size: 0.88rem !important;
+        font-size: 0.85rem !important;
         font-weight: 500 !important;
         color: #94A3B8 !important;
         margin: 0 !important;
@@ -213,7 +259,8 @@ CUSTOM_UI_CSS = """
     div[data-testid="stRadio"] [data-baseweb="radio"]:hover span {
         color: #F8FAFC !important;
     }
-    /* Active Glowing Blue Navigation Pill */
+
+    /* Active Selected Nav Item (Blue Pill matching Image) */
     div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked),
     div[data-testid="stRadio"] div[role="radiogroup"] > label[data-checked="true"],
     div[data-testid="stRadio"] div[role="radiogroup"] > label[aria-checked="true"],
@@ -222,7 +269,7 @@ CUSTOM_UI_CSS = """
     div[data-testid="stRadio"] [data-baseweb="radio"]:has(input:checked),
     div[data-testid="stRadio"] [data-checked="true"] {
         background: #0084FF !important;
-        box-shadow: 0 4px 14px rgba(0, 132, 255, 0.45) !important;
+        box-shadow: 0 4px 14px rgba(0, 132, 255, 0.35) !important;
         border-radius: 9px !important;
     }
     div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) p,
@@ -237,171 +284,128 @@ CUSTOM_UI_CSS = """
         font-weight: 700 !important;
     }
 
-    /* Sidebar Footer Artwork */
-    .sidebar-footer-artwork {
-        margin-top: 24px;
-        padding: 16px 12px;
-        border-radius: 12px;
-        background: linear-gradient(180deg, rgba(13, 21, 39, 0.8) 0%, rgba(8, 14, 26, 0.95) 100%);
-        border: 1px solid #1E293B;
-        text-align: center;
+    /* Sidebar Footer */
+    .sidebar-team-footer {
+        margin-top: 28px;
+        padding-top: 14px;
+        border-top: 1px solid #1E293B;
+    }
+    .footer-inst {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #94A3B8;
+    }
+    .footer-names {
+        font-size: 0.68rem;
+        color: #64748B;
+        margin-top: 3px;
     }
 
-    /* Top Bar Header */
-    .top-header-row {
+    /* Top Breadcrumb */
+    .top-breadcrumb {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 14px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid #1E293B;
-    }
-    .top-header-titles h1 {
-        font-size: 1.55rem;
-        font-weight: 800;
-        color: #FFFFFF;
-        letter-spacing: -0.02em;
-        margin: 0;
-        line-height: 1.2;
-    }
-    .top-header-titles p {
-        font-size: 0.82rem;
-        color: #94A3B8;
-        margin: 3px 0 0 0;
-        font-weight: 500;
-    }
-    .dataset-badge {
-        display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(30, 41, 59, 0.6);
-        border: 1px solid #1E293B;
-        color: #CBD5E1;
-        font-size: 0.76rem;
+        font-size: 0.95rem;
         font-weight: 600;
-        padding: 6px 14px;
-        border-radius: 20px;
+        padding-top: 4px;
     }
-
-    /* Horizontal Filter Bar */
-    .filter-bar-wrapper {
-        background: #0D1527;
-        border: 1px solid #1E293B;
-        border-radius: 12px;
-        padding: 10px 16px;
-        margin-bottom: 18px;
+    .bc-parent {
+        color: #64748B;
     }
-    .filter-label-col {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.90rem;
-        font-weight: 700;
+    .bc-active {
         color: #FFFFFF;
-        padding-top: 28px;
+        font-weight: 700;
     }
 
     /* 6 KPI Cards Grid */
-    .kpi-grid-saas {
+    .kpi-row-6 {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 12px;
-        margin-bottom: 18px;
+        margin-top: 14px;
+        margin-bottom: 20px;
     }
-    .kpi-card {
-        background: #0D1527;
+    @media (max-width: 1100px) {
+        .kpi-row-6 { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+        .kpi-row-6 { grid-template-columns: repeat(2, 1fr); }
+    }
+    .kpi-card-v2 {
+        background: #111927;
         border: 1px solid #1E293B;
         border-radius: 12px;
-        padding: 16px 14px 14px 14px;
+        padding: 16px 16px 14px 16px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         transition: transform 0.15s ease, border-color 0.15s ease;
     }
-    .kpi-card:hover {
+    .kpi-card-v2:hover {
         transform: translateY(-2px);
         border-color: #334155;
     }
-    .kpi-icon-bubble {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
+    .kpi-top {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         margin-bottom: 12px;
     }
-    .kpi-card-label {
-        font-size: 0.75rem;
+    .kpi-label-v2 {
+        font-size: 0.76rem;
         font-weight: 600;
         color: #94A3B8;
-        letter-spacing: 0.01em;
-        margin-bottom: 4px;
     }
-    .kpi-card-value {
-        font-size: 1.48rem;
+    .kpi-badge-icon {
+        font-size: 0.88rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+    .kpi-val-v2 {
+        font-size: 1.55rem;
         font-weight: 800;
         color: #FFFFFF;
         letter-spacing: -0.02em;
         line-height: 1.1;
+        margin-bottom: 6px;
     }
+    .kpi-sub-v2 {
+        font-size: 0.72rem;
+        color: #64748B;
+        font-weight: 500;
+    }
+    .text-cyan { color: #00D2FF !important; }
+    .text-green { color: #10B981 !important; }
+    .text-rose { color: #EF4444 !important; }
+    .text-blue { color: #38BDF8 !important; }
 
-    /* Card Containers */
+    /* Card Panels */
     .card-panel {
-        background: #0D1527;
+        background: #111927;
         border: 1px solid #1E293B;
-        border-radius: 12px;
-        padding: 18px;
+        border-radius: 14px;
+        padding: 18px 20px;
         margin-bottom: 16px;
     }
-    .card-panel-header {
-        font-size: 0.94rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
 
-    /* Key Insights Card (Executive 6th Tile) */
-    .insights-card-box {
-        background: #0D1527;
-        border: 1px solid #1E293B;
-        border-radius: 12px;
-        padding: 18px 20px;
-        height: 370px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+    /* Popover & Action Buttons */
+    div[data-testid="stPopover"] > button,
+    .stDownloadButton > button {
+        background: #111927 !important;
+        border: 1px solid #1E293B !important;
+        border-radius: 8px !important;
+        color: #E2E8F0 !important;
+        font-size: 0.80rem !important;
+        font-weight: 600 !important;
+        padding: 6px 14px !important;
+        transition: all 0.15s ease !important;
     }
-    .insights-title-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.98rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        margin-bottom: 18px;
-    }
-    .insights-body-list {
-        display: flex;
-        flex-direction: column;
-        gap: 13px;
-    }
-    .insight-bullet-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        font-size: 0.83rem;
-        line-height: 1.45;
-        color: #CBD5E1;
-    }
-    .insight-check {
-        color: #10B981;
-        font-weight: 800;
-        font-size: 0.95rem;
-        line-height: 1.2;
+    div[data-testid="stPopover"] > button:hover,
+    .stDownloadButton > button:hover {
+        background: #182234 !important;
+        border-color: #334155 !important;
+        color: #FFFFFF !important;
     }
 
     /* Project Team Cards */
@@ -413,7 +417,7 @@ CUSTOM_UI_CSS = """
         margin-bottom: 24px;
     }
     .team-member-card {
-        background: #0D1527;
+        background: #111927;
         border: 1px solid #1E293B;
         border-radius: 14px;
         padding: 24px 20px;
@@ -460,34 +464,6 @@ CUSTOM_UI_CSS = """
         font-size: 0.78rem;
         color: #94A3B8;
         line-height: 1.35;
-    }
-
-    /* Streamlit Widget Styling */
-    .stSelectbox label {
-        font-size: 0.75rem !important;
-        font-weight: 600 !important;
-        color: #94A3B8 !important;
-    }
-    div[data-baseweb="select"] > div {
-        background-color: #121A2D !important;
-        border-color: #1E293B !important;
-        border-radius: 8px !important;
-        font-size: 0.82rem !important;
-        color: #FFFFFF !important;
-    }
-    .stButton > button {
-        background-color: #0084FF !important;
-        color: #FFFFFF !important;
-        border: none !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        font-size: 0.82rem !important;
-        padding: 6px 14px !important;
-        transition: all 0.2s ease !important;
-    }
-    .stButton > button:hover {
-        background-color: #0070D8 !important;
-        box-shadow: 0 4px 12px rgba(0, 132, 255, 0.4) !important;
     }
 </style>
 """
@@ -541,38 +517,69 @@ if not db_file.exists():
     sql_analyzer.init_database(str(parent_dir / "data" / "processed" / "telco_churn_cleaned.csv"))
 
 
+# Initialize Session State for Filter Cohorts
+if "f_gender" not in st.session_state:
+    st.session_state["f_gender"] = "All"
+if "f_contract" not in st.session_state:
+    st.session_state["f_contract"] = "All"
+if "f_internet" not in st.session_state:
+    st.session_state["f_internet"] = "All"
+if "f_pay" not in st.session_state:
+    st.session_state["f_pay"] = "All"
+if "f_tenure" not in st.session_state:
+    st.session_state["f_tenure"] = "All"
+if "custom_csv_upload" not in st.session_state:
+    st.session_state["custom_csv_upload"] = None
+
+# Initial Load
+raw_df, full_df, audit_report = get_dataset(st.session_state["custom_csv_upload"])
+if full_df is None:
+    st.error("Dataset not detected. Please verify data files.")
+    st.stop()
+
+
 # ==============================================================================
-# SIDEBAR: BRAND, NAVIGATION & VISUAL ARTWORK
+# SIDEBAR: BRAND, NAVIGATION & VISUAL ARTWORK (Matching Image Exactly)
 # ==============================================================================
-# Brand Header (Exact match to target design)
+# Brand Header
 st.sidebar.markdown("""
 <div class="sidebar-brand-box">
-    <div class="brand-avatar">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+    <div class="brand-avatar-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
         </svg>
     </div>
     <div>
-        <div class="brand-title">Customer Churn</div>
-        <div class="brand-sub">Business Intelligence</div>
+        <div class="brand-title">Customer Churn BI</div>
+        <div class="brand-sub">Enterprise Retention Analytics</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# Navigation Menu (All 9 pages strictly matching specification)
+# Live Status Pill
+st.sidebar.markdown(f"""
+<div class="sidebar-status-pill">
+    <div class="status-live"><span class="pulse-dot"></span> IBM Telco Live</div>
+    <div class="status-count">{len(full_df):,} rows</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Section Label
+st.sidebar.markdown('<div class="sidebar-section-header">ANALYTICS MODULES</div>', unsafe_allow_html=True)
+
+# Navigation Menu Options (Exact match to target image)
 PAGE_OPTIONS = [
-    "🏠  Executive Overview",
-    "📁  Customer Data Explorer",
+    "⊞  Executive Overview",
+    "👤  Customer Data Explorer",
     "🛡️  Data Quality Report",
     "📊  Exploratory Data Analysis",
-    "📈  Statistical Insights",
-    "💾  SQL Analytics",
+    "Σ  Statistical Analysis",
+    "💾  SQL Business Analytics",
     "👥  Customer Segmentation",
     "💡  Business Recommendations",
-    "ℹ️  Project Information"
+    "ℹ️  About Project"
 ]
 
 selected_page = st.sidebar.radio(
@@ -582,165 +589,44 @@ selected_page = st.sidebar.radio(
     label_visibility="collapsed"
 )
 
-# Sidebar Bottom Visual Artwork (Matching Image 2 illuminated 3D artwork)
+# Sidebar Footer
 st.sidebar.markdown("""
-<div class="sidebar-footer-artwork">
-    <svg width="180" height="95" viewBox="0 0 200 100" fill="none">
-        <defs>
-            <linearGradient id="glowGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stop-color="#0084FF" stop-opacity="0.1"/>
-                <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.9"/>
-            </linearGradient>
-            <linearGradient id="barGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#00E5FF"/>
-                <stop offset="100%" stop-color="#0084FF"/>
-            </linearGradient>
-        </defs>
-        <!-- Curved bottom wave -->
-        <path d="M10 85 C 50 65, 150 95, 190 75" stroke="#1E3A8A" stroke-width="2.5" fill="none"/>
-        <path d="M15 88 C 60 70, 140 98, 185 78" stroke="#0084FF" stroke-width="1.2" opacity="0.6" fill="none"/>
-        <!-- 3D Bar Columns -->
-        <rect x="55" y="62" width="14" height="26" rx="2" fill="url(#barGrad)"/>
-        <rect x="75" y="48" width="14" height="40" rx="2" fill="url(#barGrad)"/>
-        <rect x="95" y="32" width="14" height="56" rx="2" fill="url(#barGrad)"/>
-        <rect x="115" y="44" width="14" height="44" rx="2" fill="url(#barGrad)"/>
-        <rect x="135" y="58" width="14" height="30" rx="2" fill="url(#barGrad)"/>
-        <!-- Floating circular avatar badge -->
-        <circle cx="102" cy="22" r="14" fill="#0D1527" stroke="#0084FF" stroke-width="1.8"/>
-        <path d="M96 28 C96 25, 108 25, 108 28" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="102" cy="20" r="3.5" fill="#38BDF8"/>
-    </svg>
-    <div style="font-size:0.70rem;color:#64748B;font-weight:600;margin-top:4px;">
-        CSE-DS • Sreenidhi Institute
-    </div>
+<div class="sidebar-team-footer">
+    <div class="footer-inst">SNIST · CSE Data Science</div>
+    <div class="footer-names">G Mythili · K Ashiwith · D Niyati</div>
 </div>
 """, unsafe_allow_html=True)
 
 
 # ==============================================================================
-# TOP BAR: HEADER, DATA UPLOAD/DOWNLOAD & HORIZONTAL FILTER BAR
+# TOP BAR: BREADCRUMB & CONTROLS (Filters Popover, Upload, Export)
 # ==============================================================================
-# Top Header Row with Title on Left and Upload / Dataset Controls on Right
-raw_csv_path = parent_dir / "data" / "raw" / "WA_Fn-UseC_-Telco-Customer-Churn.csv"
+# Clean active page name
+clean_page_name = (
+    selected_page
+    .replace("⊞", "")
+    .replace("👤", "")
+    .replace("🛡️", "")
+    .replace("📊", "")
+    .replace("Σ", "")
+    .replace("💾", "")
+    .replace("👥", "")
+    .replace("💡", "")
+    .replace("ℹ️", "")
+    .strip()
+)
 
-col_top_left, col_top_right = st.columns([1.35, 1.05])
-with col_top_left:
-    st.markdown("""
-    <div class="top-header-titles" style="padding-top:4px;">
-        <h1 style="font-size:1.6rem;font-weight:800;color:#FFFFFF;margin:0;letter-spacing:-0.02em;line-height:1.2;">
-            Customer Churn Analysis and Business Intelligence Dashboard
-        </h1>
-        <p style="font-size:0.84rem;color:#94A3B8;margin:4px 0 0 0;font-weight:500;">
-            A Data Analytics and Business Intelligence Project
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col_top_right:
-    c_btn1, c_btn2 = st.columns([1.1, 0.9])
-    with c_btn1:
-        with st.popover("📤 **Upload Custom CSV**", use_container_width=True):
-            st.markdown("##### **Upload Custom Telco Dataset**")
-            st.caption("Upload a Telco Churn CSV file. All KPI cards, charts, and SQL queries will recalculate automatically.")
-            uploaded_custom = st.file_uploader(
-                "Choose CSV File",
-                type=["csv"],
-                key="top_bar_csv_uploader",
-                help="Upload any alternative Telco Customer Churn CSV dataset."
-            )
-            if uploaded_custom is not None:
-                st.success(f"✓ Active: `{uploaded_custom.name}`")
-    with c_btn2:
-        if raw_csv_path.exists():
-            with open(raw_csv_path, "rb") as f:
-                r_bytes = f.read()
-            st.download_button(
-                label="📥 **Kaggle CSV**",
-                data=r_bytes,
-                file_name="WA_Fn-UseC_-Telco-Customer-Churn.csv",
-                mime="text/csv",
-                use_container_width=True
-            )
-    st.markdown("""
-    <div class="dataset-badge" style="width:100%;justify-content:center;margin-top:8px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-        </svg>
-        <span>IBM Telco Customer Churn Dataset</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-raw_df, full_df, audit_report = get_dataset(uploaded_custom)
-
-if full_df is None:
-    st.error("Dataset not detected. Please upload the Telco Customer Churn CSV file above.")
-    st.stop()
-
-if uploaded_custom is not None:
-    st.markdown(f"""
-    <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);border-radius:10px;padding:9px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
-        <span style="color:#10B981;font-weight:700;font-size:0.90rem;">✓ Custom Dataset Active:</span>
-        <span style="color:#FFFFFF;font-weight:600;font-size:0.90rem;">{uploaded_custom.name}</span>
-        <span style="color:#94A3B8;font-size:0.80rem;">({len(full_df):,} accounts loaded across all dashboard pages)</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-# Horizontal Filter Bar (Clean top bar matching reference design)
-st.markdown('<div class="filter-bar-wrapper">', unsafe_allow_html=True)
-col_f_title, col_f1, col_f2, col_f3, col_f4, col_f5, col_f_btn = st.columns([0.7, 1.2, 1.3, 1.3, 1.5, 1.2, 1.1])
-
-with col_f_title:
-    st.markdown("""
-    <div class="filter-label-col">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0084FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-        </svg>
-        <span>Filters</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col_f1:
-    sel_gender = st.selectbox("Gender", ["All"] + sorted(full_df["gender"].unique().tolist()), key="f_gender")
-
-with col_f2:
-    sel_contract = st.selectbox("Contract Type", ["All"] + sorted(full_df["Contract"].unique().tolist()), key="f_contract")
-
-with col_f3:
-    sel_internet = st.selectbox("Internet Service", ["All"] + sorted(full_df["InternetService"].unique().tolist()), key="f_internet")
-
-with col_f4:
-    sel_pay = st.selectbox("Payment Method", ["All"] + sorted(full_df["PaymentMethod"].unique().tolist()), key="f_pay")
-
-with col_f5:
-    sel_tenure = st.selectbox("Tenure Range", ["All", "0-6 Months", "7-12 Months", "13-24 Months", "25-36 Months", "37-48 Months", "49-60 Months", "61-72 Months"], key="f_tenure")
-
-with col_f_btn:
-    st.markdown("<div style='height:28px;'></div>", unsafe_allow_html=True)
-    if st.button("🔄 Reset Filters", use_container_width=True):
-        st.session_state["f_gender"] = "All"
-        st.session_state["f_contract"] = "All"
-        st.session_state["f_internet"] = "All"
-        st.session_state["f_pay"] = "All"
-        st.session_state["f_tenure"] = "All"
-        st.rerun()
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Apply Filters
+# Compute filtered dataframe
 filtered_df = full_df.copy()
-if sel_gender != "All":
-    filtered_df = filtered_df[filtered_df["gender"] == sel_gender]
-if sel_contract != "All":
-    filtered_df = filtered_df[filtered_df["Contract"] == sel_contract]
-if sel_internet != "All":
-    filtered_df = filtered_df[filtered_df["InternetService"] == sel_internet]
-if sel_pay != "All":
-    filtered_df = filtered_df[filtered_df["PaymentMethod"] == sel_pay]
-if sel_tenure != "All":
+if st.session_state["f_gender"] != "All":
+    filtered_df = filtered_df[filtered_df["gender"] == st.session_state["f_gender"]]
+if st.session_state["f_contract"] != "All":
+    filtered_df = filtered_df[filtered_df["Contract"] == st.session_state["f_contract"]]
+if st.session_state["f_internet"] != "All":
+    filtered_df = filtered_df[filtered_df["InternetService"] == st.session_state["f_internet"]]
+if st.session_state["f_pay"] != "All":
+    filtered_df = filtered_df[filtered_df["PaymentMethod"] == st.session_state["f_pay"]]
+if st.session_state["f_tenure"] != "All":
     tenure_map = {
         "0-6 Months": (0, 6),
         "7-12 Months": (7, 12),
@@ -750,152 +636,352 @@ if sel_tenure != "All":
         "49-60 Months": (49, 60),
         "61-72 Months": (61, 72)
     }
-    t_min, t_max = tenure_map[sel_tenure]
-    filtered_df = filtered_df[(filtered_df["tenure"] >= t_min) & (filtered_df["tenure"] <= t_max)]
+    if st.session_state["f_tenure"] in tenure_map:
+        t_min, t_max = tenure_map[st.session_state["f_tenure"]]
+        filtered_df = filtered_df[(filtered_df["tenure"] >= t_min) & (filtered_df["tenure"] <= t_max)]
+
+# Top Header Layout
+col_hdr_left, col_hdr_right = st.columns([1.35, 1.05])
+with col_hdr_left:
+    st.markdown(f"""
+    <div class="top-breadcrumb">
+        <span class="bc-parent">Telco Retention BI &nbsp;›&nbsp;</span>
+        <span class="bc-active">{clean_page_name}</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_hdr_right:
+    c_f, c_up, c_dl = st.columns([1.1, 0.95, 1.15])
+    
+    # 1. Filters Popover
+    with c_f:
+        filter_btn_label = f"🔍 Filters ({len(filtered_df):,}/{len(full_df):,})"
+        with st.popover(filter_btn_label, use_container_width=True):
+            st.markdown("##### **Filter Customer Cohorts**")
+            f_g = st.selectbox("Gender", ["All"] + sorted(full_df["gender"].unique().tolist()), index=["All"] + sorted(full_df["gender"].unique().tolist()).index(st.session_state["f_gender"]) if st.session_state["f_gender"] in full_df["gender"].unique().tolist() else 0, key="pop_f_gender")
+            f_c = st.selectbox("Contract Type", ["All"] + sorted(full_df["Contract"].unique().tolist()), index=["All"] + sorted(full_df["Contract"].unique().tolist()).index(st.session_state["f_contract"]) if st.session_state["f_contract"] in full_df["Contract"].unique().tolist() else 0, key="pop_f_contract")
+            f_i = st.selectbox("Internet Service", ["All"] + sorted(full_df["InternetService"].unique().tolist()), index=["All"] + sorted(full_df["InternetService"].unique().tolist()).index(st.session_state["f_internet"]) if st.session_state["f_internet"] in full_df["InternetService"].unique().tolist() else 0, key="pop_f_internet")
+            f_p = st.selectbox("Payment Method", ["All"] + sorted(full_df["PaymentMethod"].unique().tolist()), index=["All"] + sorted(full_df["PaymentMethod"].unique().tolist()).index(st.session_state["f_pay"]) if st.session_state["f_pay"] in full_df["PaymentMethod"].unique().tolist() else 0, key="pop_f_pay")
+            tenure_opts = ["All", "0-6 Months", "7-12 Months", "13-24 Months", "25-36 Months", "37-48 Months", "49-60 Months", "61-72 Months"]
+            f_t = st.selectbox("Tenure Range", tenure_opts, index=tenure_opts.index(st.session_state["f_tenure"]) if st.session_state["f_tenure"] in tenure_opts else 0, key="pop_f_tenure")
+            
+            c_apply, c_rst = st.columns(2)
+            with c_apply:
+                if st.button("Apply Filters", use_container_width=True):
+                    st.session_state["f_gender"] = f_g
+                    st.session_state["f_contract"] = f_c
+                    st.session_state["f_internet"] = f_i
+                    st.session_state["f_pay"] = f_p
+                    st.session_state["f_tenure"] = f_t
+                    st.rerun()
+            with c_rst:
+                if st.button("🔄 Reset", use_container_width=True):
+                    st.session_state["f_gender"] = "All"
+                    st.session_state["f_contract"] = "All"
+                    st.session_state["f_internet"] = "All"
+                    st.session_state["f_pay"] = "All"
+                    st.session_state["f_tenure"] = "All"
+                    st.rerun()
+
+    # 2. Upload Custom CSV Popover
+    with c_up:
+        with st.popover("📤 Upload CSV", use_container_width=True):
+            st.markdown("##### **Upload Custom Telco Dataset**")
+            st.caption("Upload any Telco Churn CSV file. All KPI cards, charts, and queries will recalculate automatically.")
+            up_file = st.file_uploader("Choose CSV File", type=["csv"], key="pop_uploader_widget")
+            if up_file is not None:
+                st.session_state["custom_csv_upload"] = up_file
+                st.success(f"✓ Active: `{up_file.name}`")
+                if st.button("Load Dataset", use_container_width=True):
+                    st.rerun()
+
+    # 3. Export Clean CSV Button (Solid Blue)
+    with c_dl:
+        cleaned_path = parent_dir / "data" / "processed" / "telco_churn_cleaned.csv"
+        if cleaned_path.exists():
+            with open(cleaned_path, "rb") as f_cl:
+                cl_bytes = f_cl.read()
+        else:
+            cl_bytes = full_df.to_csv(index=False).encode("utf-8")
+        st.download_button(
+            label="📥 Export Clean CSV",
+            data=cl_bytes,
+            file_name="telco_churn_cleaned.csv",
+            mime="text/csv",
+            use_container_width=True
+        )
 
 
 # ==============================================================================
-# 6 EXECUTIVE KPI CARDS (Matching Image 2)
+# 6 EXECUTIVE KPI CARDS (Matching Target Image Exactly)
 # ==============================================================================
-def render_6_kpi_cards(df: pd.DataFrame):
-    """Renders 6 executive KPI cards in 1 row matching Image 2 exactly."""
+def render_6_kpi_cards(df: pd.DataFrame, total_dataset_len: int):
+    """Renders 6 executive KPI cards in 1 row matching the SaaS design exactly."""
     total = len(df)
     if total == 0:
-        st.warning("No customer records match the selected filter combination. Please reset or broaden your filters.")
+        st.warning("No customer records match the selected filter combination. Please reset filters.")
         return
 
     churned = int(df["ChurnBinary"].sum())
     active = total - churned
-    rate = (churned / total) * 100
-    avg_bill = df["MonthlyCharges"].mean()
-    total_mrr = df["MonthlyCharges"].sum()
+    rate = (churned / total * 100) if total > 0 else 0
+    avg_bill = df["MonthlyCharges"].mean() if total > 0 else 0
+    total_mrr = df["MonthlyCharges"].sum() if total > 0 else 0
+
+    if total_mrr >= 1_000_000:
+        mrr_str = f"${total_mrr/1_000_000:.2f}M"
+    elif total_mrr >= 1_000:
+        mrr_str = f"${total_mrr/1_000:.1f}k"
+    else:
+        mrr_str = f"${total_mrr:,.2f}"
+
+    loyalty_share = (active / total * 100) if total > 0 else 0
+    dataset_pct = (total / total_dataset_len * 100) if total_dataset_len > 0 else 100
 
     kpi_html = f"""
-    <div class="kpi-grid-saas">
-        <div class="kpi-card">
-            <div class="kpi-icon-bubble" style="background:rgba(0, 132, 255, 0.15);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0084FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
+    <div class="kpi-row-6">
+        <div class="kpi-card-v2">
+            <div class="kpi-top">
+                <span class="kpi-label-v2">Total Customers</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
             </div>
-            <div class="kpi-card-label">Total Customers</div>
-            <div class="kpi-card-value">{total:,}</div>
+            <div class="kpi-val-v2">{total:,}</div>
+            <div class="kpi-sub-v2">{dataset_pct:.0f}% full dataset</div>
         </div>
-        <div class="kpi-card">
-            <div class="kpi-icon-bubble" style="background:rgba(16, 185, 129, 0.15);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
+        <div class="kpi-card-v2">
+            <div class="kpi-top">
+                <span class="kpi-label-v2">Active Retained</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <polyline points="17 11 19 13 23 9"></polyline>
                 </svg>
             </div>
-            <div class="kpi-card-label">Active Customers</div>
-            <div class="kpi-card-value">{active:,}</div>
+            <div class="kpi-val-v2 text-green">{active:,}</div>
+            <div class="kpi-sub-v2">{loyalty_share:.1f}% loyalty share</div>
         </div>
-        <div class="kpi-card">
-            <div class="kpi-icon-bubble" style="background:rgba(255, 77, 109, 0.15);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF4D6D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
+        <div class="kpi-card-v2">
+            <div class="kpi-top">
+                <span class="kpi-label-v2">Churned Customers</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="18" y1="8" x2="23" y2="13"></line>
+                    <line x1="23" y1="8" x2="18" y2="13"></line>
                 </svg>
             </div>
-            <div class="kpi-card-label">Churned Customers</div>
-            <div class="kpi-card-value">{churned:,}</div>
+            <div class="kpi-val-v2 text-rose">{churned:,}</div>
+            <div class="kpi-sub-v2">Subscribers lost</div>
         </div>
-        <div class="kpi-card">
-            <div class="kpi-icon-bubble" style="background:rgba(0, 180, 216, 0.15);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                </svg>
+        <div class="kpi-card-v2">
+            <div class="kpi-top">
+                <span class="kpi-label-v2">Churn Rate</span>
+                <span class="kpi-badge-icon text-cyan">%</span>
             </div>
-            <div class="kpi-card-label">Churn Rate</div>
-            <div class="kpi-card-value">{rate:.2f}%</div>
+            <div class="kpi-val-v2 text-cyan">{rate:.2f}%</div>
+            <div class="kpi-sub-v2">Industry avg ~21%</div>
         </div>
-        <div class="kpi-card">
-            <div class="kpi-icon-bubble" style="background:rgba(56, 189, 248, 0.15);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                    <line x1="1" y1="10" x2="23" y2="10"></line>
-                </svg>
+        <div class="kpi-card-v2">
+            <div class="kpi-top">
+                <span class="kpi-label-v2">Avg Monthly Charge</span>
+                <span class="kpi-badge-icon text-blue">$</span>
             </div>
-            <div class="kpi-card-label">Avg. Monthly Charges</div>
-            <div class="kpi-card-value">${avg_bill:.2f}</div>
+            <div class="kpi-val-v2">${avg_bill:.2f}</div>
+            <div class="kpi-sub-v2">ARPU per account</div>
         </div>
-        <div class="kpi-card">
-            <div class="kpi-icon-bubble" style="background:rgba(245, 158, 11, 0.15);">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="M14.5 9h-4a1.5 1.5 0 0 0 0 3h3a1.5 1.5 0 0 1 0 3h-4"></path>
-                    <line x1="12" y1="7" x2="12" y2="9"></line>
-                    <line x1="12" y1="15" x2="12" y2="17"></line>
+        <div class="kpi-card-v2">
+            <div class="kpi-top">
+                <span class="kpi-label-v2">Monthly MRR</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D2FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
                 </svg>
             </div>
-            <div class="kpi-card-label">Total Monthly Revenue</div>
-            <div class="kpi-card-value">${total_mrr:,.2f}</div>
+            <div class="kpi-val-v2">${mrr_str}</div>
+            <div class="kpi-sub-v2">Recurring monthly</div>
         </div>
     </div>
     """
     st.markdown(kpi_html, unsafe_allow_html=True)
 
 
-render_6_kpi_cards(filtered_df)
+render_6_kpi_cards(filtered_df, len(full_df))
 
 
 # ==============================================================================
-# PAGE 1: EXECUTIVE OVERVIEW (Exact Visual Match to Image 2)
+# PAGE 1: EXECUTIVE OVERVIEW (Pixel-Perfect Match to Target Image)
 # ==============================================================================
 if "Executive Overview" in selected_page:
-    # 6 Visual Cards in 2 Rows of 3 Columns
-    # Row 1
-    col_r1_1, col_r1_2, col_r1_3 = st.columns(3)
-    with col_r1_1:
-        st.plotly_chart(create_exact_churn_donut(filtered_df), use_container_width=True)
-    with col_r1_2:
-        st.plotly_chart(create_exact_contract_bars(filtered_df), use_container_width=True)
-    with col_r1_3:
-        st.plotly_chart(create_exact_revenue_trend(filtered_df), use_container_width=True)
+    total = len(filtered_df)
+    churned = int(filtered_df["ChurnBinary"].sum())
+    active = total - churned
+    rate = (churned / total * 100) if total > 0 else 0
+    loyalty_share = (active / total * 100) if total > 0 else 0
 
-    # Row 2
-    col_r2_1, col_r2_2, col_r2_3 = st.columns(3)
-    with col_r2_1:
-        st.plotly_chart(create_exact_tenure_bars(filtered_df), use_container_width=True)
-    with col_r2_2:
-        st.plotly_chart(create_exact_payment_bars(filtered_df), use_container_width=True)
-    with col_r2_3:
-        # Key Insights Card with green checkmarks exactly like Image 2
-        st.markdown("""
-        <div class="insights-card-box">
-            <div class="insights-title-row">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                </svg>
-                <span>Key Insights</span>
+    # Middle Row: 2 Large Cards (Customer Retention vs Attrition Split & Contract Commitment vs Churn Propensity)
+    col_mid_left, col_mid_right = st.columns([0.9, 1.1])
+    
+    with col_mid_left:
+        st.markdown(f"""
+        <div class="card-panel" style="min-height:365px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;">
+                <div>
+                    <div style="font-size:0.96rem;font-weight:700;color:#FFFFFF;">Customer Retention vs Attrition Split</div>
+                    <div style="font-size:0.75rem;color:#64748B;margin-top:2px;">Distribution of active vs cancelled accounts</div>
+                </div>
+                <div style="background:#1E293B;padding:3px 10px;border-radius:6px;font-size:0.72rem;font-weight:600;color:#94A3B8;">
+                    N = {total:,}
+                </div>
             </div>
-            <div class="insights-body-list">
-                <div class="insight-bullet-item">
-                    <span class="insight-check">✓</span>
-                    <span>Overall churn rate is <b>26.54%</b> (1,869 out of 7,043 customers).</span>
+        """, unsafe_allow_html=True)
+
+        c_d1, c_d2 = st.columns([1.15, 0.85])
+        with c_d1:
+            st.plotly_chart(
+                create_exact_split_donut(filtered_df),
+                use_container_width=True,
+                config={"displayModeBar": False}
+            )
+        with c_d2:
+            st.markdown(f"""
+            <div style="display:flex;flex-direction:column;justify-content:center;height:220px;gap:20px;padding-left:6px;">
+                <div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:600;color:#CBD5E1;">
+                        <span style="width:8px;height:8px;border-radius:50%;background:#00D2FF;display:inline-block;"></span>
+                        <span>Active Retained</span>
+                    </div>
+                    <div style="display:flex;align-items:baseline;gap:12px;margin-top:4px;padding-left:16px;">
+                        <span style="font-size:1.15rem;font-weight:800;color:#FFFFFF;">{active:,}</span>
+                        <span style="font-size:0.80rem;font-weight:600;color:#00D2FF;">{loyalty_share:.1f}%</span>
+                    </div>
                 </div>
-                <div class="insight-bullet-item">
-                    <span class="insight-check">✓</span>
-                    <span><b>Month-to-month contracts</b> have the highest churn rate (<b>42.71%</b>).</span>
+                <div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:600;color:#CBD5E1;">
+                        <span style="width:8px;height:8px;border-radius:50%;background:#0099DD;display:inline-block;"></span>
+                        <span>Churned Accounts</span>
+                    </div>
+                    <div style="display:flex;align-items:baseline;gap:12px;margin-top:4px;padding-left:16px;">
+                        <span style="font-size:1.15rem;font-weight:800;color:#FFFFFF;">{churned:,}</span>
+                        <span style="font-size:0.80rem;font-weight:600;color:#EF4444;">{rate:.1f}%</span>
+                    </div>
                 </div>
-                <div class="insight-bullet-item">
-                    <span class="insight-check">✓</span>
-                    <span><b>Electronic check users</b> are more likely to churn (<b>45.29%</b>).</span>
+            </div>
+            """, unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    with col_mid_right:
+        # Dynamic Contract Calculations
+        m2m_df = filtered_df[filtered_df["Contract"] == "Month-to-month"]
+        y1_df = filtered_df[filtered_df["Contract"] == "One year"]
+        y2_df = filtered_df[filtered_df["Contract"] == "Two year"]
+
+        tot_m2m = len(m2m_df)
+        lost_m2m = int(m2m_df["ChurnBinary"].sum()) if tot_m2m > 0 else 0
+        rate_m2m = (lost_m2m / tot_m2m * 100) if tot_m2m > 0 else 0
+
+        tot_y1 = len(y1_df)
+        lost_y1 = int(y1_df["ChurnBinary"].sum()) if tot_y1 > 0 else 0
+        rate_y1 = (lost_y1 / tot_y1 * 100) if tot_y1 > 0 else 0
+
+        tot_y2 = len(y2_df)
+        lost_y2 = int(y2_df["ChurnBinary"].sum()) if tot_y2 > 0 else 0
+        rate_y2 = (lost_y2 / tot_y2 * 100) if tot_y2 > 0 else 0
+
+        stability_ratio = (rate_m2m / rate_y2) if rate_y2 > 0 else 15.0
+
+        st.markdown(f"""
+        <div class="card-panel" style="min-height:365px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
+                <div>
+                    <div style="font-size:0.96rem;font-weight:700;color:#FFFFFF;">Contract Commitment vs Churn Propensity</div>
+                    <div style="font-size:0.75rem;color:#64748B;margin-top:2px;">Comparison of attrition percentages across contract agreements</div>
                 </div>
-                <div class="insight-bullet-item">
-                    <span class="insight-check">✓</span>
-                    <span>Customers with <b>longer tenure</b> show significantly lower churn.</span>
+                <div style="color:#64748B;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
                 </div>
-                <div class="insight-bullet-item">
-                    <span class="insight-check">✓</span>
-                    <span>Average monthly charge is <b>$64.76</b>, with a total revenue of <b>$456,116.75</b>.</span>
+            </div>
+
+            <!-- Month to month -->
+            <div style="margin-bottom:14px;">
+                <div style="display:flex;justify-content:space-between;font-size:0.80rem;font-weight:600;margin-bottom:6px;">
+                    <span style="color:#CBD5E1;">Month-to-month</span>
+                    <span><span style="color:#94A3B8;font-weight:500;">{lost_m2m:,} / {tot_m2m:,} lost</span> &nbsp; <b style="color:#EF4444;">{rate_m2m:.1f}%</b></span>
+                </div>
+                <div style="background:#1E293B;height:7px;border-radius:4px;overflow:hidden;width:100%;">
+                    <div style="background:#EF4444;height:100%;width:{min(100, max(0, rate_m2m))}%;border-radius:4px;"></div>
+                </div>
+            </div>
+
+            <!-- One year -->
+            <div style="margin-bottom:14px;">
+                <div style="display:flex;justify-content:space-between;font-size:0.80rem;font-weight:600;margin-bottom:6px;">
+                    <span style="color:#CBD5E1;">One year</span>
+                    <span><span style="color:#94A3B8;font-weight:500;">{lost_y1:,} / {tot_y1:,} lost</span> &nbsp; <b style="color:#F59E0B;">{rate_y1:.1f}%</b></span>
+                </div>
+                <div style="background:#1E293B;height:7px;border-radius:4px;overflow:hidden;width:100%;">
+                    <div style="background:#F59E0B;height:100%;width:{min(100, max(0, rate_y1))}%;border-radius:4px;"></div>
+                </div>
+            </div>
+
+            <!-- Two year -->
+            <div style="margin-bottom:16px;">
+                <div style="display:flex;justify-content:space-between;font-size:0.80rem;font-weight:600;margin-bottom:6px;">
+                    <span style="color:#CBD5E1;">Two year</span>
+                    <span><span style="color:#94A3B8;font-weight:500;">{lost_y2:,} / {tot_y2:,} lost</span> &nbsp; <b style="color:#10B981;">{rate_y2:.1f}%</b></span>
+                </div>
+                <div style="background:#1E293B;height:7px;border-radius:4px;overflow:hidden;width:100%;">
+                    <div style="background:#10B981;height:100%;width:{min(100, max(0, rate_y2))}%;border-radius:4px;"></div>
+                </div>
+            </div>
+
+            <!-- Strategic Vulnerability Callout Box -->
+            <div style="background:rgba(0, 132, 255, 0.08);border:1px solid rgba(0, 132, 255, 0.22);border-radius:9px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;margin-top:16px;">
+                <span style="color:#00D2FF;font-size:15px;line-height:1.2;">ⓘ</span>
+                <div style="font-size:0.77rem;color:#CBD5E1;line-height:1.45;">
+                    <b style="color:#FFFFFF;">Primary Strategic Vulnerability:</b> Month-to-month contracts suffer an attrition rate of <b style="color:#EF4444;">{rate_m2m:.1f}%</b>, compared to just <b style="color:#10B981;">{rate_y2:.1f}%</b> on two-year agreements—a <b style="color:#00D2FF;">{stability_ratio:.0f}x stability difference</b>.
                 </div>
             </div>
         </div>
         """, unsafe_allow_html=True)
+
+    # Bottom Row: 3 Cards (Monthly MRR, Tenure Cohorts, Payment Method Attrition)
+    col_b1, col_b2, col_b3 = st.columns(3)
+    with col_b1:
+        st.markdown("""
+        <div class="card-panel" style="padding-bottom:6px;margin-bottom:8px;">
+            <div style="font-size:0.92rem;font-weight:700;color:#FFFFFF;margin-bottom:2px;">Monthly MRR by Contract Type</div>
+            <div style="font-size:0.74rem;color:#64748B;">Recurring revenue contribution across agreement horizons</div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.plotly_chart(create_contract_mrr_bars(filtered_df), use_container_width=True, config={"displayModeBar": False})
+
+    with col_b2:
+        st.markdown("""
+        <div class="card-panel" style="padding-bottom:6px;margin-bottom:8px;">
+            <div style="font-size:0.92rem;font-weight:700;color:#FFFFFF;margin-bottom:2px;">Tenure Cohorts (Months)</div>
+            <div style="font-size:0.74rem;color:#64748B;">Customer distribution across lifecycle tenure tiers</div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.plotly_chart(create_exact_tenure_bars(filtered_df), use_container_width=True, config={"displayModeBar": False})
+
+    with col_b3:
+        st.markdown("""
+        <div class="card-panel" style="padding-bottom:6px;margin-bottom:8px;">
+            <div style="font-size:0.92rem;font-weight:700;color:#FFFFFF;margin-bottom:2px;">Payment Method Attrition</div>
+            <div style="font-size:0.74rem;color:#64748B;">Defection rates across electronic and automated channels</div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.plotly_chart(create_exact_payment_bars(filtered_df), use_container_width=True, config={"displayModeBar": False})
 
 
 # ==============================================================================
@@ -1081,9 +1167,9 @@ elif "Exploratory Data Analysis" in selected_page:
 
 
 # ==============================================================================
-# PAGE 5: STATISTICAL INSIGHTS
+# PAGE 5: STATISTICAL ANALYSIS
 # ==============================================================================
-elif "Statistical Insights" in selected_page:
+elif "Statistical Analysis" in selected_page:
     engine = DescriptiveStatisticsEngine(filtered_df)
     tab_s1, tab_s2, tab_s3 = st.tabs(["Summary Statistics", "Chi-Square Independence Tests", "Welch's Two-Sample T-Tests"])
 
@@ -1130,9 +1216,9 @@ elif "Statistical Insights" in selected_page:
 
 
 # ==============================================================================
-# PAGE 6: SQL ANALYTICS
+# PAGE 6: SQL BUSINESS ANALYTICS
 # ==============================================================================
-elif "SQL Analytics" in selected_page:
+elif "SQL Business Analytics" in selected_page or "SQL Analytics" in selected_page:
     analyzer = TelcoSQLAnalyzer(str(db_file))
     questions = analyzer.get_10_business_questions()
 
@@ -1238,7 +1324,7 @@ elif "Business Recommendations" in selected_page:
         st.markdown("""
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px;">
             <div class="card-panel">
-                <div class="card-panel-header" style="color:#38BDF8;">1. Annual Contract Term Transition</div>
+                <div style="font-size:0.96rem;font-weight:700;color:#38BDF8;margin-bottom:8px;">1. Annual Contract Term Transition</div>
                 <div style="font-size:0.86rem;line-height:1.6;color:#CBD5E1;">
                     <b style="color:#FFFFFF;">Observed Finding:</b> Month-to-month contracts experience catastrophic 42.71% churn vs 11.27% for 1-year and 2.83% for 2-year.<br>
                     <b style="color:#FFFFFF;">Supporting Statistic:</b> Month-to-month accounts generate 88.55% of all defection (1,655 out of 1,869 churned accounts).<br>
@@ -1247,7 +1333,7 @@ elif "Business Recommendations" in selected_page:
                 </div>
             </div>
             <div class="card-panel">
-                <div class="card-panel-header" style="color:#38BDF8;">2. Auto-Pay Billing Optimization</div>
+                <div style="font-size:0.96rem;font-weight:700;color:#38BDF8;margin-bottom:8px;">2. Auto-Pay Billing Optimization</div>
                 <div style="font-size:0.86rem;line-height:1.6;color:#CBD5E1;">
                     <b style="color:#FFFFFF;">Observed Finding:</b> Electronic check users churn at 45.29%, nearly 3x higher than automated credit cards (15.24%) and bank transfers (16.71%).<br>
                     <b style="color:#FFFFFF;">Supporting Statistic:</b> Over 57.3% of all churned accounts (1,071 customers) use Electronic Check.<br>
@@ -1256,7 +1342,7 @@ elif "Business Recommendations" in selected_page:
                 </div>
             </div>
             <div class="card-panel">
-                <div class="card-panel-header" style="color:#38BDF8;">3. The First 90 Days Care Journey</div>
+                <div style="font-size:0.96rem;font-weight:700;color:#38BDF8;margin-bottom:8px;">3. The First 90 Days Care Journey</div>
                 <div style="font-size:0.86rem;line-height:1.6;color:#CBD5E1;">
                     <b style="color:#FFFFFF;">Observed Finding:</b> Over 55.5% of all defection occurs in the first 12 months; churned customers defect at an average of 17.98 months (median 10 months).<br>
                     <b style="color:#FFFFFF;">Supporting Statistic:</b> 0-12m cohort churns at 47.44%, while 49-72m cohort churns at only 9.38%.<br>
@@ -1265,7 +1351,7 @@ elif "Business Recommendations" in selected_page:
                 </div>
             </div>
             <div class="card-panel">
-                <div class="card-panel-header" style="color:#38BDF8;">4. Fiber Optic Support Bundling</div>
+                <div style="font-size:0.96rem;font-weight:700;color:#38BDF8;margin-bottom:8px;">4. Fiber Optic Support Bundling</div>
                 <div style="font-size:0.86rem;line-height:1.6;color:#CBD5E1;">
                     <b style="color:#FFFFFF;">Observed Finding:</b> Fiber Optic churns at 41.89% ($91.50/mo bill), but churn plummets to 11.84% when accounts include both Tech Support and Online Security.<br>
                     <b style="color:#FFFFFF;">Supporting Statistic:</b> Accounts with Tech Support churn at 15.17% vs 41.64% for accounts without support.<br>
@@ -1313,9 +1399,9 @@ elif "Business Recommendations" in selected_page:
 
 
 # ==============================================================================
-# PAGE 9: PROJECT INFORMATION & TEAM MEMBERS
+# PAGE 9: ABOUT PROJECT & TEAM MEMBERS
 # ==============================================================================
-elif "Project Information" in selected_page:
+elif "About Project" in selected_page or "Project Information" in selected_page:
     st.markdown("### 🎓 **Project Team Members**")
     st.caption("Undergraduate Summer Industry Internship Project • Department of Data Science (CSE-DS)")
 
@@ -1371,7 +1457,7 @@ elif "Project Information" in selected_page:
     with col_info1:
         st.markdown("""
         #### **Project Summary & Scope**
-        - **Project Title:** Customer Churn Analysis and Business Intelligence Dashboard
+        - **Project Title:** Customer Churn Analysis & Business Intelligence Dashboard
         - **Institution:** Sreenidhi Institute of Science and Technology (Autonomous), Hyderabad
         - **Department:** Department of Data Science (CSE-DS)
         - **Academic Period:** III Year I Semester — November 2026
